@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 15:58:40 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:25:51 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	print_matrix4(t_matrix4 a, bool cast_to_int)
 
 int	main(void)
 {
-	t_matrix3	test3;
+	//t_matrix3	test3;
 	t_matrix4	test1;
 	t_matrix4	test2;
 	t_matrix4	result;
@@ -96,7 +96,7 @@ int	main(void)
 	test2 = matrix4(tup4(-2, 1, 2, 3), tup4(3, 2, 1, -1),
 					tup4(4, 3, 6, 5), tup4(1, 2, 7, 8));
 
-	result = multiply_matrix(test1, test2);
+	result = multiply_matrix4(test1, test2);
 
 	print_matrix4(result, true);
 }

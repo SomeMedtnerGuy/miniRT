@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 16:52:41 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:49:18 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,15 @@ float	invert(t_tup4 a, t_tup4 b);
 t_matrix2	matrix2(t_tup2 x, t_tup2 y);
 t_matrix3	matrix3(t_tup3 x, t_tup3 y, t_tup3 z);
 t_matrix4	matrix4(t_tup4 x, t_tup4 y, t_tup4 z, t_tup4 w);
-t_matrix4	id_matrix4(void);
+t_matrix4	identity_matrix4(void);
+t_matrix4   translation(float x, float y, float z);
+t_matrix4   scaling(float x, float y, float z);
+t_matrix4   rotation_x(float r);
+t_matrix4   rotation_y(float r);
+t_matrix4   rotation_z(float r);
+//Make sure that proportion tups are built always in alphabetical order!
+t_matrix4   shearing(t_tup2 x, t_tup2 y, t_tup2 z);
+
 
 //MATRIX_OPERATIONS.C
 bool    	are_matrix4_equal(t_matrix4 a, t_matrix4 b);
