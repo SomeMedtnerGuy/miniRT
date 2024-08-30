@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:50:20 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 15:14:24 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:58:26 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,26 @@ t_matrix4   transpose_matrix4(t_matrix4 a)
                     get_column_from_matrix4(a, 1),
                     get_column_from_matrix4(a, 2),
                     get_column_from_matrix4(a, 3)));
+}
 
 t_matrix4   multiply_matrix(t_matrix4 a, t_matrix4 b)
 {
-    t_matrix4   result;
-    int         row;
-    int         col;
-    int         i;
-    row = 0;
-    while (row < 4)
-    {
-        col = 0;
-        while (col < 4)
-        {
-            i = 0;
-            while (i < 4)
-            {
-                if (i == 0)
-                    result.e[row][col] = a.e[row][i] * b.e[i][col];
-                else
-                    result.e[row][col] += a.e[row][i] * b.e[i][col];
-                i++;
-            }
-            col++;
-        }
-        row++;
-    }
-    return (result);
+	t_matrix4	result;
+	int			row;
+	int			col;
+	int			i;
+
+	row = 0;
+	while (row < 4)
+	{
+		col = 0;
+		while (col < 4)
+		{
+			i = 0;
+			result.e[row][col] = dot(a.t[row], get_column_from_matrix4(b, col));
+			col++;
+		}
+		row++;
+	}
+	return (result);
 }
