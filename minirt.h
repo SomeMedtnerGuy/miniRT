@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 17:36:21 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:52:41 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ t_tup4	normalize(t_tup4 a);
 float	dot(t_tup4 a, t_tup4 b);
 t_tup4	cross(t_tup4 a, t_tup4 b);
 t_tup4	hadamard(t_tup4 a, t_tup4 b);
+float	invert(t_tup4 a, t_tup4 b);
 
 //MATRIX_FACTORY.C
 t_matrix2	matrix2(t_tup2 x, t_tup2 y);
