@@ -132,9 +132,12 @@ t_tup4	hadamard(t_tup4 a, t_tup4 b);
 t_matrix2	matrix2(t_tup2 x, t_tup2 y);
 t_matrix3	matrix3(t_tup3 x, t_tup3 y, t_tup3 z);
 t_matrix4	matrix4(t_tup4 x, t_tup4 y, t_tup4 z, t_tup4 w);
+t_matrix4	id_matrix4(void);
 
 //MATRIX_OPERATIONS.C
 bool    are_matrix4_equal(t_matrix4 a, t_matrix4 b);
+t_tup4	get_column_from_matrix4(t_matrix4 a, int i);
+t_matrix4	transpose_matrix4(t_matrix4 a);
 t_matrix4   multiply_matrix(t_matrix4 a, t_matrix4 b);
 
 #endif
