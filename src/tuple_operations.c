@@ -6,11 +6,24 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:46:06 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 12:32:55 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:19:35 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+bool	are_tup4_equal(t_tup4 a, t_tup4 b)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		if (a.e[i] != b.e[i])
+			return (false);
+	}
+	return (true);
+}
 
 t_tup4	add_tup4(t_tup4 a, t_tup4 b)
 {

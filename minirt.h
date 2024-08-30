@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 13:21:17 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:22:00 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ t_tup4  vector(float x, float y, float z);
 t_tup4  color(float x, float y, float z);
 
 //TUPLE_OPERATIONS.C
+bool	are_tup4_equal(t_tup4 a, t_tup4 b);
 t_tup4	add_tup4(t_tup4 a, t_tup4 b);
 t_tup4	subtract_tup4(t_tup4 a, t_tup4 b);
 t_tup4	negate_tup4(t_tup4 a);
@@ -131,5 +132,8 @@ t_tup4	hadamard(t_tup4 a, t_tup4 b);
 t_matrix2	matrix2(t_tup2 x, t_tup2 y);
 t_matrix3	matrix3(t_tup3 x, t_tup3 y, t_tup3 z);
 t_matrix4	matrix4(t_tup4 x, t_tup4 y, t_tup4 z, t_tup4 w);
+
+//MATRIX_OPERATIONS.C
+bool    are_matrix4_equal(t_matrix4 a, t_matrix4 b);
 
 #endif

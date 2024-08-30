@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 13:04:55 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:23:51 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,14 @@ void	print_tup4(t_tup4 a)
 
 int	main(void)
 {
-	t_matrix4	test;
+	t_matrix4	test1;
+	t_matrix4	test2;
 
-	test = matrix4(tup4(1, 2, 3, 4), tup4(5, 6, 7, 8),
+	test1 = matrix4(tup4(1, 2, 3, 4), tup4(5, 6, 7, 8),
 					tup4(9, 10, 11, 12), tup4(13, 14, 15, 16));
-	printf("%f\n", test.e[2][3]);
+	test2 = matrix4(tup4(1, 2, 3, 4), tup4(5, 6, 7, 8),
+					tup4(9, 10, 11, 12), tup4(13, 14, 15, 16));
+	printf("%i\n", are_matrix4_equal(test1, test2));
 }
 
 /*int	main(int argc, char **argv)
