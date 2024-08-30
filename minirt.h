@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
 /*   Updated: 2024/08/30 16:52:41 by joamonte         ###   ########.fr       */
@@ -136,9 +136,18 @@ t_matrix4	matrix4(t_tup4 x, t_tup4 y, t_tup4 z, t_tup4 w);
 t_matrix4	id_matrix4(void);
 
 //MATRIX_OPERATIONS.C
-bool    are_matrix4_equal(t_matrix4 a, t_matrix4 b);
-t_tup4	get_column_from_matrix4(t_matrix4 a, int i);
+bool    	are_matrix4_equal(t_matrix4 a, t_matrix4 b);
+t_tup4		get_column_from_matrix4(t_matrix4 a, int i);
 t_matrix4	transpose_matrix4(t_matrix4 a);
-t_matrix4   multiply_matrix(t_matrix4 a, t_matrix4 b);
+t_matrix4   multiply_matrix4(t_matrix4 a, t_matrix4 b);
+float   	determinant2(t_matrix2 a);
+float   	determinant3(t_matrix3 a);
+float   	determinant4(t_matrix4 a);
+t_matrix2   submatrix3(t_matrix3 a, int i, int j);
+t_matrix3   submatrix4(t_matrix4 a, int i, int j);
+float		cofactor3(t_matrix3 a, int i, int j);
+float   	cofactor4(t_matrix4 a, int i, int j);
+bool    	is_matrix4_invertible(t_matrix4 a);
+t_matrix4   invert_matrix4(t_matrix4 a);
 
 #endif

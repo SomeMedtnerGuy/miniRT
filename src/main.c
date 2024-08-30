@@ -44,6 +44,17 @@ int	tuple_to_color(t_tup4 tup4)
 			float_to_shade(tup4.b));
 }
 
+void	print_tup3(t_tup3 a, bool cast_to_int)
+{
+	if (cast_to_int)
+	{
+		printf("| %i | %i | %i |\n",
+				(int)a.e[0], (int)a.e[1], (int)a.e[2]);
+	}
+	else
+		printf("| %f | %f | %f |\n", a.e[0], a.e[1], a.e[2]);
+}
+
 void	print_tup4(t_tup4 a, bool cast_to_int)
 {
 	if (cast_to_int)
@@ -53,6 +64,15 @@ void	print_tup4(t_tup4 a, bool cast_to_int)
 	}
 	else
 		printf("| %f | %f | %f | %f |\n", a.x, a.y, a.z, a.w);
+}
+
+void	print_matrix3(t_matrix3 a, bool cast_to_int)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+		print_tup3(a.t[i], cast_to_int);
 }
 
 void	print_matrix4(t_matrix4 a, bool cast_to_int)
@@ -66,6 +86,7 @@ void	print_matrix4(t_matrix4 a, bool cast_to_int)
 
 int	main(void)
 {
+	t_matrix3	test3;
 	t_matrix4	test1;
 	t_matrix4	test2;
 	t_matrix4	result;
