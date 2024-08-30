@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 14:23:51 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:05:16 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,24 @@ int	tuple_to_color(t_tup4 tup4)
 			float_to_shade(tup4.b));
 }
 
-void	print_tup4(t_tup4 a)
+void	print_tup4(t_tup4 a, bool cast_to_int)
 {
-	printf("x: %f, y: %f, z: %f, w: %f\n", a.x, a.y, a.z, a.w);
+	if (cast_to_int)
+	{
+		printf("| %i | %i | %i | %i |\n",
+				(int)a.x, (int)a.y, (int)a.z, (int)a.w);
+	}
+	else
+		printf("| %f | %f | %f | %f |\n", a.x, a.y, a.z, a.w);
+}
+
+void	print_matrix4(t_matrix4 a, bool cast_to_int)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		print_tup4(a.t[i], cast_to_int);
 }
 
 int	main(void)
@@ -54,11 +69,11 @@ int	main(void)
 	t_matrix4	test1;
 	t_matrix4	test2;
 
-	test1 = matrix4(tup4(1, 2, 3, 4), tup4(5, 6, 7, 8),
-					tup4(9, 10, 11, 12), tup4(13, 14, 15, 16));
+	test1 = matrix4(tup4(0, 9, 3, 0), tup4(9, 8, 0, 8),
+					tup4(1, 8, 5, 3), tup4(0, 0, 5, 8));
 	test2 = matrix4(tup4(1, 2, 3, 4), tup4(5, 6, 7, 8),
 					tup4(9, 10, 11, 12), tup4(13, 14, 15, 16));
-	printf("%i\n", are_matrix4_equal(test1, test2));
+	print_matrix4(transpose_matrix4(test1), true);
 }
 
 /*int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 12:55:47 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 13:19:31 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:44:10 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,10 @@ t_matrix4    matrix4(t_tup4 x, t_tup4 y, t_tup4 z, t_tup4 w)
     out.t[2] = z;
     out.t[3] = w;
     return (out);
+}
+
+t_matrix4   id_matrix4(void)
+{
+    return (matrix4(tup4(1, 0, 0, 0), tup4(0, 1, 0, 0),
+                    tup4(0, 0, 1, 0), tup4(0, 0, 0, 1)));
 }
