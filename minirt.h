@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 14:54:05 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:14:37 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,6 @@ t_matrix4	id_matrix4(void);
 bool    are_matrix4_equal(t_matrix4 a, t_matrix4 b);
 t_tup4	get_column_from_matrix4(t_matrix4 a, int i);
 t_matrix4	transpose_matrix4(t_matrix4 a);
+t_matrix4   multiply_matrix(t_matrix4 a, t_matrix4 b);
 
 #endif
