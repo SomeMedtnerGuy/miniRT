@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 15:05:16 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:00:04 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,17 @@ int	tuple_to_color(t_tup4 tup4)
 			float_to_shade(tup4.b));
 }
 
+void	print_tup3(t_tup3 a, bool cast_to_int)
+{
+	if (cast_to_int)
+	{
+		printf("| %i | %i | %i |\n",
+				(int)a.e[0], (int)a.e[1], (int)a.e[2]);
+	}
+	else
+		printf("| %f | %f | %f |\n", a.e[0], a.e[1], a.e[2]);
+}
+
 void	print_tup4(t_tup4 a, bool cast_to_int)
 {
 	if (cast_to_int)
@@ -53,6 +64,15 @@ void	print_tup4(t_tup4 a, bool cast_to_int)
 	}
 	else
 		printf("| %f | %f | %f | %f |\n", a.x, a.y, a.z, a.w);
+}
+
+void	print_matrix3(t_matrix3 a, bool cast_to_int)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+		print_tup3(a.t[i], cast_to_int);
 }
 
 void	print_matrix4(t_matrix4 a, bool cast_to_int)
@@ -66,14 +86,17 @@ void	print_matrix4(t_matrix4 a, bool cast_to_int)
 
 int	main(void)
 {
+	t_matrix3	test3;
 	t_matrix4	test1;
 	t_matrix4	test2;
 
-	test1 = matrix4(tup4(0, 9, 3, 0), tup4(9, 8, 0, 8),
-					tup4(1, 8, 5, 3), tup4(0, 0, 5, 8));
+	test1 = matrix4(tup4(-5, 2, 6, -8), tup4(1, -5, 1, 8),
+					tup4(7, 7, -6, -7), tup4(1, -3, 7, 4));
 	test2 = matrix4(tup4(1, 2, 3, 4), tup4(5, 6, 7, 8),
 					tup4(9, 10, 11, 12), tup4(13, 14, 15, 16));
-	print_matrix4(transpose_matrix4(test1), true);
+	test3 = matrix3(tup3(3, 5, 0), tup3(2, -1, -7), tup3(6, -1, 5));
+	//printf("%f\n", determinant4(test1));
+	print_matrix4(invert_matrix4(test1), false);
 }
 
 /*int	main(int argc, char **argv)
