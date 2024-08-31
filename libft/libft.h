@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fivieira <fivieira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:12:31 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/20 00:12:22 by fivieira         ###   ########.fr       */
+/*   Updated: 2024/08/31 15:34:12 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <limits.h>
 # include <stdint.h>
 # include <unistd.h>
+# include <stdbool.h>
+# include <math.h>
+
+# define EPSILON 0.00001
 
 typedef struct s_list
 {
@@ -71,6 +75,7 @@ void	ft_strlinvert(char *s, int len);
 //Number conversion and manipulation
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
+int	clamp(int n, int min, int max);
 //Output writing
 int		ft_putchar_fd(char c, int fd);
 int		ft_putstr_fd(char *s, int fd);
@@ -90,6 +95,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_swap(char **a, char **b);
 //Miscellaneous
+bool	ft_isfequal(float a, float b);
 int		ft_is_little_endian(void);
 char	*get_next_line(int fd);
 void	ft_matrix_free(void ***matrix);

@@ -6,20 +6,11 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/30 19:25:51 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 15:37:01 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-int	clamp(int n, int min, int max)
-{
-	if (n > max)
-		return (max);
-	if (n < min)
-		return (min);
-	return (n);
-}
 
 void	put_pixel(t_canvas *img, int x, int y, int color)
 {
@@ -28,60 +19,6 @@ void	put_pixel(t_canvas *img, int x, int y, int color)
 	dst = img->addr + (y * img->line_length
 			+ x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
-}
-
-
-unsigned char	float_to_shade(float color_strength)
-{
-	return ((unsigned char)clamp((int)(color_strength * 255.0),
-			0, 255));
-}
-
-int	tuple_to_color(t_tup4 tup4)
-{
-	return (float_to_shade(tup4.r) << 16 |
-			float_to_shade(tup4.g) << 8 |
-			float_to_shade(tup4.b));
-}
-
-void	print_tup3(t_tup3 a, bool cast_to_int)
-{
-	if (cast_to_int)
-	{
-		printf("| %i | %i | %i |\n",
-				(int)a.e[0], (int)a.e[1], (int)a.e[2]);
-	}
-	else
-		printf("| %f | %f | %f |\n", a.e[0], a.e[1], a.e[2]);
-}
-
-void	print_tup4(t_tup4 a, bool cast_to_int)
-{
-	if (cast_to_int)
-	{
-		printf("| %i | %i | %i | %i |\n",
-				(int)a.x, (int)a.y, (int)a.z, (int)a.w);
-	}
-	else
-		printf("| %f | %f | %f | %f |\n", a.x, a.y, a.z, a.w);
-}
-
-void	print_matrix3(t_matrix3 a, bool cast_to_int)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 3)
-		print_tup3(a.t[i], cast_to_int);
-}
-
-void	print_matrix4(t_matrix4 a, bool cast_to_int)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 4)
-		print_tup4(a.t[i], cast_to_int);
 }
 
 int	main(void)
