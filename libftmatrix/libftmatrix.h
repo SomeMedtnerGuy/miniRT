@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:21:18 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 17:37:59 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:42:14 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef union u_matrix4
 
 //COMPARISONS.C
 //bool		ft_fcmp(float a, float b);
-bool		are_tup4_equal(t_tup4 a, t_tup4 b);
-bool		are_matrix4_equal(t_matrix4 a, t_matrix4 b);
+bool		tup4cmp(t_tup4 a, t_tup4 b);
+bool		matrix4cmp(t_matrix4 a, t_matrix4 b);
 
 //TUPLE_FACTORY
 t_tup2		tup2(float x, float y);
@@ -120,6 +120,7 @@ float		cofactor4(t_matrix4 a, int i, int j);
 float		determinant4(t_matrix4 a);
 //MATRIX4_OPERATIONS
 t_matrix4	transpose_matrix4(t_matrix4 a);
+t_tup4		matrix4_mult_tup4(t_matrix4 m, t_tup4 t);
 t_matrix4	multiply_matrix4(t_matrix4 a, t_matrix4 b);
 t_matrix4	invert_matrix4(t_matrix4 a);
 t_matrix4	get_cofactor_matrix(t_matrix4 a);

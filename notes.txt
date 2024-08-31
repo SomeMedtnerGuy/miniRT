@@ -1,2 +1,2 @@
 Changes:
--Fixed: are_tup4_equal(), cross()
+-Fixed: added matrix4_mult_tup4(), more tests

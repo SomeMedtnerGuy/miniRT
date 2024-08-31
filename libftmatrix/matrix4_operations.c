@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:50:20 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 14:25:21 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:41:42 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ t_matrix4	transpose_matrix4(t_matrix4 a)
 			get_column_from_matrix4(a, 1),
 			get_column_from_matrix4(a, 2),
 			get_column_from_matrix4(a, 3)));
+}
+
+t_tup4	matrix4_mult_tup4(t_matrix4 m, t_tup4 t)
+{
+	return (tup4(dot(m.t[0], t), dot(m.t[1], t),
+					dot(m.t[2], t), dot(m.t[3], t)));
 }
 
 t_matrix4	multiply_matrix4(t_matrix4 a, t_matrix4 b)
