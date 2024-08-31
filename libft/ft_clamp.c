@@ -6,13 +6,13 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:33:38 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 15:34:02 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:23:17 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	clamp(int n, int min, int max)
+int	ft_clamp(int n, int min, int max)
 {
 	if (n > max)
 		return (max);

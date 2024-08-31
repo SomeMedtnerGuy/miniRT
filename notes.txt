@@ -1,0 +1,2 @@
+Changes:
+-Fixed: are_tup4_equal(), cross()

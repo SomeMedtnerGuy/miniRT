@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 15:36:57 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 16:29:38 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,8 @@ int		clean_exit(t_root *r, int exit_code);
 //COLOR.C
 unsigned char	float_to_shade(float color_strength);
 int				tuple_to_color(t_tup4 tup4);
+
+//TESTS.C
+void    run_tests(void);
 
 #endif

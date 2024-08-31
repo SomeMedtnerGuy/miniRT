@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isfequal.c                                      :+:      :+:    :+:   */
+/*   ft_fcmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:01:33 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/27 00:15:19 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:21:32 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool	ft_isfequal(float a, float b)
+bool	ft_fcmp(float a, float b)
 {
 	if (fabs(a - b) < EPSILON)
 		return (true);

@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:46:06 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 14:12:25 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:42:04 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_tup4	multiply_tup4(t_tup4 a, float s)
 
 t_tup4	divide_tup4(t_tup4 a, float s)
 {
-	if (are_floats_equal(s, 0))
+	if (fabs(s) < EPSILON)
 		return (tup4(0, 0, 0, 0));
 	return (tup4(a.x / s, a.y / s, a.z / s, a.w / s));
 }

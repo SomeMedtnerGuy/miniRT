@@ -6,18 +6,18 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:40:56 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 14:33:39 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:39:22 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftmatrix.h"
 
-bool	are_floats_equal(float a, float b)
+/*bool	ft_fcmp(float a, float b)
 {
 	if (fabs(a - b) < EPSILON)
 		return (true);
 	return (false);
-}
+}*/
 
 bool	are_tup4_equal(t_tup4 a, t_tup4 b)
 {
@@ -26,7 +26,7 @@ bool	are_tup4_equal(t_tup4 a, t_tup4 b)
 	i = -1;
 	while (++i < 4)
 	{
-		if (a.e[i] != b.e[i])
+		if (!(fabs(a.e[i] - b.e[i]) < EPSILON))
 			return (false);
 	}
 	return (true);

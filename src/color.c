@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:35:33 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 15:36:05 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:26:26 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 unsigned char	float_to_shade(float color_strength)
 {
-	return ((unsigned char)clamp((int)(color_strength * 255.0),
+	return ((unsigned char)ft_clamp((int)(color_strength * 255.0),
 			0, 255));
 }
 

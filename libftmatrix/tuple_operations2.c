@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:44:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 14:32:55 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:15:32 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ float	dot(t_tup4 a, t_tup4 b)
 
 t_tup4	cross(t_tup4 a, t_tup4 b)
 {
-	return (tup4(a.y * b.z - a.z - b.y,
-			a.z * b.x - a.x - b.z,
+	return (tup4(a.y * b.z - a.z * b.y,
+			a.z * b.x - a.x * b.z,
 			a.x * b.y - a.y * b.x, TVECTOR));
 }
 

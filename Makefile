@@ -6,7 +6,7 @@
 #    By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 14:30:34 by ndo-vale          #+#    #+#              #
-#    Updated: 2024/08/31 15:37:41 by ndo-vale         ###   ########.fr        #
+#    Updated: 2024/08/31 16:32:15 by ndo-vale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ PREP_DIRS	= prep
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 
-SRCS		= $(addprefix $(SRC_DIR), main.c clean_exit.c color.c)
+SRCS		= $(addprefix $(SRC_DIR), tests.c main.c clean_exit.c color.c)
 OBJS		= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 LIBFT_DIR	= libft

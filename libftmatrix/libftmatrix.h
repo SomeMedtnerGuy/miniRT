@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:21:18 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 14:42:16 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:37:59 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef union u_matrix4
 }	t_matrix4;
 
 //COMPARISONS.C
-bool		are_floats_equal(float a, float b);
+//bool		ft_fcmp(float a, float b);
 bool		are_tup4_equal(t_tup4 a, t_tup4 b);
 bool		are_matrix4_equal(t_matrix4 a, t_matrix4 b);
 
