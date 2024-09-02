@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fivieira <fivieira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:12:31 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/20 00:12:22 by fivieira         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:26:56 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <limits.h>
 # include <stdint.h>
 # include <unistd.h>
+# include <stdbool.h>
+# include <math.h>
+
+# define EPSILON 0.00001
 
 typedef struct s_list
 {
@@ -71,6 +75,8 @@ void	ft_strlinvert(char *s, int len);
 //Number conversion and manipulation
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
+int		ft_clamp(int n, int min, int max);
+bool	ft_fcmp(float a, float b);
 //Output writing
 int		ft_putchar_fd(char c, int fd);
 int		ft_putstr_fd(char *s, int fd);

@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   ft_clamp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 00:01:33 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/27 00:15:19 by ndo-vale         ###   ########.fr       */
+/*   Created: 2024/08/31 15:33:38 by ndo-vale          #+#    #+#             */
+/*   Updated: 2024/08/31 17:23:17 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-bool	ft_isequal(float a, float b)
+int	ft_clamp(int n, int min, int max)
 {
-	if (fabs(a - b) < EPSILON)
-		return (true);
-	return (false);
+	if (n > max)
+		return (max);
+	if (n < min)
+		return (min);
+	return (n);
 }
