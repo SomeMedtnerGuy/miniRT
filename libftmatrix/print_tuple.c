@@ -6,11 +6,22 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 14:16:02 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 14:21:43 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/02 09:34:37 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftmatrix.h"
+
+void	print_tup2(t_tup2 a, bool cast_to_int)
+{
+	if (cast_to_int)
+	{
+		printf("| %i | %i |\n",
+			(int)a.e[0], (int)a.e[1]);
+	}
+	else
+		printf("| %f | %f |\n", a.e[0], a.e[1]);
+}
 
 void	print_tup3(t_tup3 a, bool cast_to_int)
 {

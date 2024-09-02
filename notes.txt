@@ -1,2 +1,1 @@
-Changes:
--Fixed: added matrix4_mult_tup4(), more tests
+Maybe add inline to short funcs?

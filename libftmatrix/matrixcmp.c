@@ -1,40 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_matrix.c                                     :+:      :+:    :+:   */
+/*   matrixcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/31 14:14:43 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 09:35:01 by ndo-vale         ###   ########.fr       */
+/*   Created: 2024/09/02 09:35:49 by ndo-vale          #+#    #+#             */
+/*   Updated: 2024/09/02 09:44:42 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftmatrix.h"
 
-void	print_matrix2(t_matrix2 a, bool cast_to_int)
+bool	matrix2cmp(t_matrix2 a, t_matrix2 b)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 2)
-		print_tup2(a.t[i], cast_to_int);
+	{
+		if (!tup2cmp(a.t[i], b.t[i]))
+			return (false);
+	}
+	return (true);
 }
 
-void	print_matrix3(t_matrix3 a, bool cast_to_int)
+bool	matrix3cmp(t_matrix3 a, t_matrix3 b)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 3)
-		print_tup3(a.t[i], cast_to_int);
+	{
+		if (!tup3cmp(a.t[i], b.t[i]))
+			return (false);
+	}
+	return (true);
 }
 
-void	print_matrix4(t_matrix4 a, bool cast_to_int)
+bool	matrix4cmp(t_matrix4 a, t_matrix4 b)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 4)
-		print_tup4(a.t[i], cast_to_int);
+	{
+		if (!tup4cmp(a.t[i], b.t[i]))
+			return (false);
+	}
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 19:10:33 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:25:48 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,15 +375,157 @@ bool    test_determinant2(void)
 
 bool    test_submatrix3(void)
 {
-    // INCOMPLETE!
-    // Must add print_matrix2, print_matrix3, matrix2cmp and matrix3cmp
     char    *msg = "test_submatrix3 failed!\n";
     t_matrix2  res;
 
     res = submatrix3(matrix3(tup3(1, 5, 0),
                                 tup3(-3, 2, 7),
                                 tup3(0, 6, -3)), 0, 2);
-    if (!(1))
+    if (!(matrix2cmp(res, matrix2(tup2(-3, 2), tup2(0, 6)))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_submatrix4(void)
+{
+    char    *msg = "test_submatrix4 failed!\n";
+    t_matrix3   res;
+
+    res = submatrix4(matrix4(tup4(-6, 1, 1, 6),
+                                tup4(-8, 5, 8, 6),
+                                tup4(-1, 0, 8, 2),
+                                tup4(-7, 1, -1, 1)), 2, 1);
+    if (!(matrix3cmp(res, matrix3(tup3(-6, 1, 6),
+                                    tup3(-8, 8, 6),
+                                    tup3(-7, -1, 1)))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_cofactor3(void)
+{
+    char    *msg = "cofactor3 failed!\n";
+    t_matrix3  res;
+
+    res = matrix3(tup3(3, 5, 0),
+                    tup3(2, -1, -7),
+                    tup3(6, -1, 5));
+    if (!(cofactor3(res, 0, 0) == -12 && cofactor3(res, 1, 0) == -25))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_cofactor4(void)
+{
+    char    *msg = "cofactor4 failed!\n";
+    t_matrix4  res;
+
+    res = matrix4(tup4(-2, -8, 3, 5),
+                    tup4(-3, 1, 7, 3),
+                    tup4(1, 2, -9, 6),
+                    tup4(-6, 7, 7, -9));
+    if (!(cofactor4(res, 0, 0) == 690
+            && cofactor4(res, 0, 1) == 447
+            && cofactor4(res, 0, 2) == 210
+            && cofactor4(res, 0, 3) == 51))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_detetrminant3(void)
+{
+    char    *msg = "determinant3 failed!\n";
+    t_matrix3  m;
+
+    m = matrix3(tup3(1, 2, 6),
+                tup3(-5, 8, -4),
+                tup3(2, 6, 4));
+    if (!(determinant3(m) == -196))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_detetrminant4(void)
+{
+    char    *msg = "determinant4 failed!\n";
+    t_matrix4  m;
+
+    m = matrix4(tup4(-2, -8, 3, 5),
+                tup4(-3, 1, 7, 3),
+                tup4(1, 2, -9, 6),
+                tup4(-6, 7, 7, -9));
+    if (!(determinant4(m) == -4071))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_is_matrix4_invertible(void)
+{
+    char    *msg = "test_is_matrix4_invertible failed!\n";
+    t_matrix4  m;
+
+    m = matrix4(tup4(6, 4, 4, 4),
+                tup4(5, 5, 7, 6),
+                tup4(4, -9, 3, -7),
+                tup4(9, 1, 7, -6));
+    if (!(is_matrix4_invertible(m)))
+        return (ft_printf(msg), false);
+    m = matrix4(tup4(-4, 2, -2, -3),
+                tup4(9, 6, 2, 6),
+                tup4(0, -5, 1, -5),
+                tup4(0, 0, 0, 0));
+    if (!(!is_matrix4_invertible(m)))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_invert_matrix4(void)
+{
+    char    *msg = "test_invert_matrix4 failed!\n";
+    t_matrix4   res;
+    t_matrix4   cmp;
+
+    res = matrix4(tup4(-5, 2, 6, -8),
+                tup4(1, -5, 1, 8),
+                tup4(7, 7, -6, -7),
+                tup4(1, -3, 7, 4));
+    cmp = matrix4(tup4(0.21805, 0.45113, 0.24060, -0.04511),
+                tup4(-0.80827, -1.45677, -0.44361, 0.52068),
+                tup4(-0.07895, -0.22368, -0.05263, 0.19737),
+                tup4(-0.52256, -0.81391, -0.30075, 0.30639));
+    if (!(matrix4cmp(invert_matrix4(res), cmp)))
+        return (ft_printf(msg), false);
+    res = matrix4(tup4(8, -5, 9, 2),
+                tup4(7, 5, 6, 1),
+                tup4(-6, 0, 9, 6),
+                tup4(-3, 0, -9, -4));
+    cmp = matrix4(tup4(-0.15385, -0.15385, -0.28205, -0.53846),
+                tup4(-0.07692, 0.12308, 0.02564, 0.03077),
+                tup4(0.35897, 0.35897, 0.43590, 0.92308),
+                tup4(-0.69231, -0.69231, -0.76923, -1.92308));
+    if (!(matrix4cmp(invert_matrix4(res), cmp)))
+        return (ft_printf(msg), false);
+    res = matrix4(tup4(9, 3, 0, 9),
+                tup4(-5, -2, -6, -3),
+                tup4(-4, 9, 6, 4),
+                tup4(-7, 6, 6, 2));
+    cmp = matrix4(tup4(-0.04074, -0.07778, 0.14444, -0.22222),
+                tup4(-0.07778, 0.03333, 0.36667, -0.33333),
+                tup4(-0.02901, -0.14630, -0.10926, 0.12963),
+                tup4(0.17778, 0.06667, -0.26667, 0.33333));
+    if (!(matrix4cmp(invert_matrix4(res), cmp)))
+        return (ft_printf(msg), false);
+    t_matrix4   a = matrix4(tup4(3, -9, 7, 3),
+                tup4(3, -8, 2, -9),
+                tup4(-4, 4, 4, 1),
+                tup4(-6, 5, -1, 1));
+    t_matrix4   b = matrix4(tup4(8, 2, 2, 2),
+                tup4(3, -1, 7, 0),
+                tup4(7, 0, 5, 4),
+                tup4(6, -2, 0, 5));
+    t_matrix4   c = multiply_matrix4(a, b);
+    res = multiply_matrix4(c, invert_matrix4(b));
+    if (!(matrix4cmp(a, res)))
         return (ft_printf(msg), false);
     return (true);
 }
@@ -410,6 +552,12 @@ void    run_tests(void)
         && test_matrix2() && test_matrix3() && test_matrix4()
         && test_matrix4cmp() && test_multiply_matrix4()
         && test_matrix4_mult_tup4() && test_identity_matrix()
-        && test_transpose_matrix4() && test_determinant2())
-        printf("All tests passed!!");
+        && test_transpose_matrix4() && test_determinant2()
+        && test_submatrix3() && test_submatrix4()
+        && test_cofactor3() && test_cofactor4()
+        && test_detetrminant3() && test_detetrminant4()
+        && test_is_matrix4_invertible() && test_invert_matrix4())
+        printf("All tuple and matrix operations tests passed!!\n");
+    if (1)
+        printf("All transformation tests passed!\n");
 }

@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:21:18 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 18:42:14 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/02 09:53:04 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,12 @@ typedef union u_matrix4
 	float	e[4][4];
 }	t_matrix4;
 
-//COMPARISONS.C
-//bool		ft_fcmp(float a, float b);
+//COMPARISONS
+bool		tup2cmp(t_tup2 a, t_tup2 b);
+bool		tup3cmp(t_tup3 a, t_tup3 b);
 bool		tup4cmp(t_tup4 a, t_tup4 b);
+bool		matrix2cmp(t_matrix2 a, t_matrix2 b);
+bool		matrix3cmp(t_matrix3 a, t_matrix3 b);
 bool		matrix4cmp(t_matrix4 a, t_matrix4 b);
 
 //TUPLE_FACTORY
@@ -126,8 +129,10 @@ t_matrix4	invert_matrix4(t_matrix4 a);
 t_matrix4	get_cofactor_matrix(t_matrix4 a);
 
 //PRINT
+void		print_tup2(t_tup2 a, bool cast_to_int);
 void		print_tup3(t_tup3 a, bool cast_to_int);
 void		print_tup4(t_tup4 a, bool cast_to_int);
+void		print_matrix2(t_matrix2 a, bool cast_to_int);
 void		print_matrix3(t_matrix3 a, bool cast_to_int);
 void		print_matrix4(t_matrix4 a, bool cast_to_int);
 
