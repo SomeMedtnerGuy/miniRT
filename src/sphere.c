@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/02 20:42:50 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/02 21:47:59 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_sphere	sphere()
 {
 	t_sphere	s;
 
-	s.center = tup4(100, 100, 100, TPOINT);
-	s.radius = 10;
+	s.center = tup4(0, 0, 0, TPOINT);
+	s.radius = 1;
 	return	(s);
 }
 
@@ -34,7 +34,7 @@ bool	intersect(t_sphere sphere, t_ray ray, float *t1, float *t2)
 	b = 2 * dot(ray.direction, sphere_to_ray);
 	printf("B: %f\n", b);
 
-	c = dot(sphere_to_ray, sphere_to_ray) - 1;
+	c = dot(sphere_to_ray, sphere_to_ray) - (sphere.radius * sphere.radius);
 	printf("C: %f\n", c);
 
 	discriminant = b * b - 4 * a * c;
@@ -42,18 +42,13 @@ bool	intersect(t_sphere sphere, t_ray ray, float *t1, float *t2)
 	if (discriminant < 0)
 		return (false);
 
-	printf("Discriminan: %f\n", discriminant);
-
 	*t1 = (-b - sqrt(discriminant)) / (2 * a);
 	*t2 = (-b + sqrt(discriminant)) / (2 * a);
-
-	printf("t1: %f\n", *t1);
-	printf("t2: %f\n", *t2);
 
 	return (true);
 }
 
-void	sphere_testing(/* t_root r */)
+/* void	sphere_testing()
 {
 	t_ray		A;
 	t_sphere	S;
@@ -61,8 +56,8 @@ void	sphere_testing(/* t_root r */)
 	t_tup4	int_points[2];
 	bool	check;
 
-	A.origin = tup4(100, 0, 100, TPOINT);
-	A.direction = tup4(0, 1, 0, TVECTOR);
+	A.origin = tup4(0, 0, 0, TPOINT);
+	A.direction = tup4(1, 1, 1, TVECTOR);
 
 	S = sphere();
 
@@ -70,9 +65,6 @@ void	sphere_testing(/* t_root r */)
 
 	printf("Point 1 Value: %f\n", intersection[0]);
 	printf("Point 2 Value: %f\n", intersection[1]);
-
-
-	printf("Point Test: %f\n",(intersection[0] * A.direction.y));
 
 	int_points[0] = tup4((A.origin.x + intersection[0] * A.direction.x), (A.origin.y + intersection[0] * A.direction.y),
 	 (A.origin.z + intersection[0] * A.direction.z), TPOINT);
@@ -89,16 +81,4 @@ void	sphere_testing(/* t_root r */)
 	printf("Point 2 Z Coordinate : %f\n", int_points[1].z);
 
 	printf("Your boolean variable is: %s\n", check ? "true" : "false");
-
-/* 	if(check)
-	{
-		printf("It intersects\n");
-
-		put_pixel(r.canvas, A.origin.x, A.origin.y, 0xffffff);
-		put_pixel(r.canvas, S.center.x, S.center.y, 0xff0000);
-		put_pixel(r.canvas, int_points[0].x, int_points[0].y, 0x00ff00);
-		put_pixel(r.canvas, int_points[1].x, int_points[1].y, 0x00ff00);
-	}
-	else
-		printf("It doesnt intersect\n"); */
-}
+} */

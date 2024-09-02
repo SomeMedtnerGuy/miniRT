@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix4_operations.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:50:20 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 18:41:42 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/02 21:30:05 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_matrix4	multiply_matrix4(t_matrix4 a, t_matrix4 b)
 	t_matrix4	result;
 	int			row;
 	int			col;
-	int			i;
 
 	row = 0;
 	while (row < 4)
@@ -39,7 +38,6 @@ t_matrix4	multiply_matrix4(t_matrix4 a, t_matrix4 b)
 		col = 0;
 		while (col < 4)
 		{
-			i = 0;
 			result.e[row][col] = dot(a.t[row], get_column_from_matrix4(b, col));
 			col++;
 		}

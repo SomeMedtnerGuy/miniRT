@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+         #
+#    By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 14:30:34 by ndo-vale          #+#    #+#              #
-#    Updated: 2024/09/02 17:25:39 by joamonte         ###   ########.fr        #
+#    Updated: 2024/09/02 21:35:27 by joamonte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ $(MLX):
 	make -s -C $(MLX_DIR)
 
 $(NAME): $(OBJS) $(LIBFT) $(LIBFTMATRIX) $(MLX)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(IFLAGS) $(LFLAGS) $(LIBFT) $(LIBFTMATRIX) $(MLX)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(IFLAGS) $(LIBFT) $(LIBFTMATRIX) $(MLX) $(LFLAGS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
