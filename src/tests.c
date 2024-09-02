@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 11:25:48 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:33:52 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -530,12 +530,153 @@ bool    test_invert_matrix4(void)
     return (true);
 }
 
+bool    test_translation(void)
+{
+    char    *msg = "test_translation failed!\n";
+    
+    t_matrix4   transform = translation(5, -3, 2);
+    t_tup4      p = point(-3, 4, 5);
+    if (!(tup4cmp(matrix4_mult_tup4(transform, p), point(2, 1, 7))))
+        return (ft_printf(msg), false);
+    if (!(tup4cmp(matrix4_mult_tup4(invert_matrix4(transform), p),
+                    point(-8, 7, 3))))
+        return (ft_printf(msg), false);
+    t_tup4      v = vector(-3, 4, 5);
+    if (!(tup4cmp(matrix4_mult_tup4(transform, v),v)))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_scaling(void)
+{
+    char    *msg = "test_scaling failed!\n";
+    t_matrix4  t;
+    t_tup4      p;
+    t_tup4      v;
+
+    t = scaling(2, 3, 4);
+    p = point(-4, 6, 8);
+    if (!(tup4cmp(matrix4_mult_tup4(t, p), point(-8, 18, 32))))
+        return (ft_printf(msg), false);
+    v = vector(-4, 6, 8);
+    if (!(tup4cmp(matrix4_mult_tup4(t, v), vector(-8, 18, 32))))
+        return (ft_printf(msg), false);
+    if (!(tup4cmp(matrix4_mult_tup4(invert_matrix4(t), v), vector(-2, 2, 2))))
+        return (ft_printf(msg), false);
+    t = scaling(-1, 1, 1);
+    p = point(2, 3, 4);
+    if (!(tup4cmp(matrix4_mult_tup4(t, p), point(-2, 3, 4))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_rotation_x(void)
+{
+    char    *msg = "test_rotation_x failed!\n";
+    t_matrix4   t;
+    t_tup4      p;
+    t_tup4      res;
+
+    p = point(0, 1, 0);
+    t = rotation_x(M_PI / 4);
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(0, sqrt(2) / 2, sqrt(2) / 2))))
+        return (ft_printf("1\n"), ft_printf(msg), false);
+    res = matrix4_mult_tup4(invert_matrix4(t), p);
+    if (!(tup4cmp(res, point(0, (sqrt(2) / 2), -(sqrt(2) / 2)))))
+        return (ft_printf("2\n"), ft_printf(msg), false);
+    t = rotation_x(M_PI / 2);
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(0, 0, 1))))
+        return (ft_printf("3\n"), ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_rotation_y(void)
+{
+    char    *msg = "test_rotation_y failed!\n";
+    t_matrix4   t;
+    t_tup4      p;
+    t_tup4      res;
+
+    p = point(0, 0, 1);
+    t = rotation_y(M_PI / 4);
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(sqrt(2) / 2, 0, sqrt(2) / 2))))
+        return (ft_printf(msg), false);
+    res = matrix4_mult_tup4(invert_matrix4(t), p);
+    if (!(tup4cmp(res, point(-(sqrt(2) / 2), 0, (sqrt(2) / 2)))))
+        return (ft_printf(msg), false);
+    t = rotation_y(M_PI / 2);
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(1, 0, 0))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_rotation_z(void)
+{
+    char    *msg = "test_rotation_z failed!\n";
+    t_matrix4   t;
+    t_tup4      p;
+    t_tup4      res;
+
+    p = point(0, 1, 0);
+    t = rotation_z(M_PI / 4);
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(-(sqrt(2) / 2), (sqrt(2) / 2), 0))))
+        return (ft_printf(msg), false);
+    res = matrix4_mult_tup4(invert_matrix4(t), p);
+    if (!(tup4cmp(res, point((sqrt(2) / 2), (sqrt(2) / 2), 0))))
+        return (ft_printf(msg), false);
+    t = rotation_z(M_PI / 2);
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(-1, 0, 0))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_shearing(void)
+{
+    char    *msg = "test_shearing failed!\n";
+    t_matrix4   t;
+    t_tup4      p;
+    t_tup4      res;
+
+    p = point(2, 3, 4);
+    t = shearing(tup2(1, 0), tup2(0, 0), tup2(0, 0));
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(5, 3, 4))))
+        return (ft_printf(msg), false);
+    t = shearing(tup2(0, 1), tup2(0, 0), tup2(0, 0));
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(6, 3, 4))))
+        return (ft_printf(msg), false);
+    t = shearing(tup2(0, 0), tup2(1, 0), tup2(0, 0));
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(2, 5, 4))))
+        return (ft_printf(msg), false);
+    t = shearing(tup2(0, 0), tup2(0, 1), tup2(0, 0));
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(2, 7, 4))))
+        return (ft_printf(msg), false);
+    t = shearing(tup2(0, 0), tup2(0, 0), tup2(1, 0));
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(2, 3, 6))))
+        return (ft_printf(msg), false);
+    t = shearing(tup2(0, 0), tup2(0, 0), tup2(0, 1));
+    res = matrix4_mult_tup4(t, p);
+    if (!(tup4cmp(res, point(2, 3, 7))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
 bool    test_(void)
 {
     char    *msg = "failed!\n";
-    t_tup4  res;
+    t_matrix4   t;
 
-    (void)res;
+    (void)t;
     if (!(1))
         return (ft_printf(msg), false);
     return (true);
@@ -558,6 +699,7 @@ void    run_tests(void)
         && test_detetrminant3() && test_detetrminant4()
         && test_is_matrix4_invertible() && test_invert_matrix4())
         printf("All tuple and matrix operations tests passed!!\n");
-    if (1)
-        printf("All transformation tests passed!\n");
+    if (test_translation() && test_scaling() && test_rotation_x()
+        && test_rotation_y() && test_rotation_z() && test_shearing())
+        printf("All transformation tests passed!!\n");
 }
