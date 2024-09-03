@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 14:33:52 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:16:01 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -671,6 +671,50 @@ bool    test_shearing(void)
     return (true);
 }
 
+/*bool    test_sphere_normal(void)
+{
+    char    *msg = "test_sphere_normal falied!!\n";
+    t_sphere    s;
+    t_tup4      n;
+
+    s = sphere();
+    n = normal_at(s, point(1, 0, 0));
+    if (!(tup4cmp(n, vector(1, 0, 0))))
+        return (ft_printf(msg), false);
+    n = normal_at(s, point(0, 1, 0));
+    if (!(tup4cmp(n, vector(0, 1, 0))))
+        return (ft_printf(msg), false);
+    n = normal_at(s, point(0, 0, 1));
+    if (!(tup4cmp(n, vector(0, 0, 1))))
+        return (ft_printf(msg), false);
+    n = normal_at(s, point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
+    if (!(tup4cmp(n, vector(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3))))
+        return (ft_printf(msg), false);
+    n = normal_at(s, point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
+    if (!(tup4cmp(n, normalize(n))))
+        return (ft_printf(msg), false);
+}*/
+
+bool    test_reflect(void)
+{
+    char    *msg = "test_reflect failed!\n";
+    t_tup4  v;
+    t_tup4  n;
+    t_tup4  r;
+
+    v = vector(1, -1, 0);
+    n = vector(0, 1, 0);
+    r = reflect(v, n);
+    if (!(tup4cmp(r, vector(1, 1, 0))))
+        return (ft_printf(msg), false);
+    v = vector(0, -1, 0);
+    n = vector(sqrt(2) / 2, sqrt(2) / 2, 0);
+    r = reflect(v, n);
+    if (!(tup4cmp(r, vector(1, 0, 0))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
 bool    test_(void)
 {
     char    *msg = "failed!\n";
@@ -702,4 +746,7 @@ void    run_tests(void)
     if (test_translation() && test_scaling() && test_rotation_x()
         && test_rotation_y() && test_rotation_z() && test_shearing())
         printf("All transformation tests passed!!\n");
+    if (/*test_sphere_normal() &&*/ test_reflect())
+        printf("All light tests passed!!\n");
+
 }

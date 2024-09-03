@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 16:29:38 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:11:58 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,30 @@
 # define CANVAS_HEIGHT 500
 
 # define WINDOW_TITLE "miniRT"
+
+typedef struct s_material
+{
+	t_tup4	color;
+	float	ambient;
+	float	diffuse;
+	float	specular;
+	float	shininess;
+}	t_material;
+
+typedef struct s_point_light
+{
+	t_tup4	intensity;
+	t_tup4	position;
+}	t_point_light;
+
+typedef struct s_light_data
+{
+	t_material		*material;
+	t_point_light	*light;
+	t_tup4			point;
+	t_tup4			eyev;
+	t_tup4			normalv;
+}	t_light_data;
 
 typedef struct s_canvas
 {
@@ -50,6 +74,12 @@ int		clean_exit(t_root *r, int exit_code);
 //COLOR.C
 unsigned char	float_to_shade(float color_strength);
 int				tuple_to_color(t_tup4 tup4);
+
+//LIGHT
+/*t_tup4	normal_at(t_sphere sphere, t_tup4 p);*/
+t_tup4	reflect(t_tup4 in, t_tup4 normal);
+t_point_light	point_light(t_tup4 position, t_tup4 intensity);
+t_material	material(void);
 
 //TESTS.C
 void    run_tests(void);
