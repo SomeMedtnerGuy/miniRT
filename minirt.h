@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/03 10:24:37 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:58:03 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void	run_tests(void);
 t_ray	ray(t_tup4 origin, t_tup4 direction);
 
 //SPHERE
-t_sphere	sphere(void);
-//void	sphere_testing();
+t_sphere	*sphere(void);
+void	sphere_testing(t_root r);
 
 //MAIN
 void	put_pixel(t_canvas *img, int x, int y, int color);
