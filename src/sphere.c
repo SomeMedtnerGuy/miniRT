@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/03 10:59:48 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:03:42 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,6 @@ void	sphere_testing(t_root r)
 	}
 	else
 		printf("It doesnt intersect\n");
+
+	free (S);
 }
