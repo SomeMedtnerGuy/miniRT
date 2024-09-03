@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 19:53:09 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:24:37 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,30 @@
 
 # define WINDOW_TITLE "miniRT"
 
+typedef struct s_material
+{
+	t_tup4	color;
+	float	ambient;
+	float	diffuse;
+	float	specular;
+	float	shininess;
+}	t_material;
+
+typedef struct s_point_light
+{
+	t_tup4	intensity;
+	t_tup4	position;
+}	t_point_light;
+
+typedef struct s_light_data
+{
+	t_material		*material;
+	t_point_light	*light;
+	t_tup4			point;
+	t_tup4			eyev;
+	t_tup4			normalv;
+}	t_light_data;
+
 typedef struct s_ray
 {
 	t_tup4	origin;
@@ -36,6 +60,7 @@ typedef struct s_sphere //Acrescentar Material
 {
 	t_tup4	center;
 	float	radius;
+	t_matrix4	transform;
 }	t_sphere;
 
 typedef struct s_canvas
@@ -63,6 +88,12 @@ int		clean_exit(t_root *r, int exit_code);
 unsigned char	float_to_shade(float color_strength);
 int				tuple_to_color(t_tup4 tup4);
 
+//LIGHT
+t_tup4	normal_at(t_sphere sphere, t_tup4 p);
+t_tup4	reflect(t_tup4 in, t_tup4 normal);
+t_point_light	point_light(t_tup4 position, t_tup4 intensity);
+t_material	material(void);
+
 //TESTS.C
 void	run_tests(void);
 
@@ -70,7 +101,8 @@ void	run_tests(void);
 t_ray	ray(t_tup4 origin, t_tup4 direction);
 
 //SPHERE
-void	sphere_testing();
+t_sphere	sphere(void);
+//void	sphere_testing();
 
 //MAIN
 void	put_pixel(t_canvas *img, int x, int y, int color);

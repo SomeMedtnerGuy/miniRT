@@ -21,7 +21,7 @@ PREP_DIRS	= prep
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 
-SRCS		= $(addprefix $(SRC_DIR), tests.c main.c clean_exit.c color.c ray.c sphere.c)
+SRCS		= $(addprefix $(SRC_DIR), tests.c main.c clean_exit.c color.c ray.c sphere.c light.c)
 OBJS		= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 LIBFT_DIR	= libft
