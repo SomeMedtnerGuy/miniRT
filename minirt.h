@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/03 10:58:03 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/03 13:07:04 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <math.h>
 # include <stdbool.h>
 # include <stdlib.h>
+# include <stdarg.h>
 # include "mlx_linux/mlx_int.h"
 # include "mlx_linux/mlx.h"
 # include "libft/libft.h"
@@ -56,12 +57,26 @@ typedef struct s_ray
 	t_tup4	direction;
 }	t_ray;
 
+typedef enum	obj_type
+{
+	PLANE,
+	SPHERE,
+	CYLINDER
+}	t_obj_type;
+
 typedef struct s_sphere //Acrescentar Material
 {
-	t_tup4	center;
-	float	radius;
+	t_obj_type	type;
+	t_tup4		center;
+	float		radius;
 	t_matrix4	transform;
 }	t_sphere;
+
+typedef struct	s_intersection
+{
+	float		t;
+	void		*object;
+}	t_intersection;
 
 typedef struct s_canvas
 {
@@ -76,35 +91,39 @@ typedef struct s_canvas
 
 typedef struct s_root
 {
-	void	*mlx;
-	void	*win;
+	void		*mlx;
+	void		*win;
 	t_canvas	*canvas;
 }	t_root;
 
 //CLEAN_EXIT.C
-int		clean_exit(t_root *r, int exit_code);
+int				clean_exit(t_root *r, int exit_code);
 
 //COLOR.C
 unsigned char	float_to_shade(float color_strength);
 int				tuple_to_color(t_tup4 tup4);
 
 //LIGHT
-t_tup4	normal_at(t_sphere sphere, t_tup4 p);
-t_tup4	reflect(t_tup4 in, t_tup4 normal);
+t_tup4			normal_at(t_sphere sphere, t_tup4 p);
+t_tup4			reflect(t_tup4 in, t_tup4 normal);
 t_point_light	point_light(t_tup4 position, t_tup4 intensity);
-t_material	material(void);
+t_material		material(void);
 
 //TESTS.C
-void	run_tests(void);
+void			run_tests(void);
 
 //Rays
-t_ray	ray(t_tup4 origin, t_tup4 direction);
+t_ray			ray(t_tup4 origin, t_tup4 direction);
+t_tup4			position(t_ray ray, float	t);
+t_intersection	intersection(float value,void *object);
+t_intersection	*intersections(int count, ...);
 
 //SPHERE
-t_sphere	*sphere(void);
-void	sphere_testing(t_root r);
+t_sphere		*sphere(void);
+
+void			sphere_testing();
 
 //MAIN
-void	put_pixel(t_canvas *img, int x, int y, int color);
+void			put_pixel(t_canvas *img, int x, int y, int color);
 
 #endif
