@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 20:11:58 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:53:09 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,18 @@ typedef struct s_light_data
 	t_tup4			normalv;
 }	t_light_data;
 
+typedef struct s_ray
+{
+	t_tup4	origin;
+	t_tup4	direction;
+}	t_ray;
+
+typedef struct s_sphere //Acrescentar Material
+{
+	t_tup4	center;
+	float	radius;
+}	t_sphere;
+
 typedef struct s_canvas
 {
 	void	*img;
@@ -82,6 +94,15 @@ t_point_light	point_light(t_tup4 position, t_tup4 intensity);
 t_material	material(void);
 
 //TESTS.C
-void    run_tests(void);
+void	run_tests(void);
+
+//Rays
+t_ray	ray(t_tup4 origin, t_tup4 direction);
+
+//SPHERE
+void	sphere_testing();
+
+//MAIN
+void	put_pixel(t_canvas *img, int x, int y, int color);
 
 #endif

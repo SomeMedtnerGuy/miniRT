@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+         #
+#    By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 14:30:34 by ndo-vale          #+#    #+#              #
-#    Updated: 2024/09/02 18:12:50 by ndo-vale         ###   ########.fr        #
+#    Updated: 2024/09/02 21:35:27 by joamonte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ PREP_DIRS	= prep
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 
-SRCS		= $(addprefix $(SRC_DIR), tests.c main.c clean_exit.c color.c light.c)
+SRCS		= $(addprefix $(SRC_DIR), tests.c main.c clean_exit.c color.c ray.c sphere.c light.c)
 OBJS		= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 LIBFT_DIR	= libft
@@ -50,7 +50,7 @@ $(MLX):
 	make -s -C $(MLX_DIR)
 
 $(NAME): $(OBJS) $(LIBFT) $(LIBFTMATRIX) $(MLX)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(IFLAGS) $(LFLAGS) $(LIBFT) $(LIBFTMATRIX) $(MLX)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(IFLAGS) $(LIBFT) $(LIBFTMATRIX) $(MLX) $(LFLAGS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
