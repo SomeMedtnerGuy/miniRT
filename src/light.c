@@ -6,26 +6,26 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 20:45:47 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:28:31 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/*t_tup4	normal_at(t_sphere sphere, t_tup4 world_p)
+t_tup4	normal_at(t_sphere *sphere, t_tup4 world_p)
 {
 	t_tup4	object_p;
 	t_tup4	object_normal;
 	t_tup4	world_normal;
 
-	object_p = matrix4_mult_tup4(invert_matrix4(sphere.transform), world_p);
+	object_p = matrix4_mult_tup4(invert_matrix4(sphere->transform), world_p);
 	object_normal = subtract_tup4(object_normal, point(0, 0, 0));
 	world_normal = matrix4_mult_tup4(transpose_matrix4(
-						invert_matrix4(sphere.transform)),
+						invert_matrix4(sphere->transform)),
 						object_normal);
 	world_normal.w = TVECTOR;
 	return(normalize(world_normal));
-}*/
+}
 
 
 

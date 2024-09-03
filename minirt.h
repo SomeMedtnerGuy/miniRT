@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 19:53:09 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:24:37 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_sphere //Acrescentar Material
 {
 	t_tup4	center;
 	float	radius;
+	t_matrix4	transform;
 }	t_sphere;
 
 typedef struct s_canvas
@@ -88,7 +89,7 @@ unsigned char	float_to_shade(float color_strength);
 int				tuple_to_color(t_tup4 tup4);
 
 //LIGHT
-/*t_tup4	normal_at(t_sphere sphere, t_tup4 p);*/
+t_tup4	normal_at(t_sphere sphere, t_tup4 p);
 t_tup4	reflect(t_tup4 in, t_tup4 normal);
 t_point_light	point_light(t_tup4 position, t_tup4 intensity);
 t_material	material(void);
@@ -100,7 +101,8 @@ void	run_tests(void);
 t_ray	ray(t_tup4 origin, t_tup4 direction);
 
 //SPHERE
-void	sphere_testing();
+t_sphere	sphere(void);
+//void	sphere_testing();
 
 //MAIN
 void	put_pixel(t_canvas *img, int x, int y, int color);

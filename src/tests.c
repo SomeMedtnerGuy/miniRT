@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 18:16:01 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:20:57 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -671,7 +671,7 @@ bool    test_shearing(void)
     return (true);
 }
 
-/*bool    test_sphere_normal(void)
+bool    test_sphere_normal(void)
 {
     char    *msg = "test_sphere_normal falied!!\n";
     t_sphere    s;
@@ -693,7 +693,8 @@ bool    test_shearing(void)
     n = normal_at(s, point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3));
     if (!(tup4cmp(n, normalize(n))))
         return (ft_printf(msg), false);
-}*/
+    return (true);
+}
 
 bool    test_reflect(void)
 {

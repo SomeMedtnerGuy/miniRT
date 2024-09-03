@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/02 21:47:59 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:28:19 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_sphere	sphere()
+t_sphere	*sphere(void)
 {
-	t_sphere	s;
+	t_sphere	*s;
 
-	s.center = tup4(0, 0, 0, TPOINT);
-	s.radius = 1;
+	s = (t_sphere *)ft_calloc(1, sizeof(t_sphere));
+	s->center = tup4(0, 0, 0, TPOINT);
+	s->radius = 1;
+	s->transform = identity_matrix4();
 	return	(s);
 }
 
