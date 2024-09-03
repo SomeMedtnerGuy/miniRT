@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/03 13:07:04 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:27:21 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ t_ray			ray(t_tup4 origin, t_tup4 direction);
 t_tup4			position(t_ray ray, float	t);
 t_intersection	intersection(float value,void *object);
 t_intersection	*intersections(int count, ...);
+t_intersection	hit(t_intersection *intersections, int count);
 
 //SPHERE
 t_sphere		*sphere(void);

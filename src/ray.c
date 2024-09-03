@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:26:23 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/03 13:31:09 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:27:36 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,22 @@ t_intersection	*intersections(int count, ...)
 	va_end(list);
 
 	return (join);
+}
+
+t_intersection	hit(t_intersection *intersections, int count)
+{
+	int	i;
+	t_intersection	hit;
+
+	hit.t = -1.0f;
+	i = 0;
+	while(i < count)
+	{
+		if(hit.t < 0 && intersections[i].t > 0)
+			hit = intersections[i];
+		else if(hit.t > intersections[i].t && intersections[i].t > 0)
+			hit = intersections[i];
+		i++;
+	}
+	return (hit);
 }

@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/03 14:00:32 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:27:56 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_intersection	*intersect(t_sphere *sphere, t_ray ray)
 	i[0] = intersection(i_value[0], sphere);
 	i[1] = intersection(i_value[1], sphere);
 
-	xs = intersections(4, i[0], i[1]);
+	xs = intersections(2, i[0], i[1]);
 
 	return (xs);
 }
@@ -59,6 +59,7 @@ void	sphere_testing()
 	t_sphere		*S;
 	t_intersection	*xs;
 /* 	t_tup4			i_point[2]; */
+	t_intersection	i;
 
 	R.origin = tup4(20, 100, 100, TPOINT);
 	R.direction = tup4(1, 0, 0, TVECTOR);
@@ -66,11 +67,16 @@ void	sphere_testing()
 	S = sphere();
 
 	xs = intersect(S, R);
-	
+
+	i = hit(xs, sizeof(*xs) / sizeof(xs[0]));
+
 	printf("x1 = %f\n", xs[0].t);
 	printf("x2 = %f\n", xs[1].t);
 	printf("x1 = %p\n", xs[0].object);
 	printf("x2 = %p\n", xs[1].object);
+
+	printf("hit = %f\n", i.t);
+	printf("hit = %p\n", i.object);
 
 
 /* 	i_point[0] = tup4((R.origin.x + i_value[0] * R.direction.x), (R.origin.y + i_value[0] * R.direction.y),
