@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:26:23 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/03 17:33:39 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/04 21:58:24 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_ray	transform(t_ray ray, t_matrix4 matrix)
 	new_ray.origin.w = TPOINT;
 
 	new_ray.direction = matrix4_mult_tup4(matrix, ray.direction);
-	new_ray.origin.w = TVECTOR;
+	new_ray.direction.w = TVECTOR;
 
 	return (new_ray);
 }

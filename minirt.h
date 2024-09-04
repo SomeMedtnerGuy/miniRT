@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/03 16:20:09 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:56:53 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ t_tup4			position(t_ray ray, float	t);
 t_ray			transform(t_ray ray, t_matrix4 matrix);
 
 //INTERCECTION.C
-t_intersection	intersection(float value,void *object);
+t_intersection	intersection(float value, void *object);
 t_intersection	*intersections(int count, ...);
 t_intersection	hit(t_intersection *intersections, int count);
 
