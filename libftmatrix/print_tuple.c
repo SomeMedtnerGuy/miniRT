@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 14:16:02 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 09:34:37 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:42:43 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_tup4(t_tup4 a, bool cast_to_int)
 	if (cast_to_int)
 	{
 		printf("| %i | %i | %i | %i |\n",
-			(int)a.x, (int)a.y, (int)a.z, (int)a.w);
+			(int)round(a.x), (int)round(a.y), (int)round(a.z), (int)round(a.w));
 	}
 	else
 		printf("| %f | %f | %f | %f |\n", a.x, a.y, a.z, a.w);

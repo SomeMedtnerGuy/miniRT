@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 16:29:46 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:15:35 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	put_pixel(t_canvas *img, int x, int y, int color)
 int	main(void)
 {
 	run_tests();
+	//print_tup4(reflect(tup4(3, 3, 0, TVECTOR), normalize(tup4(1, 1, 0, TVECTOR))), true);
 }
 
 /*int	main(int argc, char **argv)

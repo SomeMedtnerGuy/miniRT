@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/03 10:20:57 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:10:24 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -674,7 +674,7 @@ bool    test_shearing(void)
 bool    test_sphere_normal(void)
 {
     char    *msg = "test_sphere_normal falied!!\n";
-    t_sphere    s;
+    t_sphere    *s;
     t_tup4      n;
 
     s = sphere();
@@ -716,6 +716,46 @@ bool    test_reflect(void)
     return (true);
 }
 
+bool    test_lighting(void)
+{
+    char    *msg = "test_lighting failed!\n";
+    t_material  m;
+    t_point_light   light;
+    t_light_data    ld;
+
+    m = material();
+    ld.material = &m;
+    ld.light = &light;
+    ld.point = point(0, 0, 0);
+
+    ld.eyev = vector(0, 0, -1);
+    ld.normalv = vector(0, 0, -1);
+    light = point_light(point(0, 0, -10), color(1, 1, 1)); 
+    if (!(tup4cmp(lighting(&ld), color(1.9, 1.9, 1.9))))
+        return (ft_printf(msg), false);
+    ld.eyev = vector(0, sqrt(2) / 2, -sqrt(2) / 2);
+    ld.normalv = vector(0, 0, -1);
+    light = point_light(point(0, 0, -10), color(1, 1, 1)); 
+    if (!(tup4cmp(lighting(&ld), color(1.0, 1.0, 1.0))))
+        return (ft_printf(msg), false);
+    ld.eyev = vector(0, 0, -1);
+    ld.normalv = vector(0, 0, -1);
+    light = point_light(point(0, 10, -10), color(1, 1, 1)); 
+    if (!(tup4cmp(lighting(&ld), color(0.7364, 0.7364, 0.7364))))
+        return (ft_printf(msg), false);
+    ld.eyev = vector(0, -sqrt(2) / 2, -sqrt(2) / 2);
+    ld.normalv = vector(0, 0, -1);
+    light = point_light(point(0, 10, -10), color(1, 1, 1)); 
+    if (!(tup4cmp(lighting(&ld), color(1.63638, 1.63638, 1.63638))))
+        return (ft_printf(msg), false);
+    ld.eyev = vector(0, 0, -1);
+    ld.normalv = vector(0, 0, -1);
+    light = point_light(point(0, 0, 10), color(1, 1, 1)); 
+    if (!(tup4cmp(lighting(&ld), color(0.1, 0.1, 0.1))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
 bool    test_(void)
 {
     char    *msg = "failed!\n";
@@ -747,7 +787,7 @@ void    run_tests(void)
     if (test_translation() && test_scaling() && test_rotation_x()
         && test_rotation_y() && test_rotation_z() && test_shearing())
         printf("All transformation tests passed!!\n");
-    if (/*test_sphere_normal() &&*/ test_reflect())
+    if (test_sphere_normal() && test_reflect() && test_lighting())
         printf("All light tests passed!!\n");
 
 }

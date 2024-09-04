@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/03 10:28:19 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:35:54 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ t_sphere	*sphere(void)
 	return	(s);
 }
 
-bool	intersect(t_sphere sphere, t_ray ray, float *t1, float *t2)
+bool	intersect(t_sphere *sphere, t_ray ray, float *t1, float *t2)
 {
 	t_tup4	sphere_to_ray;
 	float	a, b, c, discriminant;
 
-	sphere_to_ray = subtract_tup4(ray.origin, sphere.center);
+	sphere_to_ray = subtract_tup4(ray.origin, sphere->center);
 
 	a = dot(ray.direction, ray.direction);
 	printf("A: %f\n", a);
@@ -36,7 +36,7 @@ bool	intersect(t_sphere sphere, t_ray ray, float *t1, float *t2)
 	b = 2 * dot(ray.direction, sphere_to_ray);
 	printf("B: %f\n", b);
 
-	c = dot(sphere_to_ray, sphere_to_ray) - (sphere.radius * sphere.radius);
+	c = dot(sphere_to_ray, sphere_to_ray) - (sphere->radius * sphere->radius);
 	printf("C: %f\n", c);
 
 	discriminant = b * b - 4 * a * c;
