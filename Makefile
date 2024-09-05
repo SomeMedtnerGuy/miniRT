@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+         #
+#    By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 14:30:34 by ndo-vale          #+#    #+#              #
-#    Updated: 2024/09/04 20:30:30 by ndo-vale         ###   ########.fr        #
+#    Updated: 2024/09/05 10:39:47 by joamonte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC_DIR		= src/
 OBJ_DIR		= obj/
 
 SRCS		= $(addprefix $(SRC_DIR), tests.c main.c clean_exit.c color.c \
-					ray.c sphere.c light.c world.c)
+					ray.c sphere.c intersection.c light.c world.c)
 OBJS		= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 LIBFT_DIR	= libft
