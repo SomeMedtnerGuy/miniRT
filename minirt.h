@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/04 12:23:53 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:58:36 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,20 @@ typedef struct s_ray
 	t_tup4	direction;
 }	t_ray;
 
-typedef struct s_sphere //Acrescentar Material
+typedef struct s_sphere
 {
+	t_material	*material;
 	t_tup4	center;
 	float	radius;
 	t_matrix4	transform;
 }	t_sphere;
+
+typedef struct s_world
+{
+	t_point_light	light;
+	t_list	*objects;
+	t_list	*xs;
+}	t_world;
 
 typedef struct s_canvas
 {
