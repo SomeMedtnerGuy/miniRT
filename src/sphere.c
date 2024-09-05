@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/05 11:28:48 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:42:29 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,27 @@ t_sphere	*sphere(void)
 	return	(s);
 }
 
-t_list	*intersect(t_sphere *sphere, t_ray ray)
+t_intersection	*intersect(t_sphere *sphere, t_ray ray)
 {
 	t_tup4			sphere_to_ray;
 	float			var[4];
 	float			i_value[2];
-	t_list			*xs;
+	t_intersection	*xs;
 
 	ray = transform(ray, invert_matrix4(sphere->transform));
-
 	sphere_to_ray = subtract_tup4(ray.origin, sphere->center);
-
 	var[0] = dot(ray.direction, ray.direction);
 	var[1] = 2 * dot(ray.direction, sphere_to_ray);
 	var[2] = dot(sphere_to_ray, sphere_to_ray) - (sphere->radius * sphere->radius);
 	var[3] = var[1] * var[1] - 4 * var[0] * var[2];
 	if (var[3] < 0)
 		return (NULL);
-
 	i_value[0] = (-var[1] - sqrt(var[3])) / (2 * var[0]);
 	i_value[1] = (-var[1] + sqrt(var[3])) / (2 * var[0]);
-
 	xs = NULL;
-	ft_lstadd_back(&xs, ft_lstnew(intersection(i_value[0], sphere)));
-	ft_lstadd_back(&xs, ft_lstnew(intersection(i_value[1], sphere)));
+	
+	int_add_back(&xs, intersection(i_value[0], sphere));
+	int_add_back(&xs, intersection(i_value[1], sphere));
 
 	return (xs);
 }
@@ -60,59 +57,14 @@ void	set_transform(t_sphere *sphere, t_matrix4 matrix)
 	sphere->transform.t[3] = matrix.t[3];
 }
 
-void	sphere_testing()
+void	intclear(t_intersection **lst)
 {
-	t_ray		R;
-	t_sphere	*S;
-	t_list		*xs;
-	t_list		*xs_current;
-	t_tup4		i_point[2];
-	/* t_intersection	i; */
-	t_matrix4	scaling;
-	int			j;
+	t_intersection	*buffer;
 
-	R.origin = tup4(0, 0, -5, TPOINT);
-	R.direction = tup4(0, 0, 1, TVECTOR);
-
-	S = sphere();
-
-	scaling = matrix4(tup4(2, 0, 0, 0), tup4(0, 2, 0, 0),
-			tup4(0, 0, 2, 0), tup4(0, 0, 0, 1));
-
-	set_transform(S, scaling);
-
-	xs = intersect(S, R);
-
-	/* i = hit(xs, sizeof(*xs) / sizeof(xs[0])); */
-	xs_current = xs;
-	while(xs_current)
+	while (*lst)
 	{
-		printf("X1.t %f\n", ((t_intersection *)xs_current->content)->t);
-		xs_current = xs_current->next;
-/* 		printf("X2.t %f\n", xs[1].t); */
+		buffer = (*lst)->next;
+		free(*lst);
+		*lst = buffer;
 	}
-
-	j = 0;
-	xs_current = xs;
-	while(xs_current)
-	{
-		i_point[j] = tup4((R.origin.x + ((t_intersection *)xs_current->content)->t * R.direction.x),
-			(R.origin.y + ((t_intersection *)xs_current->content)->t * R.direction.y),
-			(R.origin.z + ((t_intersection *)xs_current->content)->t * R.direction.z), TPOINT);
-		xs_current = xs_current->next;
-		j++;
-	}
-
-	printf("p1 x value: %f\n", i_point[0].x);
-	printf("p1 y value: %f\n", i_point[0].y);
-	printf("p1 z value: %f\n", i_point[0].z);
-
-	printf("p2 x value: %f\n", i_point[1].x);
-	printf("p2 y value: %f\n", i_point[1].y);
-	printf("p2 z value: %f\n", i_point[1].z);
-
-
-	ft_lstclear(&xs, free);
-	free (S);
-	free(xs);
 }

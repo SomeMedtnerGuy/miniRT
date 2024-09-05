@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:35:33 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/08/31 17:26:26 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/05 11:40:00 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 unsigned char	float_to_shade(float color_strength)
 {
 	return ((unsigned char)ft_clamp((int)(color_strength * 255.0),
-			0, 255));
+		0, 255));
 }
 
 int	tuple_to_color(t_tup4 tup4)
 {
-	return (float_to_shade(tup4.r) << 16 |
-			float_to_shade(tup4.g) << 8 |
-			float_to_shade(tup4.b));
+	return (float_to_shade(tup4.r) << 16
+		| float_to_shade(tup4.g) << 8 | float_to_shade(tup4.b));
 }
