@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/05 17:42:29 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:51:06 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,14 @@ void	intclear(t_intersection **lst)
 		buffer = (*lst)->next;
 		free(*lst);
 		*lst = buffer;
+	}
+}
+
+void	int_front(t_intersection **lst, t_intersection *new)
+{
+	if (new != NULL)
+	{
+		new->next = *lst;
+		*lst = new;
 	}
 }

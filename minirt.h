@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 17:44:22 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:50:58 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ t_sphere		*sphere(void);
 void			set_transform(t_sphere *sphere, t_matrix4 matrix);
 t_intersection	*intersect(t_sphere *sphere, t_ray ray);
 void			intclear(t_intersection **lst);
+void			int_front(t_intersection **lst, t_intersection *new);
+
 
 //CIRCLE
 //void			circle(t_root r);
