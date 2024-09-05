@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/04 20:56:53 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 08:42:06 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ typedef struct s_light_data
 	t_point_light	*light;
 	t_tup4			point;
 	t_tup4			eyev;
+	t_tup4			lightv;
 	t_tup4			normalv;
+	t_tup4			final_ambient;
+	t_tup4			final_diffuse;
+	t_tup4			final_specular;
 }	t_light_data;
 
 typedef struct s_ray
@@ -56,6 +60,13 @@ typedef struct s_ray
 	t_tup4	origin;
 	t_tup4	direction;
 }	t_ray;
+
+typedef struct s_world
+{
+	t_point_light	light;
+	t_list	*objects;
+	t_list	*xs;
+}	t_world;
 
 typedef enum	obj_type
 {
@@ -67,6 +78,7 @@ typedef enum	obj_type
 typedef struct s_sphere //Acrescentar Material
 {
 	t_obj_type	type;
+	t_material	*material;
 	t_tup4		center;
 	float		radius;
 	t_matrix4	transform;
@@ -104,10 +116,11 @@ unsigned char	float_to_shade(float color_strength);
 int				tuple_to_color(t_tup4 tup4);
 
 //LIGHT
-t_tup4			normal_at(t_sphere sphere, t_tup4 p);
-t_tup4			reflect(t_tup4 in, t_tup4 normal);
+t_tup4	normal_at(t_sphere *sphere, t_tup4 p);
+t_tup4	reflect(t_tup4 in, t_tup4 normal);
 t_point_light	point_light(t_tup4 position, t_tup4 intensity);
-t_material		material(void);
+t_material	material(void);
+t_tup4	lighting(t_light_data *data);
 
 //TESTS.C
 void			run_tests(void);

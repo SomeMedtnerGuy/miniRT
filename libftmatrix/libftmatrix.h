@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:21:18 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/03 10:21:30 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:01:27 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define EPSILON 0.00001
 # define TVECTOR 0.0
 # define TPOINT 1.0
-# define TCOLOR 2.0
+# define TCOLOR 0.0
 
 typedef struct s_tup2
 {

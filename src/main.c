@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 18:57:28 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 08:39:18 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	put_pixel(t_canvas *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-/* int	main(void)
+int	main(void)
 {
-	sphere_testing();
-} */
+	run_tests();
+	//print_tup4(reflect(tup4(3, 3, 0, TVECTOR), normalize(tup4(1, 1, 0, TVECTOR))), true);
+	//sphere_testing();
+}
 
 int	main(/* int argc, char **argv */)
 {
