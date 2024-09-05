@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 11:02:40 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 19:33:04 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_ray
 
 typedef struct s_world
 {
-	t_point_light	light;
+	t_point_light	*light;
 	t_list	*objects;
 	t_list	*xs;
 }	t_world;
@@ -74,6 +74,11 @@ typedef enum	obj_type
 	SPHERE,
 	CYLINDER
 }	t_obj_type;
+
+typedef struct s_object
+{
+	t_obj_type	type;
+}	t_object;
 
 typedef struct s_sphere //Acrescentar Material
 {
@@ -87,8 +92,19 @@ typedef struct s_sphere //Acrescentar Material
 typedef struct	s_intersection
 {
 	float		t;
-	void		*object;
+	void		*object; //Perhaps change this type to t_object?
+	struct s_intersection	*next;
 }	t_intersection;
+
+typedef struct s_comps
+{
+	float	t;
+	void	*object;
+	t_tup4	point;
+	t_tup4	eyev;
+	t_tup4	normalv;
+	bool	inside;
+}	t_comps;
 
 typedef struct s_canvas
 {
@@ -118,8 +134,8 @@ int				tuple_to_color(t_tup4 tup4);
 //LIGHT
 t_tup4	normal_at(t_sphere *sphere, t_tup4 p);
 t_tup4	reflect(t_tup4 in, t_tup4 normal);
-t_point_light	point_light(t_tup4 position, t_tup4 intensity);
-t_material	material(void);
+t_point_light	*point_light(t_tup4 position, t_tup4 intensity);
+t_material	*material(void);
 t_tup4	lighting(t_light_data *data);
 
 //TESTS.C
@@ -130,14 +146,26 @@ t_ray			ray(t_tup4 origin, t_tup4 direction);
 t_tup4			position(t_ray ray, float	t);
 t_ray			transform(t_ray ray, t_matrix4 matrix);
 
-//INTERCECTION.C
+//INTERSECTION.C
 t_intersection	*intersection(float value, void *object);
-t_intersection	*intersections(int count, ...);
-t_intersection	hit(t_intersection *intersections, int count);
+t_intersection	*hit(t_intersection *xs);
+int				int_size(t_intersection *lst);
+t_intersection	*intlast(t_intersection *lst);
+int				int_add_back(t_intersection **lst, t_intersection *new);
+
 
 //SPHERE.C
 t_sphere		*sphere(void);
+t_intersection			*intersect(t_sphere *sphere, t_ray ray);
 void			sphere_testing();
+
+//WORLD.C
+t_world			*world(void);
+t_world			*default_world(void);
+t_intersection	*intersect_world(t_world *w, t_ray r);
+t_comps			prepare_computations(t_intersection *intersection, t_ray ray);
+t_tup4			shade_hit(t_world *w, t_comps comps);
+t_tup4			color_at(t_world *w, t_ray r);
 
 //MAIN
 void			put_pixel(t_canvas *img, int x, int y, int color);
