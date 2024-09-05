@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
 /*   Updated: 2024/09/05 19:16:44 by ndo-vale         ###   ########.fr       */
@@ -21,10 +21,9 @@ t_tup4	normal_at(t_sphere *sphere, t_tup4 world_p)
 	object_p = matrix4_mult_tup4(invert_matrix4(sphere->transform), world_p);
 	object_normal = subtract_tup4(object_p, point(0, 0, 0));
 	world_normal = matrix4_mult_tup4(transpose_matrix4(
-						invert_matrix4(sphere->transform)),
-						object_normal);
+				invert_matrix4(sphere->transform)), object_normal);
 	world_normal.w = TVECTOR;
-	return(normalize(world_normal));
+	return (normalize(world_normal));
 }
 
 t_tup4	reflect(t_tup4 in, t_tup4 normal)
@@ -63,15 +62,16 @@ static void	direct_lighting(t_light_data *data, t_tup4 effective_color,
 	float	reflect_dot_eye;
 
 	data->final_diffuse = multiply_tup4(effective_color,
-									data->material->diffuse
-									* light_dot_normal);
-	reflect_dot_eye = dot(reflect(negate_tup4(data->lightv), data->normalv), data->eyev);
+			data->material->diffuse * light_dot_normal);
+	reflect_dot_eye = dot(reflect(negate_tup4(data->lightv),
+				data->normalv), data->eyev);
 	if (reflect_dot_eye <= 0)
 		data->final_specular = color(0, 0, 0);
 	else
 	{
 		factor = pow(reflect_dot_eye, data->material->shininess);
-		data->final_specular = multiply_tup4(data->light->intensity, data->material->specular * factor); 
+		data->final_specular = multiply_tup4(data->light->intensity,
+				data->material->specular * factor);
 	}
 }
 
@@ -81,9 +81,10 @@ t_tup4	lighting(t_light_data *data)
 	float	light_dot_normal;
 
 	effective_color = hadamard(data->material->color,
-								data->light->intensity);
+			data->light->intensity);
 	data->lightv = normalize(subtract_tup4(data->light->position, data->point));
-	data->final_ambient = multiply_tup4(effective_color, data->material->ambient);
+	data->final_ambient = multiply_tup4(effective_color,
+			data->material->ambient);
 	light_dot_normal = dot(data->lightv, data->normalv);
 	if (light_dot_normal < 0)
 	{
@@ -92,6 +93,6 @@ t_tup4	lighting(t_light_data *data)
 	}
 	else
 		direct_lighting(data, effective_color, light_dot_normal);
-	return (add_tup4(add_tup4(data->final_ambient, data->final_diffuse), data->final_specular));
+	return (add_tup4(add_tup4(data->final_ambient, data->final_diffuse),
+			data->final_specular));
 }
-

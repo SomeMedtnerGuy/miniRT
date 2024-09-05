@@ -22,7 +22,7 @@
 # include "libft/libft.h"
 # include "libftmatrix/libftmatrix.h"
 
-# define CANVAS_WIDTH 900
+# define CANVAS_WIDTH 500
 # define CANVAS_HEIGHT 500
 
 # define WINDOW_TITLE "miniRT"
@@ -61,11 +61,18 @@ typedef struct s_ray
 	t_tup4	direction;
 }	t_ray;
 
+typedef struct	s_intersection
+{
+	float					t;
+	void					*o;
+	struct s_intersection	*next;
+}	t_intersection;
+
 typedef struct s_world
 {
 	t_point_light	*light;
 	t_list	*objects;
-	t_list	*xs;
+	t_intersection	*xs;
 }	t_world;
 
 typedef enum	obj_type
@@ -137,6 +144,12 @@ t_tup4	reflect(t_tup4 in, t_tup4 normal);
 t_point_light	*point_light(t_tup4 position, t_tup4 intensity);
 t_material	*material(void);
 t_tup4	lighting(t_light_data *data);
+/*
+t_tup4			normal_at(t_sphere *sphere, t_tup4 p);
+t_tup4			reflect(t_tup4 in, t_tup4 normal);
+t_point_light	point_light(t_tup4 position, t_tup4 intensity); //CHECK IF POINTER IS NEEDED
+t_material		material(void);                                 //CHECK IF POINTER IS NEEDED
+t_tup4			lighting(t_light_data *data);*/
 
 //TESTS.C
 void			run_tests(void);
@@ -148,16 +161,17 @@ t_ray			transform(t_ray ray, t_matrix4 matrix);
 
 //INTERSECTION.C
 t_intersection	*intersection(float value, void *object);
-t_intersection	*hit(t_intersection *xs);
 int				int_size(t_intersection *lst);
 t_intersection	*intlast(t_intersection *lst);
 int				int_add_back(t_intersection **lst, t_intersection *new);
-
+t_intersection	*hit(t_intersection *xs);
 
 //SPHERE.C
 t_sphere		*sphere(void);
-t_intersection			*intersect(t_sphere *sphere, t_ray ray);
-void			sphere_testing();
+void			set_transform(t_sphere *sphere, t_matrix4 matrix);
+t_intersection	*intersect(t_sphere *sphere, t_ray ray);
+void			intclear(t_intersection **lst);
+void			int_front(t_intersection **lst, t_intersection *new);
 
 //WORLD.C
 t_world			*world(void);

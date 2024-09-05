@@ -57,3 +57,24 @@ void	set_transform(t_sphere *sphere, t_matrix4 matrix)
 	sphere->transform.t[2] = matrix.t[2];
 	sphere->transform.t[3] = matrix.t[3];
 }
+
+void	intclear(t_intersection **lst)
+{
+	t_intersection	*buffer;
+
+	while (*lst)
+	{
+		buffer = (*lst)->next;
+		free(*lst);
+		*lst = buffer;
+	}
+}
+
+void	int_front(t_intersection **lst, t_intersection *new)
+{
+	if (new != NULL)
+	{
+		new->next = *lst;
+		*lst = new;
+	}
+}
