@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 14:31:58 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:42:44 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -792,7 +792,7 @@ void    run_tests(void)
 
 }
 
-/* void	sphere_testing()
+void	sphere_testing()
 {
 	t_ray		R;
 	t_sphere	*S;
@@ -851,4 +851,4 @@ void    run_tests(void)
 
 	free (S);
 	free(xs);
-} */
+}

@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/05 14:48:43 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:42:29 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ t_sphere	*sphere(void)
 	return	(s);
 }
 
-t_list	*intersect(t_sphere *sphere, t_ray ray)
+t_intersection	*intersect(t_sphere *sphere, t_ray ray)
 {
 	t_tup4			sphere_to_ray;
 	float			var[4];
 	float			i_value[2];
-	t_list			*xs;
+	t_intersection	*xs;
 
 	ray = transform(ray, invert_matrix4(sphere->transform));
 	sphere_to_ray = subtract_tup4(ray.origin, sphere->center);
@@ -42,8 +42,10 @@ t_list	*intersect(t_sphere *sphere, t_ray ray)
 	i_value[0] = (-var[1] - sqrt(var[3])) / (2 * var[0]);
 	i_value[1] = (-var[1] + sqrt(var[3])) / (2 * var[0]);
 	xs = NULL;
-	ft_lstadd_back(&xs, ft_lstnew(intersection(i_value[0], sphere)));
-	ft_lstadd_back(&xs, ft_lstnew(intersection(i_value[1], sphere)));
+	
+	int_add_back(&xs, intersection(i_value[0], sphere));
+	int_add_back(&xs, intersection(i_value[1], sphere));
+
 	return (xs);
 }
 
@@ -53,4 +55,16 @@ void	set_transform(t_sphere *sphere, t_matrix4 matrix)
 	sphere->transform.t[1] = matrix.t[1];
 	sphere->transform.t[2] = matrix.t[2];
 	sphere->transform.t[3] = matrix.t[3];
+}
+
+void	intclear(t_intersection **lst)
+{
+	t_intersection	*buffer;
+
+	while (*lst)
+	{
+		buffer = (*lst)->next;
+		free(*lst);
+		*lst = buffer;
+	}
 }

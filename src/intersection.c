@@ -6,40 +6,75 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:32:47 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/05 14:14:39 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:22:00 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_intersection	*intersection(float value, void *object)
+t_intersection	*hit(t_intersection *xs)
 {
-	t_intersection	*inter;
-
-	inter = ft_calloc(1, sizeof(t_intersection));
-	inter->t = value;
-	inter->object = object;
-	return (inter);
-}
-
-t_list	*hit(t_list *xs)
-{
-	t_list	*hit;
-	t_list	*xs_current;
+	t_intersection	*hit;
+	t_intersection	*xs_current;
+	t_intersection	*current_intersection;
 
 	hit = NULL;
 	xs_current = xs;
 	while (xs_current)
 	{
-		// Check if it's a valid intersection and compare 't' values
-		t_intersection *current_intersection = (t_intersection *)xs_current->content;
+		current_intersection = xs_current;
 
-		if (current_intersection->t > 0 && (!hit || current_intersection->t < ((t_intersection *)hit->content)->t))
-		{
+		if (current_intersection->t > 0 && (!hit || current_intersection->t < hit->t))
 			hit = xs_current;
-		}
 		xs_current = xs_current->next;
 	}
-
 	return hit;
+}
+
+t_intersection	*intersection(float value, void *object)
+{
+	t_intersection	*new;
+
+	new = ft_calloc(1, sizeof(t_intersection));
+	if (new == NULL)
+		return (NULL);
+	new->t = value;
+	new->o = object;
+	new->next = NULL;
+	return (new);
+}
+
+int	int_size(t_intersection *lst)
+{
+	int		count;
+	t_intersection	*next_value;
+
+	count = 0;
+	next_value = lst;
+	while (next_value)
+	{
+		count++;
+		next_value = next_value->next;
+	}
+	return (count);
+}
+
+t_intersection	*intlast(t_intersection *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+int	int_add_back(t_intersection **lst, t_intersection *new)
+{
+	if (!new)
+		return (1);
+	if (*lst == NULL)
+		*lst = new;
+	else
+		intlast(*lst)->next = new;
+	return (0);
 }

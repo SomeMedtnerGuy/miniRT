@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 14:48:48 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:44:22 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "libft/libft.h"
 # include "libftmatrix/libftmatrix.h"
 
-# define CANVAS_WIDTH 900
+# define CANVAS_WIDTH 500
 # define CANVAS_HEIGHT 500
 
 # define WINDOW_TITLE "miniRT"
@@ -61,11 +61,18 @@ typedef struct s_ray
 	t_tup4	direction;
 }	t_ray;
 
+typedef struct	s_intersection
+{
+	float					t;
+	void					*o;
+	struct s_intersection	*next;
+}	t_intersection;
+
 typedef struct s_world
 {
 	t_point_light	light;
-	t_list	*objects;
-	t_list	*xs;
+	t_intersection	*objects;
+	t_intersection	*xs;
 }	t_world;
 
 typedef enum	obj_type
@@ -83,12 +90,6 @@ typedef struct s_sphere //Acrescentar Material
 	float		radius;
 	t_matrix4	transform;
 }	t_sphere;
-
-typedef struct	s_intersection
-{
-	float		t;
-	void		*object;
-}	t_intersection;
 
 typedef struct s_canvas
 {
@@ -132,12 +133,19 @@ t_ray			transform(t_ray ray, t_matrix4 matrix);
 
 //INTERCECTION.C
 t_intersection	*intersection(float value, void *object);
-t_list			*hit(t_list *xs);
+int				int_size(t_intersection *lst);
+t_intersection	*intlast(t_intersection *lst);
+int				int_add_back(t_intersection **lst, t_intersection *new);
+t_intersection	*hit(t_intersection *xs);
 
 //SPHERE.C
 t_sphere		*sphere(void);
 void			set_transform(t_sphere *sphere, t_matrix4 matrix);
-t_list			*intersect(t_sphere *sphere, t_ray ray);
+t_intersection	*intersect(t_sphere *sphere, t_ray ray);
+void			intclear(t_intersection **lst);
+
+//CIRCLE
+//void			circle(t_root r);
 
 //MAIN
 void			put_pixel(t_canvas *img, int x, int y, int color);
