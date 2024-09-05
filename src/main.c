@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 17:43:55 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 19:37:46 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	put_pixel(t_canvas *img, int x, int y, int color)
 
 } */
 
-int	main()
+/*int	main(int argc, char **argv)
 {
 	t_root	r;
 
@@ -40,10 +40,10 @@ int	main()
 	r.canvas->addr = mlx_get_data_addr(r.canvas->img, &r.canvas->bits_per_pixel,
 					&r.canvas->line_length, &r.canvas->endian);
 	
-	//put_pixel(r.canvas, 100, 100, 0xffffff);
+  //put_pixel(r.canvas, 100, 100, 0xffffff);
 	//circle(r);
 	
 	mlx_put_image_to_window(r.mlx, r.win, r.canvas->img, 0, 0);
 	mlx_hook(r.win, DestroyNotify, 0L, clean_exit, &r);
 	mlx_loop(r.mlx);
-}
+}*/

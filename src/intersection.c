@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:32:47 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/05 17:22:00 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:36:40 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_intersection	*intersection(float value, void *object)
 	if (new == NULL)
 		return (NULL);
 	new->t = value;
-	new->o = object;
+	new->object = object;
 	new->next = NULL;
 	return (new);
 }
@@ -78,3 +78,4 @@ int	int_add_back(t_intersection **lst, t_intersection *new)
 		intlast(*lst)->next = new;
 	return (0);
 }
+

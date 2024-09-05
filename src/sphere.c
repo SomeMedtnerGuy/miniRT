@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/05 17:51:06 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 19:15:52 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_sphere	*sphere(void)
 
 	s = (t_sphere *)ft_calloc(1, sizeof(t_sphere));
 	s->type = SPHERE;
+	s->material = material();
 	s->center = tup4(0, 0, 0, TPOINT);
 	s->radius = 1;
 	s->transform = identity_matrix4();

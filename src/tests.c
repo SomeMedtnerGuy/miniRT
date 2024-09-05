@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 17:42:44 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 19:37:39 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -719,39 +719,137 @@ bool    test_reflect(void)
 bool    test_lighting(void)
 {
     char    *msg = "test_lighting failed!\n";
-    t_material  m;
-    t_point_light   light;
+    t_material  *m;
     t_light_data    ld;
 
     m = material();
-    ld.material = &m;
-    ld.light = &light;
+    ld.material = m;
     ld.point = point(0, 0, 0);
 
     ld.eyev = vector(0, 0, -1);
     ld.normalv = vector(0, 0, -1);
-    light = point_light(point(0, 0, -10), color(1, 1, 1)); 
+    ld.light = point_light(point(0, 0, -10), color(1, 1, 1)); 
     if (!(tup4cmp(lighting(&ld), color(1.9, 1.9, 1.9))))
         return (ft_printf(msg), false);
     ld.eyev = vector(0, sqrt(2) / 2, -sqrt(2) / 2);
     ld.normalv = vector(0, 0, -1);
-    light = point_light(point(0, 0, -10), color(1, 1, 1)); 
+    ld.light = point_light(point(0, 0, -10), color(1, 1, 1)); 
     if (!(tup4cmp(lighting(&ld), color(1.0, 1.0, 1.0))))
         return (ft_printf(msg), false);
     ld.eyev = vector(0, 0, -1);
     ld.normalv = vector(0, 0, -1);
-    light = point_light(point(0, 10, -10), color(1, 1, 1)); 
+    ld.light = point_light(point(0, 10, -10), color(1, 1, 1)); 
     if (!(tup4cmp(lighting(&ld), color(0.7364, 0.7364, 0.7364))))
         return (ft_printf(msg), false);
     ld.eyev = vector(0, -sqrt(2) / 2, -sqrt(2) / 2);
     ld.normalv = vector(0, 0, -1);
-    light = point_light(point(0, 10, -10), color(1, 1, 1)); 
+    ld.light = point_light(point(0, 10, -10), color(1, 1, 1)); 
     if (!(tup4cmp(lighting(&ld), color(1.63638, 1.63638, 1.63638))))
         return (ft_printf(msg), false);
     ld.eyev = vector(0, 0, -1);
     ld.normalv = vector(0, 0, -1);
-    light = point_light(point(0, 0, 10), color(1, 1, 1)); 
+    ld.light = point_light(point(0, 0, 10), color(1, 1, 1)); 
     if (!(tup4cmp(lighting(&ld), color(0.1, 0.1, 0.1))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_world(void)
+{
+    char    *msg = "test_world failed!\n";
+    t_world         *w;
+    t_ray           r;
+    t_intersection  *xs;
+
+    w = world();
+    if (!(w->light == NULL && w->objects == NULL))
+        return (ft_printf(msg), false);
+    w = default_world();
+    if (!(w->light && w->objects && w->objects->next
+            && !w->objects->next->next))
+        return (ft_printf(msg), false);
+    r = ray(point(0, 0, -5), vector(0, 0, 1));
+    xs = intersect_world(w, r);
+    if (!(/*ft_lstsize(xs) == 4 && */xs->t == 4
+            && xs->next->t == 4.5
+            && xs->next->next->t == 5.5
+            && xs->next->next->next->t == 6))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_prepare_computations(void)
+{
+    char    *msg = "test_prepare_computations failed!\n";
+    t_ray           r;
+    t_object        *shape;
+    t_intersection  *i;
+    t_comps         comps;
+
+    r = ray(point(0, 0, -5), vector(0, 0, 1));
+    shape = (t_object *)sphere(); //perhaps every object should return this type
+    i = intersection(4, shape);
+    comps = prepare_computations(i, r);
+    if (!(comps.t == i->t && comps.object == i->object
+        && tup4cmp(comps.point, point(0, 0, -1))
+        && tup4cmp(comps.eyev, vector(0, 0, -1))
+        && tup4cmp(comps.normalv, vector(0, 0, -1))
+        && comps.inside == false))
+        return (ft_printf(msg), false);
+    r = ray(point(0, 0, 0), vector(0, 0, 1));
+    i = intersection(1, shape);
+    comps = prepare_computations(i, r);
+    if (!(comps.t == i->t && comps.object == i->object
+        && tup4cmp(comps.point, point(0, 0, 1))
+        && tup4cmp(comps.eyev, vector(0, 0, -1))
+        && tup4cmp(comps.normalv, vector(0, 0, -1))
+        && comps.inside == true))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_shade_hit(void)
+{
+    char    *msg = "test_shade_hit failed!\n";
+    
+    t_world *w = default_world();
+    t_ray   r = ray(point(0, 0, -5), vector(0, 0, 1));
+    t_object    *shape = (t_object *)w->objects->content;
+    t_intersection  *i = intersection(4, shape);
+    t_comps comps = prepare_computations(i, r);
+    t_tup4  c = shade_hit(w, comps);
+    if (!(tup4cmp(c, color(0.38066, 0.47583, 0.2855))))
+        return (ft_printf(msg), false);
+    w = default_world();
+    w->light = point_light(point(0, 0.25, 0), color(1, 1, 1));
+    r = ray(point(0, 0, 0), vector(0, 0, 1));
+    shape = (t_object *)w->objects->next->content;
+    i = intersection(0.5, shape);
+    comps = prepare_computations(i, r);
+    c = shade_hit(w, comps);
+    if (!(tup4cmp(c, color(0.90498, 0.90498, 0.90498))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_(void)
+{
+    char    *msg = "failed!\n";
+    
+    t_world *w = default_world();
+    t_ray   r = ray(point(0, 0, 5), vector(0, 1, 0));
+    t_tup4  c = color_at(w, r);
+    if (!(tup4cmp(c, color(0, 0, 0))))
+        return (ft_printf(msg), false);
+    r = ray(point(0, 0, -5), vector(0, 0, 1));
+    c = color_at(w, r);
+    if (!(tup4cmp(c, color(0.38066, 0.47583, 0.2855))))
+        return (ft_printf(msg), false);
+    ((t_sphere *)w->objects->content)->material->ambient = 1;
+    ((t_sphere *)w->objects->next->content)->material->ambient = 1;
+    r = ray(point(0, 0, 0.75), vector(0, 0, -1));
+    c = color_at(w, r);
+    if (!(tup4cmp(c, ((t_sphere *)w->objects->next->content)->material->color)))
         return (ft_printf(msg), false);
     return (true);
 }
@@ -789,6 +887,9 @@ void    run_tests(void)
         printf("All transformation tests passed!!\n");
     if (test_sphere_normal() && test_reflect() && test_lighting())
         printf("All light tests passed!!\n");
+    if (test_world() && test_prepare_computations() && test_shade_hit()
+        && test_color_at())
+        printf("All scene tests passed!!\n");
 
 }
 
