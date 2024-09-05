@@ -6,57 +6,40 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:32:47 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/05 11:09:53 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:14:39 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-
-t_intersection *intersection(float value, void *object)
+t_intersection	*intersection(float value, void *object)
 {
 	t_intersection	*inter;
 
 	inter = ft_calloc(1, sizeof(t_intersection));
 	inter->t = value;
 	inter->object = object;
-
 	return (inter);
 }
 
-/* t_intersection	*intersections(t_list	*inter)
+t_list	*hit(t_list *xs)
 {
-	t_intersection	*join;
-	t_list	*next;
-	int j;
+	t_list	*hit;
+	t_list	*xs_current;
 
-	j = 0;
-	join = ft_calloc(ft_lstsize(inter), sizeof(t_intersection));
-
-	while(next)
+	hit = NULL;
+	xs_current = xs;
+	while (xs_current)
 	{
-		join[j] = inter;
-		i++;
+		// Check if it's a valid intersection and compare 't' values
+		t_intersection *current_intersection = (t_intersection *)xs_current->content;
+
+		if (current_intersection->t > 0 && (!hit || current_intersection->t < ((t_intersection *)hit->content)->t))
+		{
+			hit = xs_current;
+		}
+		xs_current = xs_current->next;
 	}
 
-
-	return (join);
-} */
-
-t_intersection	hit(t_intersection *intersections, int count)
-{
-	int	i;
-	t_intersection	hit;
-
-	hit.t = 0.0f;
-	i = 0;
-	while(i < count)
-	{
-		if(hit.t == 0 && intersections[i].t > 0)
-			hit = intersections[i];
-		else if(hit.t > intersections[i].t && intersections[i].t > 0)
-			hit = intersections[i];
-		i++;
-	}
-	return (hit);
+	return hit;
 }

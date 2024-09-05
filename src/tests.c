@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/03 11:10:24 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:31:58 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -791,3 +791,64 @@ void    run_tests(void)
         printf("All light tests passed!!\n");
 
 }
+
+/* void	sphere_testing()
+{
+	t_ray		R;
+	t_sphere	*S;
+	t_list		*xs;
+	t_list		*xs_current;
+	t_tup4		i_pt[2];
+	t_list		*i;
+	t_matrix4	scaling;
+	int			j;
+
+	R.origin = tup4(0, 0, -5, TPOINT);
+	R.direction = tup4(0, 0, 1, TVECTOR);
+
+	S = sphere();
+
+	scaling = matrix4(tup4(0.5, 0, 0, 0), tup4(0, 0.5, 0, 0),
+			tup4(0, 0, 0.5, 0), tup4(0, 0, 0, 1));
+
+	set_transform(S, scaling);
+
+	xs = intersect(S, R);
+
+	i = NULL;
+	i = hit(xs);
+
+	xs_current = xs;
+	while(xs_current)
+	{
+		printf("X1.t %f\n", ((t_intersection *)xs_current->content)->t);
+		xs_current = xs_current->next;
+	}
+
+	if(i)
+		printf("Hit : %f\n", ((t_intersection *)i->content)->t);
+
+	j = 0;
+	xs_current = xs;
+	while(xs_current)
+	{
+		i_pt[j] = tup4((R.origin.x + ((t_intersection *)xs_current->content)->t * R.direction.x),
+			(R.origin.y + ((t_intersection *)xs_current->content)->t * R.direction.y),
+			(R.origin.z + ((t_intersection *)xs_current->content)->t * R.direction.z), TPOINT);
+		xs_current = xs_current->next;
+		j++;
+	}
+
+	printf("p1 x value: %f\n", i_pt[0].x);
+	printf("p1 y value: %f\n", i_pt[0].y);
+	printf("p1 z value: %f\n", i_pt[0].z);
+
+	printf("p2 x value: %f\n", i_pt[1].x);
+	printf("p2 y value: %f\n", i_pt[1].y);
+	printf("p2 z value: %f\n", i_pt[1].z);
+
+	ft_lstclear(&xs, free);
+
+	free (S);
+	free(xs);
+} */

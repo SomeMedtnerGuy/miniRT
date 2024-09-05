@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 11:02:40 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:48:48 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,11 @@ unsigned char	float_to_shade(float color_strength);
 int				tuple_to_color(t_tup4 tup4);
 
 //LIGHT
-t_tup4	normal_at(t_sphere *sphere, t_tup4 p);
-t_tup4	reflect(t_tup4 in, t_tup4 normal);
+t_tup4			normal_at(t_sphere *sphere, t_tup4 p);
+t_tup4			reflect(t_tup4 in, t_tup4 normal);
 t_point_light	point_light(t_tup4 position, t_tup4 intensity);
-t_material	material(void);
-t_tup4	lighting(t_light_data *data);
+t_material		material(void);
+t_tup4			lighting(t_light_data *data);
 
 //TESTS.C
 void			run_tests(void);
@@ -132,12 +132,12 @@ t_ray			transform(t_ray ray, t_matrix4 matrix);
 
 //INTERCECTION.C
 t_intersection	*intersection(float value, void *object);
-t_intersection	*intersections(int count, ...);
-t_intersection	hit(t_intersection *intersections, int count);
+t_list			*hit(t_list *xs);
 
 //SPHERE.C
 t_sphere		*sphere(void);
-void			sphere_testing();
+void			set_transform(t_sphere *sphere, t_matrix4 matrix);
+t_list			*intersect(t_sphere *sphere, t_ray ray);
 
 //MAIN
 void			put_pixel(t_canvas *img, int x, int y, int color);
