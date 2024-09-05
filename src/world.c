@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/04 22:05:52 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/05 11:30:20 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_world	*world(void)
 
 t_world	*default_world(void)
 {
-	t_world	*w;
+	t_world		*w;
 	t_sphere	*s1;
 	t_sphere	*s2;
 
@@ -34,8 +34,8 @@ t_world	*default_world(void)
 	s1->material->diffuse = 0.7;
 	s1->material->specular = 0.2;
 	s2->transform = scaling(0.5, 0.5, 0.5);
-	ft_lstadd_back(&w->objects, s1);
-	ft_lstadd_back(&w->objects, s2);
+	ft_lstadd_back(&w->objects, ft_lstnew(s1));
+	ft_lstadd_back(&w->objects, ft_lstnew(s2));
 	return (w);
 }
 
