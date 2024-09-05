@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 19:29:54 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/05 20:42:47 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_comps	prepare_computations(t_intersection *intersection, t_ray ray)
 	t_comps	comps;
 
 	comps.t = intersection->t;
-	comps.object = (void *)intersection->object;
+	comps.object = (void *)intersection->o;
 	comps.point = position(ray, comps.t);
 	comps.eyev = negate_tup4(ray.direction);
 	comps.normalv = normal_at((t_sphere *)comps.object, comps.point);
@@ -136,13 +136,32 @@ t_tup4	shade_hit(t_world *w, t_comps comps)
 t_tup4	color_at(t_world *w, t_ray r)
 {
 	t_intersection	*xs;
-	t_intersection	*hit;
+	t_intersection	*hit_int;
 	t_comps			comps;
 
 	xs = intersect_world(w, r);
-	hit = hit(xs);
-	if (!hit)
+	hit_int = hit(xs);
+	if (!hit_int)
 		return (color(0, 0, 0));
-	comps = prepare_computations(hit, r);
+	comps = prepare_computations(hit_int, r);
 	return (shade_hit(w, comps));
+}
+
+t_matrix4	view_transform(t_tup4 from, t_tup4 to, t_tup4 up)
+{
+	t_tup4	forward;
+	t_tup4	left;
+	t_tup4	true_up;
+	t_matrix4	orientation;
+
+	forward = normalize(subtract_tup4(to, from));
+	left = cross(forward, normalize(up));
+	true_up = cross(left, forward);
+	orientation = matrix4(
+		tup4(left.x, left.y, left.z, 0),
+		tup4(true_up.x, true_up.y, true_up.z, 0),
+		tup4(-forward.x, -forward.y, -forward.z, 0),
+		tup4(0, 0, 0, 1));
+	return (multiply_matrix4(orientation, 
+				translation(-from.x, -from.y, -from.z)));
 }

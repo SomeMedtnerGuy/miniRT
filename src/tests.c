@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 19:37:39 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/05 20:42:30 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -790,7 +790,7 @@ bool    test_prepare_computations(void)
     shape = (t_object *)sphere(); //perhaps every object should return this type
     i = intersection(4, shape);
     comps = prepare_computations(i, r);
-    if (!(comps.t == i->t && comps.object == i->object
+    if (!(comps.t == i->t && comps.object == i->o
         && tup4cmp(comps.point, point(0, 0, -1))
         && tup4cmp(comps.eyev, vector(0, 0, -1))
         && tup4cmp(comps.normalv, vector(0, 0, -1))
@@ -799,7 +799,7 @@ bool    test_prepare_computations(void)
     r = ray(point(0, 0, 0), vector(0, 0, 1));
     i = intersection(1, shape);
     comps = prepare_computations(i, r);
-    if (!(comps.t == i->t && comps.object == i->object
+    if (!(comps.t == i->t && comps.object == i->o
         && tup4cmp(comps.point, point(0, 0, 1))
         && tup4cmp(comps.eyev, vector(0, 0, -1))
         && tup4cmp(comps.normalv, vector(0, 0, -1))
@@ -832,9 +832,9 @@ bool    test_shade_hit(void)
     return (true);
 }
 
-bool    test_(void)
+bool    test_color_at(void)
 {
-    char    *msg = "failed!\n";
+    char    *msg = "test_color_at failed!\n";
     
     t_world *w = default_world();
     t_ray   r = ray(point(0, 0, 5), vector(0, 1, 0));
@@ -854,12 +854,49 @@ bool    test_(void)
     return (true);
 }
 
+bool    test_view_transform(void)
+{
+    char    *msg = "test_view_transform failed!\n";
+    t_tup4  from;
+    t_tup4  to;
+    t_tup4  up;
+    t_matrix4   t;
+
+    from = point(0, 0, 0);
+    to = point(0, 0, -1);
+    up = vector(0, 1, 0);
+    t = view_transform(from, to, up);
+    if (!(matrix4cmp(t, identity_matrix4())))
+        return (ft_printf(msg), false);
+    from = point(0, 0, 0);
+    to = point(0, 0, 1);
+    up = vector(0, 1, 0);
+    t = view_transform(from, to, up);
+    if (!(matrix4cmp(t, scaling(-1, 1, -1))))
+        return (ft_printf(msg), false);
+    from = point(0, 0, 8);
+    to = point(0, 0, 0);
+    up = vector(0, 1, 0);
+    t = view_transform(from, to, up);
+    if (!(matrix4cmp(t, translation(0, 0, -8))))
+        return (ft_printf(msg), false);
+    from = point(1, 3, 2);
+    to = point(4, -2, 8);
+    up = vector(1, 1, 0);
+    t = view_transform(from, to, up);
+    if (!(matrix4cmp(t, matrix4(
+            tup4(-0.50709, 0.50709, 0.67612, -2.36643),
+            tup4(0.76772, 0.60609, 0.12122, -2.82843),
+            tup4(-0.35857, 0.59761, -0.71714, 0),
+            tup4(0, 0, 0, 1)))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
 bool    test_(void)
 {
     char    *msg = "failed!\n";
-    t_matrix4   t;
 
-    (void)t;
     if (!(1))
         return (ft_printf(msg), false);
     return (true);
@@ -888,12 +925,12 @@ void    run_tests(void)
     if (test_sphere_normal() && test_reflect() && test_lighting())
         printf("All light tests passed!!\n");
     if (test_world() && test_prepare_computations() && test_shade_hit()
-        && test_color_at())
+        && test_color_at() && test_view_transform())
         printf("All scene tests passed!!\n");
 
 }
 
-void	sphere_testing()
+/*void	sphere_testing()
 {
 	t_ray		R;
 	t_sphere	*S;
@@ -952,4 +989,4 @@ void	sphere_testing()
 
 	free (S);
 	free(xs);
-}
+}*/

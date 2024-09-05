@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 19:33:04 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/05 20:42:44 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ typedef struct s_sphere //Acrescentar Material
 	t_matrix4	transform;
 }	t_sphere;
 
-typedef struct	s_intersection
+/*typedef struct	s_intersection
 {
 	float		t;
 	void		*object; //Perhaps change this type to t_object?
 	struct s_intersection	*next;
-}	t_intersection;
+}	t_intersection;*/
 
 typedef struct s_comps
 {
@@ -180,6 +180,7 @@ t_intersection	*intersect_world(t_world *w, t_ray r);
 t_comps			prepare_computations(t_intersection *intersection, t_ray ray);
 t_tup4			shade_hit(t_world *w, t_comps comps);
 t_tup4			color_at(t_world *w, t_ray r);
+t_matrix4	view_transform(t_tup4 from, t_tup4 to, t_tup4 up);
 
 //MAIN
 void			put_pixel(t_canvas *img, int x, int y, int color);
