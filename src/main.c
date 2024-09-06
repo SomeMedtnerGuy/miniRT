@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 17:57:00 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:28:58 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,32 +50,32 @@ int	main(int argc, char **argv)
 	t_camera	*c;
 
 	floor = sphere();
-	set_transform(floor, scaling(10, 0.01, 10));
+	set_transform((t_shape *)floor, scaling(10, 0.01, 10));
 	floor->material = material();
 	floor->material->color = color(1, 0.9, 0.9);
 	floor->material->specular = 0;
 
 	left_wall = sphere();
-	set_transform(left_wall, multiply_matrix4(translation(0, 0, 5),
+	set_transform((t_shape *)left_wall, multiply_matrix4(translation(0, 0, 5),
 				multiply_matrix4(rotation_y(-M_PI / 4), 
 				multiply_matrix4(rotation_x(M_PI / 2), scaling(10, 0.01, 10)))));
 	left_wall->material = floor->material;
 
 	right_wall = sphere();
-	set_transform(right_wall, multiply_matrix4(translation(0, 0, 5),
+	set_transform((t_shape *)right_wall, multiply_matrix4(translation(0, 0, 5),
 				multiply_matrix4(rotation_y(M_PI / 4), 
 				multiply_matrix4(rotation_x(M_PI / 2), scaling(10, 0.01, 10)))));
 	right_wall->material = floor->material;
 
 	middle = sphere();
-	set_transform(middle, translation(-0.5, 1, 0.5));
+	set_transform((t_shape *)middle, translation(-0.5, 1, 0.5));
 	middle->material = material();
 	middle->material->color = color(0.1, 1, 0.5);
 	middle->material->diffuse = 0.7;
 	middle->material->specular = 0.3;
 
 	right = sphere();
-	set_transform(right, multiply_matrix4(translation(1.5, 0.5, -0.5),
+	set_transform((t_shape *)right, multiply_matrix4(translation(1.5, 0.5, -0.5),
 						scaling(0.5, 0.5, 0.5)));
 	right->material = material();
 	right->material->color = color(0.5, 1, 0.1);
@@ -83,7 +83,7 @@ int	main(int argc, char **argv)
 	right->material->specular = 0.3;
 
 	left = sphere();
-	set_transform(left, multiply_matrix4(translation(-1.5, 0.33, -0.75),
+	set_transform((t_shape *)left, multiply_matrix4(translation(-1.5, 0.33, -0.75),
 						scaling(0.33, 0.33, 0.33)));
 	left->material = material();
 	left->material->color = color(1, 0.8, 0.1);

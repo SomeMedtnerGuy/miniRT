@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 18:37:10 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:30:00 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_world	*default_world(void)
 	s1->material->color = color(0.8, 1.0, 0.6);
 	s1->material->diffuse = 0.7;
 	s1->material->specular = 0.2;
-	s2->transform = scaling(0.5, 0.5, 0.5);
+	set_transform((t_shape *)s2, scaling(0.5, 0.5, 0.5));
 	ft_lstadd_back(&(w->objects), ft_lstnew(s1));
 	ft_lstadd_back(&(w->objects), ft_lstnew(s2));
 	return (w);
@@ -87,7 +87,7 @@ void	lstadd_xs_sorted(t_intersection **lst, t_intersection *new)
 t_intersection	*intersect_world(t_world *w, t_ray r)
 {
 	t_list	*current_obj_node;
-	t_object	*object;
+	t_shape	*object;
 	t_intersection	*world_xs;
 
 	world_xs = NULL;
@@ -96,7 +96,7 @@ t_intersection	*intersect_world(t_world *w, t_ray r)
 	{
 		object = current_obj_node->content;
 		if (object->type == SPHERE)
-			lstadd_xs_sorted(&world_xs, intersect((t_sphere *)object, r));
+			lstadd_xs_sorted(&world_xs, intersect(object, r));
 		current_obj_node = current_obj_node->next;
 	}
 	return (world_xs);
@@ -110,7 +110,7 @@ t_comps	prepare_computations(t_intersection *intersection, t_ray ray)
 	comps.object = (void *)intersection->o;
 	comps.point = position(ray, comps.t);
 	comps.eyev = negate_tup4(ray.direction);
-	comps.normalv = normal_at((t_sphere *)comps.object, comps.point);
+	comps.normalv = sphere_normal_at((t_sphere *)comps.object, comps.point); //CHECK FOR TYPE AND CALL RIGHT FUNC
 	if (dot(comps.normalv, comps.eyev) < 0)
 	{
 		comps.inside = true;
@@ -126,7 +126,7 @@ t_tup4	shade_hit(t_world *w, t_comps comps)
 {
 	t_light_data	ld;
 
-	ld.material = ((t_sphere *)comps.object)->material; //CHANGE THIS TO ANY OBJECT'S MATERIAL??
+	ld.material = ((t_shape *)comps.object)->material;
 	ld.light = w->light;
 	ld.point = comps.point;
 	ld.eyev = comps.eyev;
