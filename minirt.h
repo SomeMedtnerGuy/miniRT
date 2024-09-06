@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 14:58:28 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 17:50:49 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft/libft.h"
 # include "libftmatrix/libftmatrix.h"
 
-# define CANVAS_WIDTH 500
-# define CANVAS_HEIGHT 250
+# define CANVAS_WIDTH 600
+# define CANVAS_HEIGHT 300
 
 # define WINDOW_TITLE "miniRT"
 
@@ -85,15 +85,19 @@ typedef enum	obj_type
 typedef struct s_object
 {
 	t_obj_type	type;
+	t_material	*material;
+	t_matrix4	transform;
+	t_matrix4	i_transform;
 }	t_object;
 
-typedef struct s_sphere //Acrescentar Material
+typedef struct s_sphere
 {
 	t_obj_type	type;
 	t_material	*material;
+	t_matrix4	transform;
+	t_matrix4	i_transform;
 	t_tup4		center;
 	float		radius;
-	t_matrix4	transform;
 }	t_sphere;
 
 /*typedef struct	s_intersection
