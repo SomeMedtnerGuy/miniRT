@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 15:47:04 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:37:10 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ t_comps	prepare_computations(t_intersection *intersection, t_ray ray)
 	}
 	else
 		comps.inside = false;
+	comps.over_point = add_tup4(comps.point, multiply_tup4(comps.normalv, EPSILON * 500));
 	return (comps);
 }
 
@@ -130,6 +131,7 @@ t_tup4	shade_hit(t_world *w, t_comps comps)
 	ld.point = comps.point;
 	ld.eyev = comps.eyev;
 	ld.normalv = comps.normalv;
+	ld.in_shadow = is_shadowed(w, comps.over_point);
 	return (lighting(&ld));
 }
 
