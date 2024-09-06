@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 12:04:33 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:58:28 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "libftmatrix/libftmatrix.h"
 
 # define CANVAS_WIDTH 500
-# define CANVAS_HEIGHT 500
+# define CANVAS_HEIGHT 250
 
 # define WINDOW_TITLE "miniRT"
 
@@ -195,6 +195,7 @@ t_tup4			color_at(t_world *w, t_ray r);
 t_matrix4		view_transform(t_tup4 from, t_tup4 to, t_tup4 up);
 t_camera		*camera(float hsize, float vsize, float field_of_view);
 t_ray			ray_for_pixel(t_camera *camera, float px, float py);
+void			render(t_canvas *canvas, t_camera *camera, t_world *world);
 
 //MAIN
 void			put_pixel(t_canvas *img, int x, int y, int color);

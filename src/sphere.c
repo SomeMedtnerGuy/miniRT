@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/05 19:15:52 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 15:46:45 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	set_transform(t_sphere *sphere, t_matrix4 matrix)
 	sphere->transform.t[1] = matrix.t[1];
 	sphere->transform.t[2] = matrix.t[2];
 	sphere->transform.t[3] = matrix.t[3];
+	//sphere->itransform = invert_matrix4(sphere->transform);
 }
 
 void	intclear(t_intersection **lst)
