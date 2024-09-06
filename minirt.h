@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
 /*   Updated: 2024/09/06 18:37:58 by ndo-vale         ###   ########.fr       */
@@ -165,19 +165,21 @@ t_ray			ray(t_tup4 origin, t_tup4 direction);
 t_tup4			position(t_ray ray, float	t);
 t_ray			transform(t_ray ray, t_matrix4 matrix);
 
-//INTERSECTION.C
-t_intersection	*intersection(float value, void *object);
+//LST_UTILS.C
 int				int_size(t_intersection *lst);
 t_intersection	*intlast(t_intersection *lst);
 int				int_add_back(t_intersection **lst, t_intersection *new);
+void			intclear(t_intersection **lst);
+void			int_front(t_intersection **lst, t_intersection *new);
+
+//INTERSECTION.C
+t_intersection	*intersection(float value, void *object);
 t_intersection	*hit(t_intersection *xs);
 
 //SPHERE.C
 t_sphere		*sphere(void);
 void			set_transform(t_sphere *sphere, t_matrix4 matrix);
 t_intersection	*intersect(t_sphere *sphere, t_ray ray);
-void			intclear(t_intersection **lst);
-void			int_front(t_intersection **lst, t_intersection *new);
 
 //WORLD.C
 t_world			*world(void);

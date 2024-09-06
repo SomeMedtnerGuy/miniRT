@@ -6,7 +6,7 @@
 #    By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 14:30:34 by ndo-vale          #+#    #+#              #
-#    Updated: 2024/09/05 10:39:47 by joamonte         ###   ########.fr        #
+#    Updated: 2024/09/06 16:46:18 by joamonte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC_DIR		= src/
 OBJ_DIR		= obj/
 
 SRCS		= $(addprefix $(SRC_DIR), tests.c main.c clean_exit.c color.c \
-					ray.c sphere.c intersection.c light.c world.c)
+					lst_utils.c ray.c sphere.c intersection.c light.c world.c)
 OBJS		= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 LIBFT_DIR	= libft

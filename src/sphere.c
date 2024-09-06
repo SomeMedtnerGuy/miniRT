@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
 /*   Updated: 2024/09/06 16:53:15 by ndo-vale         ###   ########.fr       */
@@ -54,25 +54,4 @@ void	set_transform(t_sphere *sphere, t_matrix4 matrix)
 {
 	sphere->transform = matrix;
 	sphere->i_transform = invert_matrix4(sphere->transform);
-}
-
-void	intclear(t_intersection **lst)
-{
-	t_intersection	*buffer;
-
-	while (*lst)
-	{
-		buffer = (*lst)->next;
-		free(*lst);
-		*lst = buffer;
-	}
-}
-
-void	int_front(t_intersection **lst, t_intersection *new)
-{
-	if (new != NULL)
-	{
-		new->next = *lst;
-		*lst = new;
-	}
 }
