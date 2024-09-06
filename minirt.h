@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 18:37:58 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:29:27 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft/libft.h"
 # include "libftmatrix/libftmatrix.h"
 
-# define CANVAS_WIDTH 1500
-# define CANVAS_HEIGHT 750
+# define CANVAS_WIDTH 500
+# define CANVAS_HEIGHT 250
 
 # define WINDOW_TITLE "miniRT"
 
@@ -83,13 +83,13 @@ typedef enum	obj_type
 	CYLINDER
 }	t_obj_type;
 
-typedef struct s_object
+typedef struct s_shape
 {
 	t_obj_type	type;
 	t_material	*material;
 	t_matrix4	transform;
 	t_matrix4	i_transform;
-}	t_object;
+}	t_shape;
 
 typedef struct s_sphere
 {
@@ -100,6 +100,24 @@ typedef struct s_sphere
 	t_tup4		center;
 	float		radius;
 }	t_sphere;
+
+typedef struct s_plane
+{
+	t_obj_type	type;
+	t_material	*material;
+	t_matrix4	transform;
+	t_matrix4	i_transform;
+	t_tup4		normal;
+}	t_plane;
+
+typedef struct s_cylinder
+{
+	t_obj_type	type;
+	t_material	*material;
+	t_matrix4	transform;
+	t_matrix4	i_transform;
+	
+}	t_cylinder;
 
 typedef struct s_comps
 {
@@ -150,7 +168,6 @@ unsigned char	float_to_shade(float color_strength);
 int				tuple_to_color(t_tup4 tup4);
 
 //LIGHT
-t_tup4	normal_at(t_sphere *sphere, t_tup4 p);
 t_tup4	reflect(t_tup4 in, t_tup4 normal);
 t_point_light	*point_light(t_tup4 position, t_tup4 intensity);
 t_material	*material(void);
@@ -175,11 +192,17 @@ void			int_front(t_intersection **lst, t_intersection *new);
 //INTERSECTION.C
 t_intersection	*intersection(float value, void *object);
 t_intersection	*hit(t_intersection *xs);
+t_intersection  *intersect(t_shape *shape, t_ray ray);
 
 //SPHERE.C
 t_sphere		*sphere(void);
-void			set_transform(t_sphere *sphere, t_matrix4 matrix);
-t_intersection	*intersect(t_sphere *sphere, t_ray ray);
+void			set_transform(t_shape *shape, t_matrix4 matrix);
+t_intersection	*sphere_intersect(t_sphere *sphere, t_ray ray);
+t_tup4			sphere_normal_at(t_sphere *sphere, t_tup4 world_p);
+
+//PLANE.C
+t_plane			*plane(void);
+t_intersection	*plane_intersect(t_plane *plane, t_ray ray);
 
 //WORLD.C
 t_world			*world(void);

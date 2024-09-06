@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/06 16:53:15 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:28:16 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ t_sphere	*sphere(void)
 	s->center = tup4(0, 0, 0, TPOINT);
 	s->radius = 1;
 	s->transform = identity_matrix4();
+	s->i_transform = identity_matrix4();
 	return	(s);
 }
 
-t_intersection	*intersect(t_sphere *sphere, t_ray ray)
+t_intersection	*sphere_intersect(t_sphere *sphere, t_ray ray)
 {
 	t_tup4			sphere_to_ray;
 	float			var[4];
 	float			i_value[2];
 	t_intersection	*xs;
 
-	ray = transform(ray, sphere->i_transform);
 	sphere_to_ray = subtract_tup4(ray.origin, sphere->center);
 	var[0] = dot(ray.direction, ray.direction);
 	var[1] = 2 * dot(ray.direction, sphere_to_ray);
@@ -50,8 +50,23 @@ t_intersection	*intersect(t_sphere *sphere, t_ray ray)
 	return (xs);
 }
 
-void	set_transform(t_sphere *sphere, t_matrix4 matrix)
+void	set_transform(t_shape *shape, t_matrix4 matrix)
 {
-	sphere->transform = matrix;
-	sphere->i_transform = invert_matrix4(sphere->transform);
+	shape->transform = matrix;
+	shape->i_transform = invert_matrix4(shape->transform);
+}
+
+
+t_tup4	sphere_normal_at(t_sphere *sphere, t_tup4 world_p)
+{
+	t_tup4	object_p;
+	t_tup4	object_normal;
+	t_tup4	world_normal;
+
+	object_p = matrix4_mult_tup4(sphere->i_transform, world_p);
+	object_normal = subtract_tup4(object_p, point(0, 0, 0));
+	world_normal = matrix4_mult_tup4(transpose_matrix4(
+				sphere->i_transform), object_normal);
+	world_normal.w = TVECTOR;
+	return (normalize(world_normal));
 }

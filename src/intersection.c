@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:32:47 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/06 16:44:55 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/06 21:42:10 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,15 @@ t_intersection	*intersection(float value, void *object)
 	new->o = object;
 	new->next = NULL;
 	return (new);
+}
+
+t_intersection	*intersect(t_shape *shape, t_ray ray)
+{
+	ray = transform(ray, shape->i_transform);
+	if (shape->type == SPHERE)
+		return (sphere_intersect((t_sphere *)shape, ray));
+	/*else if (shape->type == CYLINDER)
+		return (cylinder_intersect((t_cylinder *)shape, ray));*/
+	else
+		return (plane_intersect((t_plane *)shape, ray));
 }
