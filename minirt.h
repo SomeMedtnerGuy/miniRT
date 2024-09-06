@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 22:29:27 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:50:43 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,6 @@ typedef struct s_ray
 	t_tup4	direction;
 }	t_ray;
 
-typedef struct	s_intersection
-{
-	float					t;
-	void					*o;
-	struct s_intersection	*next;
-}	t_intersection;
-
-typedef struct s_world
-{
-	t_point_light	*light;
-	t_list	*objects;
-	t_intersection	*xs;
-}	t_world;
-
 typedef enum	obj_type
 {
 	PLANE,
@@ -90,6 +76,22 @@ typedef struct s_shape
 	t_matrix4	transform;
 	t_matrix4	i_transform;
 }	t_shape;
+
+typedef struct	s_intersection
+{
+	float					t;
+	t_shape					*o;
+	struct s_intersection	*next;
+}	t_intersection;
+
+typedef struct s_world
+{
+	t_point_light	*light;
+	t_list	*objects;
+	t_intersection	*xs;
+}	t_world;
+
+
 
 typedef struct s_sphere
 {
@@ -203,6 +205,11 @@ t_tup4			sphere_normal_at(t_sphere *sphere, t_tup4 world_p);
 //PLANE.C
 t_plane			*plane(void);
 t_intersection	*plane_intersect(t_plane *plane, t_ray ray);
+
+//CYLINDER.C
+t_cylinder	*cylinder(void);
+t_intersection	*cylinder_intersect(t_cylinder *cylinder, t_ray ray);
+t_tup4	cylinder_normal_at(t_cylinder *c, t_tup4 world_p);
 
 //WORLD.C
 t_world			*world(void);

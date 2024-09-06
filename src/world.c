@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 22:30:00 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:59:07 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ t_intersection	*intersect_world(t_world *w, t_ray r)
 	while (current_obj_node)
 	{
 		object = current_obj_node->content;
-		if (object->type == SPHERE)
-			lstadd_xs_sorted(&world_xs, intersect(object, r));
+		//if (object->type == SPHERE)
+		lstadd_xs_sorted(&world_xs, intersect(object, r));
 		current_obj_node = current_obj_node->next;
 	}
 	return (world_xs);
@@ -110,7 +110,12 @@ t_comps	prepare_computations(t_intersection *intersection, t_ray ray)
 	comps.object = (void *)intersection->o;
 	comps.point = position(ray, comps.t);
 	comps.eyev = negate_tup4(ray.direction);
-	comps.normalv = sphere_normal_at((t_sphere *)comps.object, comps.point); //CHECK FOR TYPE AND CALL RIGHT FUNC
+	if (intersection->o->type == SPHERE)
+		comps.normalv = sphere_normal_at((t_sphere *)comps.object, comps.point);
+	else
+	{
+		comps.normalv = cylinder_normal_at((t_cylinder *)comps.object, comps.point);
+	}
 	if (dot(comps.normalv, comps.eyev) < 0)
 	{
 		comps.inside = true;

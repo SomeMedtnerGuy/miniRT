@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 22:28:58 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 23:03:36 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 	t_sphere	*right_wall;
 	t_sphere	*middle;
 	t_sphere	*right;
-	t_sphere	*left;
+	t_cylinder	*left;
 	t_world		*w;
 	t_camera	*c;
 
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 	middle->material->color = color(0.1, 1, 0.5);
 	middle->material->diffuse = 0.7;
 	middle->material->specular = 0.3;
-
+	
 	right = sphere();
 	set_transform((t_shape *)right, multiply_matrix4(translation(1.5, 0.5, -0.5),
 						scaling(0.5, 0.5, 0.5)));
@@ -82,9 +82,9 @@ int	main(int argc, char **argv)
 	right->material->diffuse = 0.7;
 	right->material->specular = 0.3;
 
-	left = sphere();
+	left = cylinder();
 	set_transform((t_shape *)left, multiply_matrix4(translation(-1.5, 0.33, -0.75),
-						scaling(0.33, 0.33, 0.33)));
+						scaling(0.3, 0.3, 0.3)));
 	left->material = material();
 	left->material->color = color(1, 0.8, 0.1);
 	left->material->diffuse = 0.7;
@@ -98,7 +98,7 @@ int	main(int argc, char **argv)
 	ft_lstadd_back(&w->objects, ft_lstnew(right));
 	ft_lstadd_back(&w->objects, ft_lstnew(left));
 	w->light = point_light(point(-10, 10, -10), color(1, 1, 1));
-	c = camera(CANVAS_WIDTH, CANVAS_HEIGHT, M_PI / 3);
+	c = camera(CANVAS_WIDTH, CANVAS_HEIGHT, M_PI / 2);
 	c->transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
 	render(r.canvas, c, w);
