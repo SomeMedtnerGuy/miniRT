@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 20:42:44 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 12:04:33 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,18 @@ typedef struct s_canvas
 	int		endian;
 }	t_canvas;
 
+typedef struct s_camera
+{
+	float		hsize;
+	float		vsize;
+	float		field_of_view;
+	float		half_width;
+	float		half_height;
+	float		pixel_size;
+	t_matrix4	transform;
+
+}	t_camera;
+
 typedef struct s_root
 {
 	void		*mlx;
@@ -180,7 +192,9 @@ t_intersection	*intersect_world(t_world *w, t_ray r);
 t_comps			prepare_computations(t_intersection *intersection, t_ray ray);
 t_tup4			shade_hit(t_world *w, t_comps comps);
 t_tup4			color_at(t_world *w, t_ray r);
-t_matrix4	view_transform(t_tup4 from, t_tup4 to, t_tup4 up);
+t_matrix4		view_transform(t_tup4 from, t_tup4 to, t_tup4 up);
+t_camera		*camera(float hsize, float vsize, float field_of_view);
+t_ray			ray_for_pixel(t_camera *camera, float px, float py);
 
 //MAIN
 void			put_pixel(t_canvas *img, int x, int y, int color);

@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 20:42:47 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 12:32:52 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,4 +164,69 @@ t_matrix4	view_transform(t_tup4 from, t_tup4 to, t_tup4 up)
 		tup4(0, 0, 0, 1));
 	return (multiply_matrix4(orientation, 
 				translation(-from.x, -from.y, -from.z)));
+}
+
+t_camera	*camera(float hsize, float vsize, float field_of_view)
+{
+	float	aspect;
+	t_camera	*c;
+
+	c = (t_camera *)ft_calloc(1, sizeof(t_camera));
+	c->hsize = hsize;
+	c->vsize = vsize;
+	c->field_of_view = field_of_view;
+	c->transform = identity_matrix4();
+	aspect = hsize / vsize;
+	if (aspect >= 1)
+	{
+		c->half_width = tan(c->field_of_view / 2);
+		c->half_height = c->half_width / aspect;
+	}
+	else
+	{
+		c->half_height = tan(c->field_of_view / 2);
+		c->half_width = c->half_height * aspect;
+	}
+	c->pixel_size = (c->half_width * 2) / c->hsize;
+	return (c);
+}
+
+t_ray	ray_for_pixel(t_camera *camera, float px, float py)
+{
+	t_tup2	offset;
+	t_tup2	worldc;
+	t_tup4	origin;
+	t_tup4	pixel;
+	t_tup4	direction;
+
+	offset.x = (px + 0.5) * camera->pixel_size;
+	offset.y = (py + 0.5) * camera->pixel_size;
+	worldc.x = camera->half_width - offset.x;
+	worldc.y = camera->half_height - offset.y;
+	pixel = matrix4_mult_tup4(invert_matrix4(camera->transform),
+								point(worldc.x, worldc.y, -1));
+	origin = matrix4_mult_tup4(invert_matrix4(
+				camera->transform), point(0, 0, 0));
+	direction = normalize(subtract_tup4(pixel, origin));
+	return (ray(origin, direction));	
+}
+
+void	render(t_canvas *canvas, t_camera *camera, t_world *world)
+{
+	int		y;
+	int		x;
+	t_ray	ray;
+	t_tup4	color;
+
+	y = -1;
+	while (++y < camera->vsize)
+	{
+		x = -1;
+		while (++x < camera->hsize)
+		{
+			ray = ray_for_pixel(camera, x, y);
+			color = color_at(world, ray);
+			put_pixel(canvas, x, y, tuple_to_color(color));
+		}
+	}
 }

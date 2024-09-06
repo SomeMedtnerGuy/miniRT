@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 20:42:30 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 12:22:35 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -893,7 +893,57 @@ bool    test_view_transform(void)
     return (true);
 }
 
-bool    test_(void)
+bool    test_camera(void)
+{
+    char    *msg = "test_camera failed!\n";
+
+    float   hsize;
+    float   vsize;
+    float   field_of_view;
+    t_camera    *c;
+
+    hsize = 160;
+    vsize = 120;
+    field_of_view = M_PI / 2;
+    c = camera(hsize, vsize, field_of_view);
+    if (!(ft_fcmp(c->hsize, 160) && ft_fcmp(c->vsize, 120)
+            && ft_fcmp(c->field_of_view, M_PI / 2)
+            && matrix4cmp(c->transform, identity_matrix4())))
+        return (ft_printf(msg), false);
+    c = camera(200, 125, M_PI / 2);
+    if (!(ft_fcmp(c->pixel_size, 0.01)))
+        return (ft_printf(msg), false);
+    c = camera(125, 200, M_PI / 2);
+    if (!(ft_fcmp(c->pixel_size, 0.01)))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_ray_for_pixel(void)
+{
+    char    *msg = "test_ray_for_pixel failed!\n";
+    t_camera    *c;
+    t_ray   r;
+
+    c = camera(201, 101, M_PI / 2);
+    r = ray_for_pixel(c, 100, 50);
+    if (!(tup4cmp(r.origin, point(0, 0, 0))
+        && tup4cmp(r.direction, vector(0, 0, -1))))
+        return (ft_printf(msg), false);
+    r = ray_for_pixel(c, 0, 0);
+    if (!(tup4cmp(r.origin, point(0, 0, 0))
+        && tup4cmp(r.direction, vector(0.66519, 0.33259, -0.66851))))
+        return (ft_printf(msg), false);
+    c->transform = multiply_matrix4(rotation_y(M_PI / 4),
+                                    translation(0, -2, 5));
+    r = ray_for_pixel(c, 100, 50);
+    if (!(tup4cmp(r.origin, point(0, 2, -5))
+        && tup4cmp(r.direction, vector(sqrt(2) / 2, 0, -(sqrt(2) / 2)))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_render(void)
 {
     char    *msg = "failed!\n";
 
@@ -901,6 +951,23 @@ bool    test_(void)
         return (ft_printf(msg), false);
     return (true);
 }
+
+/*bool    test_(void)
+{
+    char    *msg = "failed!\n";
+    t_world     *w;
+    t_camera    *c;
+    t_canvas    *canvas;
+    w = default_world();
+    c = camera(11, 11, M_PI / 2);
+    c->transform = view_transform(point(0, 0, -5),
+                                point(0, 0, 0),
+                                vector(0, 1, 0));
+    
+    if (!(1))
+        return (ft_printf(msg), false);
+    return (true);
+}*/
 
 void    run_tests(void)
 {
@@ -925,7 +992,8 @@ void    run_tests(void)
     if (test_sphere_normal() && test_reflect() && test_lighting())
         printf("All light tests passed!!\n");
     if (test_world() && test_prepare_computations() && test_shade_hit()
-        && test_color_at() && test_view_transform())
+        && test_color_at() && test_view_transform() && test_camera()
+        && test_ray_for_pixel()/* && test_render()*/)
         printf("All scene tests passed!!\n");
 
 }
