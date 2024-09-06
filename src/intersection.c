@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:32:47 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/05 17:36:40 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/05 19:57:42 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_intersection	*intersection(float value, void *object)
 	if (new == NULL)
 		return (NULL);
 	new->t = value;
-	new->object = object;
+	new->o = object;
 	new->next = NULL;
 	return (new);
 }

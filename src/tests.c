@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 19:37:39 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 12:22:35 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -790,7 +790,7 @@ bool    test_prepare_computations(void)
     shape = (t_object *)sphere(); //perhaps every object should return this type
     i = intersection(4, shape);
     comps = prepare_computations(i, r);
-    if (!(comps.t == i->t && comps.object == i->object
+    if (!(comps.t == i->t && comps.object == i->o
         && tup4cmp(comps.point, point(0, 0, -1))
         && tup4cmp(comps.eyev, vector(0, 0, -1))
         && tup4cmp(comps.normalv, vector(0, 0, -1))
@@ -799,7 +799,7 @@ bool    test_prepare_computations(void)
     r = ray(point(0, 0, 0), vector(0, 0, 1));
     i = intersection(1, shape);
     comps = prepare_computations(i, r);
-    if (!(comps.t == i->t && comps.object == i->object
+    if (!(comps.t == i->t && comps.object == i->o
         && tup4cmp(comps.point, point(0, 0, 1))
         && tup4cmp(comps.eyev, vector(0, 0, -1))
         && tup4cmp(comps.normalv, vector(0, 0, -1))
@@ -832,9 +832,9 @@ bool    test_shade_hit(void)
     return (true);
 }
 
-bool    test_(void)
+bool    test_color_at(void)
 {
-    char    *msg = "failed!\n";
+    char    *msg = "test_color_at failed!\n";
     
     t_world *w = default_world();
     t_ray   r = ray(point(0, 0, 5), vector(0, 1, 0));
@@ -854,16 +854,120 @@ bool    test_(void)
     return (true);
 }
 
-bool    test_(void)
+bool    test_view_transform(void)
 {
-    char    *msg = "failed!\n";
+    char    *msg = "test_view_transform failed!\n";
+    t_tup4  from;
+    t_tup4  to;
+    t_tup4  up;
     t_matrix4   t;
 
-    (void)t;
+    from = point(0, 0, 0);
+    to = point(0, 0, -1);
+    up = vector(0, 1, 0);
+    t = view_transform(from, to, up);
+    if (!(matrix4cmp(t, identity_matrix4())))
+        return (ft_printf(msg), false);
+    from = point(0, 0, 0);
+    to = point(0, 0, 1);
+    up = vector(0, 1, 0);
+    t = view_transform(from, to, up);
+    if (!(matrix4cmp(t, scaling(-1, 1, -1))))
+        return (ft_printf(msg), false);
+    from = point(0, 0, 8);
+    to = point(0, 0, 0);
+    up = vector(0, 1, 0);
+    t = view_transform(from, to, up);
+    if (!(matrix4cmp(t, translation(0, 0, -8))))
+        return (ft_printf(msg), false);
+    from = point(1, 3, 2);
+    to = point(4, -2, 8);
+    up = vector(1, 1, 0);
+    t = view_transform(from, to, up);
+    if (!(matrix4cmp(t, matrix4(
+            tup4(-0.50709, 0.50709, 0.67612, -2.36643),
+            tup4(0.76772, 0.60609, 0.12122, -2.82843),
+            tup4(-0.35857, 0.59761, -0.71714, 0),
+            tup4(0, 0, 0, 1)))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_camera(void)
+{
+    char    *msg = "test_camera failed!\n";
+
+    float   hsize;
+    float   vsize;
+    float   field_of_view;
+    t_camera    *c;
+
+    hsize = 160;
+    vsize = 120;
+    field_of_view = M_PI / 2;
+    c = camera(hsize, vsize, field_of_view);
+    if (!(ft_fcmp(c->hsize, 160) && ft_fcmp(c->vsize, 120)
+            && ft_fcmp(c->field_of_view, M_PI / 2)
+            && matrix4cmp(c->transform, identity_matrix4())))
+        return (ft_printf(msg), false);
+    c = camera(200, 125, M_PI / 2);
+    if (!(ft_fcmp(c->pixel_size, 0.01)))
+        return (ft_printf(msg), false);
+    c = camera(125, 200, M_PI / 2);
+    if (!(ft_fcmp(c->pixel_size, 0.01)))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_ray_for_pixel(void)
+{
+    char    *msg = "test_ray_for_pixel failed!\n";
+    t_camera    *c;
+    t_ray   r;
+
+    c = camera(201, 101, M_PI / 2);
+    r = ray_for_pixel(c, 100, 50);
+    if (!(tup4cmp(r.origin, point(0, 0, 0))
+        && tup4cmp(r.direction, vector(0, 0, -1))))
+        return (ft_printf(msg), false);
+    r = ray_for_pixel(c, 0, 0);
+    if (!(tup4cmp(r.origin, point(0, 0, 0))
+        && tup4cmp(r.direction, vector(0.66519, 0.33259, -0.66851))))
+        return (ft_printf(msg), false);
+    c->transform = multiply_matrix4(rotation_y(M_PI / 4),
+                                    translation(0, -2, 5));
+    r = ray_for_pixel(c, 100, 50);
+    if (!(tup4cmp(r.origin, point(0, 2, -5))
+        && tup4cmp(r.direction, vector(sqrt(2) / 2, 0, -(sqrt(2) / 2)))))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_render(void)
+{
+    char    *msg = "failed!\n";
+
     if (!(1))
         return (ft_printf(msg), false);
     return (true);
 }
+
+/*bool    test_(void)
+{
+    char    *msg = "failed!\n";
+    t_world     *w;
+    t_camera    *c;
+    t_canvas    *canvas;
+    w = default_world();
+    c = camera(11, 11, M_PI / 2);
+    c->transform = view_transform(point(0, 0, -5),
+                                point(0, 0, 0),
+                                vector(0, 1, 0));
+    
+    if (!(1))
+        return (ft_printf(msg), false);
+    return (true);
+}*/
 
 void    run_tests(void)
 {
@@ -888,12 +992,13 @@ void    run_tests(void)
     if (test_sphere_normal() && test_reflect() && test_lighting())
         printf("All light tests passed!!\n");
     if (test_world() && test_prepare_computations() && test_shade_hit()
-        && test_color_at())
+        && test_color_at() && test_view_transform() && test_camera()
+        && test_ray_for_pixel()/* && test_render()*/)
         printf("All scene tests passed!!\n");
 
 }
 
-void	sphere_testing()
+/*void	sphere_testing()
 {
 	t_ray		R;
 	t_sphere	*S;
@@ -952,4 +1057,4 @@ void	sphere_testing()
 
 	free (S);
 	free(xs);
-}
+}*/

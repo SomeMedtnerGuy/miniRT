@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:21:18 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/03 11:01:27 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:54:37 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@
 # define TPOINT 1.0
 # define TCOLOR 0.0
 
-typedef struct s_tup2
+typedef union u_tup2
 {
+	struct 
+	{
+		float	x;
+		float	y;
+	};
 	float	e[2];
 }	t_tup2;
 
