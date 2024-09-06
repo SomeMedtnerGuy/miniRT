@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 17:50:49 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:37:58 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft/libft.h"
 # include "libftmatrix/libftmatrix.h"
 
-# define CANVAS_WIDTH 600
-# define CANVAS_HEIGHT 300
+# define CANVAS_WIDTH 1500
+# define CANVAS_HEIGHT 750
 
 # define WINDOW_TITLE "miniRT"
 
@@ -46,6 +46,7 @@ typedef struct s_light_data
 {
 	t_material		*material;
 	t_point_light	*light;
+	bool			in_shadow;
 	t_tup4			point;
 	t_tup4			eyev;
 	t_tup4			lightv;
@@ -100,13 +101,6 @@ typedef struct s_sphere
 	float		radius;
 }	t_sphere;
 
-/*typedef struct	s_intersection
-{
-	float		t;
-	void		*object; //Perhaps change this type to t_object?
-	struct s_intersection	*next;
-}	t_intersection;*/
-
 typedef struct s_comps
 {
 	float	t;
@@ -115,6 +109,7 @@ typedef struct s_comps
 	t_tup4	eyev;
 	t_tup4	normalv;
 	bool	inside;
+	t_tup4	over_point;
 }	t_comps;
 
 typedef struct s_canvas
@@ -160,12 +155,7 @@ t_tup4	reflect(t_tup4 in, t_tup4 normal);
 t_point_light	*point_light(t_tup4 position, t_tup4 intensity);
 t_material	*material(void);
 t_tup4	lighting(t_light_data *data);
-/*
-t_tup4			normal_at(t_sphere *sphere, t_tup4 p);
-t_tup4			reflect(t_tup4 in, t_tup4 normal);
-t_point_light	point_light(t_tup4 position, t_tup4 intensity); //CHECK IF POINTER IS NEEDED
-t_material		material(void);                                 //CHECK IF POINTER IS NEEDED
-t_tup4			lighting(t_light_data *data);*/
+bool	is_shadowed(t_world *w, t_tup4 p);
 
 //TESTS.C
 void			run_tests(void);

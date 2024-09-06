@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 16:52:55 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:32:17 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_tup4	lighting(t_light_data *data)
 	data->final_ambient = multiply_tup4(effective_color,
 			data->material->ambient);
 	light_dot_normal = dot(data->lightv, data->normalv);
-	if (light_dot_normal < 0)
+	if (light_dot_normal < 0 || data->in_shadow)
 	{
 		data->final_diffuse = color(0, 0, 0);
 		data->final_specular = color(0, 0, 0);
@@ -95,4 +95,20 @@ t_tup4	lighting(t_light_data *data)
 		direct_lighting(data, effective_color, light_dot_normal);
 	return (add_tup4(add_tup4(data->final_ambient, data->final_diffuse),
 			data->final_specular));
+}
+
+bool	is_shadowed(t_world *w, t_tup4 p)
+{
+	t_tup4			v;
+	float			distance;
+	t_tup4			direction;
+	t_intersection	*h;
+
+	v = subtract_tup4(w->light->position, p);
+	distance = magnitude(v);
+	direction = normalize(v);
+	h = hit(intersect_world(w, ray(p, direction)));
+	if (h && h->t < distance)
+		return (true);
+	return (false);
 }
