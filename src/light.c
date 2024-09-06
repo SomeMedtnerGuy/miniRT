@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 19:16:44 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:52:55 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ t_tup4	normal_at(t_sphere *sphere, t_tup4 world_p)
 	t_tup4	object_normal;
 	t_tup4	world_normal;
 
-	object_p = matrix4_mult_tup4(invert_matrix4(sphere->transform), world_p);
+	object_p = matrix4_mult_tup4(sphere->i_transform, world_p);
 	object_normal = subtract_tup4(object_p, point(0, 0, 0));
 	world_normal = matrix4_mult_tup4(transpose_matrix4(
-				invert_matrix4(sphere->transform)), object_normal);
+				sphere->i_transform), object_normal);
 	world_normal.w = TVECTOR;
 	return (normalize(world_normal));
 }
