@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:12:31 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 10:51:00 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:12:25 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdbool.h>
 # include <math.h>
 
-# define EPSILON 0.00001
+# define EPSILON 0.0001
 
 typedef struct s_list
 {
