@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 22:28:58 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:14:35 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@ void	put_pixel(t_canvas *img, int x, int y, int color)
 	dst = img->addr + (y * img->line_length
 			+ x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
+}
+
+int	key_hook(int keycode, t_root *r)
+{
+	if (keycode == 65307)
+		clean_exit(r, 0);
+	return (0);
 }
 
 /*int	main(void)
@@ -103,8 +110,9 @@ int	main(int argc, char **argv)
 
 	render(r.canvas, c, w);
 	// ENDTEST //
-  	
+
 	mlx_put_image_to_window(r.mlx, r.win, r.canvas->img, 0, 0);
+	mlx_key_hook(r.win, key_hook, &r);
 	mlx_hook(r.win, DestroyNotify, 0L, clean_exit, &r);
 	mlx_loop(r.mlx);
 }
