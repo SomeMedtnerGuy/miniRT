@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:21:18 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/07 12:10:38 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/09 22:06:35 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef union u_tup2
 {
-	struct 
+	struct
 	{
 		float	x;
 		float	y;

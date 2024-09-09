@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix4_operations.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:50:20 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/02 21:30:05 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/09 22:07:20 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_matrix4	transpose_matrix4(t_matrix4 a)
 t_tup4	matrix4_mult_tup4(t_matrix4 m, t_tup4 t)
 {
 	return (tup4(dot(m.t[0], t), dot(m.t[1], t),
-					dot(m.t[2], t), dot(m.t[3], t)));
+			dot(m.t[2], t), dot(m.t[3], t)));
 }
 
 t_matrix4	multiply_matrix4(t_matrix4 a, t_matrix4 b)

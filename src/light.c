@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/09 17:47:00 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/09 20:51:16 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,11 @@ t_tup4	reflect(t_tup4 in, t_tup4 normal)
 	return (subtract_tup4(in, normal));
 }
 
-t_point_light	*point_light(t_tup4 position, t_tup4 intensity)
-{
-	t_point_light	*out;
-
-	out = (t_point_light *)ft_calloc(1, sizeof(t_point_light));
-	out->position = position;
-	out->intensity = intensity;
-	return (out);
-}
-
-t_material	*material(void)
-{
-	t_material	*out;
-
-	out = ft_calloc(1, sizeof(t_material));
-	out->color = color(1, 1, 1);
-	out->ambient = 0.1;
-	out->diffuse = 0.9;
-	out->specular = 0.9;
-	out->shininess = 200.0;
-	return (out);
-}
-
 static void	direct_lighting(t_light_data *data, t_tup4 effective_color,
 							float light_dot_normal)
 {
 	float	factor;
 	float	reflect_dot_eye;
-
 
 	data->final_diffuse = multiply_tup4(effective_color,
 			data->material->diffuse * light_dot_normal);
@@ -79,9 +55,7 @@ t_tup4	lighting(t_light_data *data)
 		data->final_specular = color(0, 0, 0);
 	}
 	else
-	{
 		direct_lighting(data, effective_color, light_dot_normal);
-	}
 	return (add_tup4(add_tup4(data->final_ambient, data->final_diffuse),
 			data->final_specular));
 }
@@ -100,4 +74,17 @@ bool	is_shadowed(t_world *w, t_tup4 p)
 	if (h && h->t < distance)
 		return (true);
 	return (false);
+}
+
+t_tup4	shade_hit(t_world *w, t_comps comps)
+{
+	t_light_data	ld;
+
+	ld.material = ((t_shape *)comps.object)->material;
+	ld.light = w->light;
+	ld.point = comps.point;
+	ld.eyev = comps.eyev;
+	ld.normalv = comps.normalv;
+	ld.in_shadow = is_shadowed(w, comps.over_point);
+	return (lighting(&ld));
 }

@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:32:47 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/09 17:48:43 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:13:22 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ t_intersection	*hit(t_intersection *xs)
 	while (xs_current)
 	{
 		current_intersection = xs_current;
-
-		if (current_intersection->t > 0 && (!hit || current_intersection->t < hit->t))
+		if (current_intersection->t > 0
+			&& (!hit || current_intersection->t < hit->t))
 			hit = xs_current;
 		xs_current = xs_current->next;
 	}
-	return hit;
+	return (hit);
 }
 
 t_intersection	*intersection(float value, void *object)
@@ -68,7 +68,8 @@ t_tup4	normal_at(t_shape *shape, t_tup4 point)
 		local_normal = cylinder_normal_at((t_cylinder *)shape, local_point);
 	else
 		local_normal = vector(0, 1, 0);
-	world_normal = matrix4_mult_tup4(transpose_matrix4(shape->i_transform), local_normal);
+	world_normal = matrix4_mult_tup4(transpose_matrix4(
+				shape->i_transform), local_normal);
 	world_normal.w = TVECTOR;
 	return (normalize(world_normal));
 }
