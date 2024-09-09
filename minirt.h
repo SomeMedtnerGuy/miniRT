@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 22:29:27 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:00:01 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft/libft.h"
 # include "libftmatrix/libftmatrix.h"
 
-# define CANVAS_WIDTH 500
-# define CANVAS_HEIGHT 250
+# define CANVAS_WIDTH 600
+# define CANVAS_HEIGHT 300
 
 # define WINDOW_TITLE "miniRT"
 
@@ -62,20 +62,6 @@ typedef struct s_ray
 	t_tup4	direction;
 }	t_ray;
 
-typedef struct	s_intersection
-{
-	float					t;
-	void					*o;
-	struct s_intersection	*next;
-}	t_intersection;
-
-typedef struct s_world
-{
-	t_point_light	*light;
-	t_list	*objects;
-	t_intersection	*xs;
-}	t_world;
-
 typedef enum	obj_type
 {
 	PLANE,
@@ -90,6 +76,20 @@ typedef struct s_shape
 	t_matrix4	transform;
 	t_matrix4	i_transform;
 }	t_shape;
+
+typedef struct	s_intersection
+{
+	float					t;
+	t_shape					*o;
+	struct s_intersection	*next;
+}	t_intersection;
+
+typedef struct s_world
+{
+	t_point_light	*light;
+	t_list	*objects;
+	t_intersection	*xs;
+}	t_world;
 
 typedef struct s_sphere
 {
@@ -116,13 +116,15 @@ typedef struct s_cylinder
 	t_material	*material;
 	t_matrix4	transform;
 	t_matrix4	i_transform;
-	
+	float		minimum;
+	float		maximum;
+	bool		closed;
 }	t_cylinder;
 
 typedef struct s_comps
 {
 	float	t;
-	void	*object;
+	t_shape	*object;
 	t_tup4	point;
 	t_tup4	eyev;
 	t_tup4	normalv;
@@ -193,16 +195,23 @@ void			int_front(t_intersection **lst, t_intersection *new);
 t_intersection	*intersection(float value, void *object);
 t_intersection	*hit(t_intersection *xs);
 t_intersection  *intersect(t_shape *shape, t_ray ray);
+t_tup4			normal_at(t_shape *shape, t_tup4 point);
 
 //SPHERE.C
 t_sphere		*sphere(void);
 void			set_transform(t_shape *shape, t_matrix4 matrix);
 t_intersection	*sphere_intersect(t_sphere *sphere, t_ray ray);
-t_tup4			sphere_normal_at(t_sphere *sphere, t_tup4 world_p);
+t_tup4			sphere_normal_at(t_sphere *sphere, t_tup4 object_p);
 
 //PLANE.C
 t_plane			*plane(void);
 t_intersection	*plane_intersect(t_plane *plane, t_ray ray);
+
+//CYLINDER.C
+t_cylinder	*cylinder(void);
+t_intersection	*cylinder_intersect(t_cylinder *cylinder, t_ray ray);
+t_tup4	cylinder_normal_at(t_cylinder *c, t_tup4 world_p);
+void	intersect_caps(t_cylinder *cyl, t_ray ray, t_intersection **xs);
 
 //WORLD.C
 t_world			*world(void);

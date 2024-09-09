@@ -6,7 +6,7 @@
 #    By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 14:30:34 by ndo-vale          #+#    #+#              #
-#    Updated: 2024/09/06 21:25:37 by ndo-vale         ###   ########.fr        #
+#    Updated: 2024/09/06 22:32:42 by ndo-vale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC_DIR		= src/
 OBJ_DIR		= obj/
 
 SRCS		= $(addprefix $(SRC_DIR), tests.c main.c clean_exit.c color.c plane.c \
-					lst_utils.c ray.c sphere.c intersection.c light.c world.c)
+					lst_utils.c ray.c sphere.c intersection.c light.c world.c cylinder.c)
 OBJS		= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 LIBFT_DIR	= libft

@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 22:10:42 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:47:00 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	direct_lighting(t_light_data *data, t_tup4 effective_color,
 	float	factor;
 	float	reflect_dot_eye;
 
+
 	data->final_diffuse = multiply_tup4(effective_color,
 			data->material->diffuse * light_dot_normal);
 	reflect_dot_eye = dot(reflect(negate_tup4(data->lightv),
@@ -78,7 +79,9 @@ t_tup4	lighting(t_light_data *data)
 		data->final_specular = color(0, 0, 0);
 	}
 	else
+	{
 		direct_lighting(data, effective_color, light_dot_normal);
+	}
 	return (add_tup4(add_tup4(data->final_ambient, data->final_diffuse),
 			data->final_specular));
 }

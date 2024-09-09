@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:32:47 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/06 21:42:10 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:48:43 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,26 @@ t_intersection	*intersect(t_shape *shape, t_ray ray)
 	ray = transform(ray, shape->i_transform);
 	if (shape->type == SPHERE)
 		return (sphere_intersect((t_sphere *)shape, ray));
-	/*else if (shape->type == CYLINDER)
-		return (cylinder_intersect((t_cylinder *)shape, ray));*/
+	else if (shape->type == CYLINDER)
+		return (cylinder_intersect((t_cylinder *)shape, ray));
 	else
 		return (plane_intersect((t_plane *)shape, ray));
+}
+
+t_tup4	normal_at(t_shape *shape, t_tup4 point)
+{
+	t_tup4	local_point;
+	t_tup4	local_normal;
+	t_tup4	world_normal;
+
+	local_point = matrix4_mult_tup4(shape->i_transform, point);
+	if (shape->type == SPHERE)
+		local_normal = sphere_normal_at((t_sphere *)shape, local_point);
+	else if (shape->type == CYLINDER)
+		local_normal = cylinder_normal_at((t_cylinder *)shape, local_point);
+	else
+		local_normal = vector(0, 1, 0);
+	world_normal = matrix4_mult_tup4(transpose_matrix4(shape->i_transform), local_normal);
+	world_normal.w = TVECTOR;
+	return (normalize(world_normal));
 }

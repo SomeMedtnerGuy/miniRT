@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:41:52 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/06 22:26:47 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:14:32 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -775,13 +775,13 @@ bool    test_world(void)
             && xs->next->next->t == 5.5
             && xs->next->next->next->t == 6))
     {
-        while (xs)
+        /*while (xs)
         {
             printf("%f\n", xs->t);
             xs = xs->next;
-        }
+        }*/
+        return (ft_printf(msg), false);
     }
-        //return (ft_printf(msg), false);
     return (true);
 }
 
@@ -950,11 +950,198 @@ bool    test_ray_for_pixel(void)
     return (true);
 }
 
-bool    test_render(void)
+bool    test_cylinder(void)
+{
+    char    *msg = "test_cylinder failed!\n";
+    t_cylinder  *c;
+    t_tup4      direction;
+    t_ray       r;
+    t_intersection  *xs;
+
+    c = cylinder();
+    direction = normalize(vector(0, 1, 0));
+    r = ray(point(1, 0, 0), direction);
+    xs = cylinder_intersect(c, r);
+    if (!(xs == NULL))
+        return (ft_printf(msg), false);
+    direction = normalize(vector(0, 1, 0));
+    r = ray(point(0, 0, 0), direction);
+    xs = cylinder_intersect(c, r);
+    if (!(xs == NULL))
+        return (ft_printf(msg), false);
+    direction = normalize(vector(1, 1, 1));
+    r = ray(point(0, 0, -5), direction);
+    xs = cylinder_intersect(c, r);
+    if (!(xs == NULL))
+        return (ft_printf(msg), false);
+    return (true);
+}
+
+bool    test_cylinder_hit(void)
+{
+    //char            *msg = "test_cylinder_hit failed!\n";
+    t_cylinder      *cyl;
+    t_tup4          direction[3] = {vector(0, 0, 1),
+                                    vector(0, 0, 1),
+                                    vector(0.1, 1, 1)};
+    t_tup4          origin[3] = {point(1, 0, -5),
+                                point(0, 0, -5),
+                                point(0.5, 0, -5)};
+    t_ray           r;
+    t_intersection  *xs;
+    float           t0[3] = {5, 4, 6.807980};
+    float           t1[3] = {5, 6, 7.088720};
+    int             i;
+
+    cyl = cylinder();
+    i = -1;
+    while (++i < 3)
+    {
+        direction[i] = normalize(direction[i]);
+        r = ray(origin[i], direction[i]);
+        xs = cylinder_intersect(cyl, r);
+        if (!(ft_fcmp(xs->t, t0[i]) && ft_fcmp(xs->next->t, t1[i])))
+            return (printf("test %i, t0: %f t1: %f\n",
+                                i, xs->t, xs->next->t), false);
+    }
+    return (true);
+}
+
+bool    test_cylinder_normal(void)
+{
+    char    *msg = "test_cylinder_normal failed!\n";
+    t_cylinder  *cyl;
+    t_tup4      n;
+    t_tup4       in[4] = {point(1, 0, 0),
+                            point(0, 5, -1),
+                            point(0, -2, 1),
+                            point(-1, 1, 0)};
+    t_tup4       out[4] = {vector(1, 0, 0),
+                            vector(0, 0, -1),
+                            vector(0, 0, 1),
+                            vector(-1, 0, 0)};
+    int i;
+
+    i = -1;
+    cyl = cylinder();
+    while(++i < 4)
+    {
+        n = cylinder_normal_at(cyl, in[i]);
+        if (!(tup4cmp(n, out[i])))
+            return (ft_printf(msg), false);
+    }
+    return (true);
+}
+
+bool    test_cyl_truncation(void)
+{
+    char    *msg = "failed!\n";
+    t_cylinder  *cyl;
+    t_ray   r;
+    t_tup4  p[6] = {point(0, 1.5, 0),
+                        point(0, 3, -5),
+                        point(0, 0, -5),
+                        point(0, 2, -5),
+                        point(0, 1, -5),
+                        point(0, 1.5, -2)};
+    t_tup4  direction[6] = {vector(0.1, 1, 0),
+                            vector(0, 0, 1),
+                            vector(0, 0, 1),
+                            vector(0, 0, 1),
+                            vector(0, 0, 1),
+                            vector(0, 0, 1)};
+    t_intersection  *xs;
+    int i;
+
+    i = -1;
+    cyl = cylinder();
+    cyl->minimum = 1;
+    cyl->maximum = 2;
+    while (++i < 6)
+    {
+        direction[i] = normalize(direction[i]);
+        r = ray(p[i], direction[i]);
+        xs = cylinder_intersect(cyl, r);
+        if (!((i < 5 && !xs) || (i == 5 && xs->next && !xs->next->next)))
+            return (ft_printf(msg), false);
+    }
+    
+    return (true);
+}
+
+bool    test_cyl_caps(void)
+{
+    char    *msg = "failed!\n";
+    t_cylinder  *cyl;
+    t_tup4      direction[5] = {vector(0, -1, 0),
+                                vector(0, -1, 2),
+                                vector(0, -1, 1),
+                                vector(0, 1, 2),
+                                vector(0, 1, 1)};
+    t_tup4      p[5] = {point(0, 3, 0),
+                        point(0, 3, -2),
+                        point(0, 4, -2),
+                        point(0, 0, -2),
+                        point(0, -1, -2)};
+    t_ray       r;
+    t_intersection  *xs;
+
+    cyl = cylinder();
+    cyl->minimum = 1;
+    cyl->maximum = 2;
+    cyl->closed = true;
+    int i = -1;
+    while (++i < 5)
+    {
+        xs = NULL;
+        direction[i] = normalize(direction[i]);
+        r = ray(p[i], direction[i]);
+        xs = cylinder_intersect(cyl, r);
+        if (!(int_size(xs) == 2))
+            return (ft_printf(msg), false);
+    }
+    return (true);
+}
+
+
+
+bool    test_cyl_cap_normal(void)
+{
+    //char    *msg = "failed!\n";
+    t_cylinder  *cyl;
+
+    cyl = cylinder();
+    cyl->minimum = 1;
+    cyl->maximum = 2;
+    cyl->closed = true;
+    t_tup4      p[6] = {point(0, 1, 0),
+                        point(0.5, 1, 0),
+                        point(0, 1, 0.5),
+                        point(0, 2, 0),
+                        point(0.5, 2, 0),
+                        point(0, 2, 0.5)};
+    t_tup4      v[6] = {vector(0, -1, 0),
+                        vector(0, -1, 0),
+                        vector(0, -1, 0),
+                        vector(0, 1, 0),
+                        vector(0, 1, 0),
+                        vector(0, 1, 0)};
+    int i = -1;
+    while (++i < 6)
+    {
+        t_tup4  normal = cylinder_normal_at(cyl, p[i]);
+        if (!(tup4cmp(normal, v[i])))
+            return (printf("%i:\n", i),print_tup4(normal, false), false);
+    }
+    return (true);
+}
+
+bool    test_(void)
 {
     char    *msg = "failed!\n";
 
-    if (!(1))
+
+    if (!(0))
         return (ft_printf(msg), false);
     return (true);
 }
@@ -1000,8 +1187,11 @@ void    run_tests(void)
         printf("All light tests passed!!\n");
     if (test_world() && test_prepare_computations() && test_shade_hit()
         && test_color_at() && test_view_transform() && test_camera()
-        && test_ray_for_pixel()/* && test_render()*/)
+        && test_ray_for_pixel())
         printf("All scene tests passed!!\n");
+    if (test_cylinder() && test_cylinder_hit() && test_cylinder_normal()
+        && test_cyl_truncation() && test_cyl_caps() && test_cyl_cap_normal())
+        printf("All cylinder tests passed!\n");
 
 }
 
