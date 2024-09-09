@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:18:40 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/06 22:11:48 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:11:43 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_plane	*plane(void)
 	p->transform = identity_matrix4();
 	p->material = material();
 	p->normal = tup4(0, 1, 0, TVECTOR);
-	return	(p);
+	return (p);
 }
 
 t_intersection	*plane_intersect(t_plane *plane, t_ray ray)

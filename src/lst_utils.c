@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:40:06 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/06 11:41:53 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:12:18 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	int_size(t_intersection *lst)
 {
-	int		count;
+	int				count;
 	t_intersection	*next_value;
 
 	count = 0;
@@ -36,7 +36,7 @@ t_intersection	*intlast(t_intersection *lst)
 	return (lst);
 }
 
-void	int_front(t_intersection **lst, t_intersection *new)
+void	int_add_front(t_intersection **lst, t_intersection *new)
 {
 	if (new != NULL)
 	{

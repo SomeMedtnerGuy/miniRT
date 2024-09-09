@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:35:33 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 11:40:00 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:13:31 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,18 @@ int	tuple_to_color(t_tup4 tup4)
 {
 	return (float_to_shade(tup4.r) << 16
 		| float_to_shade(tup4.g) << 8 | float_to_shade(tup4.b));
+}
+
+t_tup4	color_at(t_world *w, t_ray r)
+{
+	t_intersection	*xs;
+	t_intersection	*hit_int;
+	t_comps			comps;
+
+	xs = intersect_world(w, r);
+	hit_int = hit(xs);
+	if (!hit_int)
+		return (color(0, 0, 0));
+	comps = prepare_computations(hit_int, r);
+	return (shade_hit(w, comps));
 }
