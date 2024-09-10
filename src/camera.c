@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:21:44 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/09 20:54:05 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:08:42 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 t_matrix4	view_transform(t_tup4 from, t_tup4 to, t_tup4 up)
 {
-	t_tup4		forward;
+	//t_tup4		forward;
 	t_tup4		left;
 	t_tup4		true_up;
 	t_matrix4	orientation;
 
-	forward = normalize(subtract_tup4(to, from));
-	left = cross(forward, normalize(up));
-	true_up = cross(left, forward);
+	//forward = normalize(subtract_tup4(to, from));
+	left = cross(to, normalize(up));
+	true_up = cross(left, to);
 	orientation = matrix4(
 			tup4(left.x, left.y, left.z, 0),
 			tup4(true_up.x, true_up.y, true_up.z, 0),
-			tup4(-forward.x, -forward.y, -forward.z, 0),
+			tup4(-to.x, -to.y, -to.z, 0),
 			tup4(0, 0, 0, 1));
 	return (multiply_matrix4(orientation,
 			translation(-from.x, -from.y, -from.z)));

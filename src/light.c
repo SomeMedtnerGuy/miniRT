@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/09 20:51:16 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:33:13 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_tup4	shade_hit(t_world *w, t_comps comps)
 {
 	t_light_data	ld;
 
+	ld.ambiente = w->ambiente;
 	ld.material = ((t_shape *)comps.object)->material;
 	ld.light = w->light;
 	ld.point = comps.point;
