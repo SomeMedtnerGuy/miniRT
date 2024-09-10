@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:35:33 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/09 21:13:31 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:20:18 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,12 @@ t_tup4	color_at(t_world *w, t_ray r)
 		return (color(0, 0, 0));
 	comps = prepare_computations(hit_int, r);
 	return (shade_hit(w, comps));
+}
+
+float	shade_to_float(unsigned char shade)
+{
+	float	shadef;
+
+	shadef = (float)shade;
+	return (shadef / 255.0);
 }
