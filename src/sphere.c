@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:21:54 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/09 21:11:19 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:24:45 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,6 @@ t_intersection	*sphere_intersect(t_sphere *sphere, t_ray ray)
 	int_add_back(&xs, intersection(i_value[0], sphere));
 	int_add_back(&xs, intersection(i_value[1], sphere));
 	return (xs);
-}
-
-void	set_transform(t_shape *shape, t_matrix4 matrix)
-{
-	shape->transform = matrix;
-	shape->i_transform = invert_matrix4(shape->transform);
 }
 
 t_tup4	sphere_normal_at(t_sphere *sphere, t_tup4 object_p)
