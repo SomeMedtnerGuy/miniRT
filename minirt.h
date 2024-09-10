@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/10 09:50:48 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:12:29 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,17 @@ typedef struct s_point_light
 	t_tup4	position;
 }	t_point_light;
 
+typedef struct s_ambiente
+{
+	float	ratio;
+	t_tup4	color;
+}	t_ambiente;
+
 typedef struct s_light_data
 {
 	t_material		*material;
 	t_point_light	*light;
+	t_ambiente		*ambiente;
 	bool			in_shadow;
 	t_tup4			point;
 	t_tup4			eyev;
@@ -87,6 +94,7 @@ typedef struct s_intersection
 typedef struct s_world
 {
 	t_point_light	*light;
+	t_ambiente		*ambiente;
 	t_list			*objects;
 	t_intersection	*xs;
 }	t_world;
@@ -182,9 +190,6 @@ t_tup4			reflect(t_tup4 in, t_tup4 normal);
 t_tup4			lighting(t_light_data *data);
 bool			is_shadowed(t_world *w, t_tup4 p);
 t_tup4			shade_hit(t_world *w, t_comps comps);
-
-//TESTS.C
-void			run_tests(void);
 
 //RAY.C
 t_ray			ray(t_tup4 origin, t_tup4 direction);
