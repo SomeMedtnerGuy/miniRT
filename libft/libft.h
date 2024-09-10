@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:12:31 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/07 12:12:25 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:23:31 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,12 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_strlinvert(char *s, int len);
 //Number conversion and manipulation
 int		ft_atoi(const char *nptr);
+bool	ft_isstr_float(char *str);
+float	ft_atof(char *str);
 char	*ft_itoa(int n);
 int		ft_clamp(int n, int min, int max);
 bool	ft_fcmp(float a, float b);
+int		ft_pow(int i, int pow);
 //Output writing
 int		ft_putchar_fd(char c, int fd);
 int		ft_putstr_fd(char *s, int fd);

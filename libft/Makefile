@@ -6,7 +6,7 @@
 #    By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 16:28:11 by ndo-vale          #+#    #+#              #
-#    Updated: 2024/08/31 17:23:49 by ndo-vale         ###   ########.fr        #
+#    Updated: 2024/09/10 13:24:09 by ndo-vale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	  ft_is_little_endian.c ft_strinvert.c ft_putnbr_base_fd.c get_next_line.c \
 	  ft_printf.c ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
 	  ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_swap.c ft_fcmp.c \
-	  ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_matrix_free.c ft_matrix_dup.c
+	  ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_matrix_free.c ft_matrix_dup.c \
+	  ft_atof.c ft_pow.c
 OBJS	= $(SRCS:.c=.o)
 
 .o:.c
