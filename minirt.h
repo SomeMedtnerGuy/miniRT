@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/09 22:08:49 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:18:51 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,10 +173,10 @@ int				clean_exit(t_root *r, int exit_code);
 unsigned char	float_to_shade(float color_strength);
 int				tuple_to_color(t_tup4 tup4);
 t_tup4			color_at(t_world *w, t_ray r);
+float			shade_to_float(unsigned char shade);
 
 //LIGHT
 t_tup4			reflect(t_tup4 in, t_tup4 normal);
-
 t_tup4			lighting(t_light_data *data);
 bool			is_shadowed(t_world *w, t_tup4 p);
 t_tup4			shade_hit(t_world *w, t_comps comps);
