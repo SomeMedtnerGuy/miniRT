@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/10 15:18:51 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/10 19:04:21 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,9 @@ void			int_add_front(t_intersection **lst, t_intersection *new);
 
 //LSTADD_XS_SORTED.C
 void			lstadd_xs_sorted(t_intersection **lst, t_intersection *new);
+
+//GET_TARGET_ROTATION.C
+t_matrix4	get_target_rotation(t_tup4 target_y_vec);
 
 //INTERSECTION.C
 t_intersection	*intersection(float value, void *object);

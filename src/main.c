@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/10 15:21:36 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/10 19:56:47 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,25 @@ int	main(int argc, char **argv)
 	r.canvas->img = mlx_new_image(r.mlx, CANVAS_WIDTH, CANVAS_HEIGHT);
 	r.canvas->addr = mlx_get_data_addr(r.canvas->img, &r.canvas->bits_per_pixel,
 			&r.canvas->line_length, &r.canvas->endian);
+	
+	//TEST//
+	t_shape	*cyl;
+	t_world	*w;
+	t_camera *c;
+
+	cyl = (t_shape *)cylinder();
+	set_transform(cyl, get_target_rotation(vector(0, 0, 1)));
+	((t_cylinder *)cyl)->maximum = 0.5;
+	((t_cylinder *)cyl)->minimum = -0.5;
+	((t_cylinder *)cyl)->closed = true;
+	w = world();
+	ft_lstadd_back(&w->objects, ft_lstnew(cyl));
+	w->light = point_light(point(0, 0, -4), color(1, 1, 1));
+	c = camera(CANVAS_WIDTH, CANVAS_HEIGHT, M_PI / 3);
+	c->transform = view_transform(point(0, 0, -5), point(0, 0, 0), vector(0, 1, 0));
+	render(r.canvas, c, w);
+	//ENDTEST//
+
 	mlx_put_image_to_window(r.mlx, r.win, r.canvas->img, 0, 0);
 	mlx_key_hook(r.win, key_hook, &r);
 	mlx_hook(r.win, DestroyNotify, 0L, clean_exit, &r);
