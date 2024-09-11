@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/11 15:56:09 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:08:31 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,11 @@ void	parse_light(char **line, t_root *r)
 	float	bright;
 	t_tup4	color;
 
-	if (ft_arr2dsize(line) != 4)
+	if (ft_arr2dsize((void **)line) != 4)
 		exit_parser(MISCONFIG_MSG);
 
 	point = ft_atotup(line[1], TPOINT);
-	if(!is_coordinates(point))
-		exit_parser(MISCONFIG_MSG);
+	//COORDINATES VERIFICATION
 
 	if(!ft_isstr_float(line[2]))
 		exit_parser(MISCONFIG_MSG);
