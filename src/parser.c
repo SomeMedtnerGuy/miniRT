@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/11 14:22:30 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:11:39 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	parse_ambient(char **line, t_root *r)
 	float	ratio;
 	t_tup4	color;
 
+	printf("ambiente\n");
 	if (ft_arr2dsize((void **)line) != 3)
 		exit_parser(MISCONFIG_MSG);
 	if (!ft_isstr_float(line[1]))
@@ -81,24 +82,23 @@ void	parse_ambient(char **line, t_root *r)
 	r->world->ambient.color = color;
 }
 
-/*void	parse_camera(char **line, t_root *r)
+void	parse_camera(char **line, t_root *r)
 {
 	t_tup4	view_point;
 	t_tup4	axis;
 	int		fov;
 
-	if(line[4])
-		clean_exit(r, 1);
-	//COORDINATES VERIFICATION
+	printf("camara\n");
+	if(ft_arr2dsize((void **)line) != 4)
+		exit_parser(MISCONFIG_MSG);
 	view_point = ft_atotup(line[1], TPOINT);
+	//COORDINATES VERIFICATION
 	axis = ft_atotup(line[2], TVECTOR);
 	if(!is_vector(axis.x, axis.y, axis.z))
-		clean_exit(r, 1);
-
+		exit_parser(MISCONFIG_MSG);
 	fov = ft_atoi(line[3]);
-	if(!(fov >= 0 && fov <= 180)) //CONVERTER PARA GRAUS
-		clean_exit(r, 1);
-
+	if(!(fov >= 0 && fov <= 180))
+		exit_parser(MISCONFIG_MSG);
 	r->camera = camera(CANVAS_WIDTH, CANVAS_HEIGHT, (fov * (M_PI / 180)));
 	r->camera->transform = view_transform(view_point, axis, vector(0, 1, 0));
 }
@@ -109,22 +109,22 @@ void	parse_light(char **line, t_root *r)
 	float	bright;
 	t_tup4	color;
 
-	if (ft_arr2dsize(line) != 4)
-		exit_with_msg(MISCONFIG_MSG, r, 1);
+	printf("luz\n");
+	if (ft_arr2dsize((void **)line) != 4)
+		exit_parser(MISCONFIG_MSG);
 
-	point = ft_atotup(line[1]);
-	if(!is_coordinates(point))
-		clean_exit(r, 1);
+	point = ft_atotup(line[1], TPOINT);
+	//COORDINATES VERIFICATION
 
 	if(!ft_isstr_float(line[2]))
-		clean_exit(r, 1);
+		exit_parser(MISCONFIG_MSG);
 	bright = ft_atof(line[2]);
-	color = ft_atotup(line[3], 1);
+	color = ft_atotup(line[3], TCOLOR);
 	if(!is_color(color.r, color.g, color.b))
-		clean_exit(r, 1);
+		exit_parser(MISCONFIG_MSG);
 	color = multiply_tup4(color, bright);
 	r->world->light = point_light(point, color);
-}*/
+}
 
 void	free_split(char **split)
 {
@@ -148,18 +148,21 @@ void	parse_line(char *line, t_root *r)
 	id = get_id(elements[0]);
 	if (id == AMBIENT)
 		parse_ambient(elements, r);// perhaps return error code?
-	/*else if (id == 'C')
-		parse_camera(ft_split(line, ' '), r);
-	else if (id == 'L')
-		parse_light(split_line, r);
-	else if (id == 's')
-		parse_sphere(split_line, r);
-	else if (id == 'p')
-		parse_plane(split_line, r);
-	else if (id == 'c')
-		parse_cylinder(split_line, r);
+	else if (id == CAMERA)
+		parse_camera(elements, r);
+	else if (id == LIGHT)
+		parse_light(elements, r);
+	else if (id == SPHERE)
+		parse_sphere(elements, r);
+	else if (id == PLANE)
+		parse_plane(elements, r);
+	else if (id == CYLINDER)
+	{
+		printf("aqui\n");
+		parse_cylinder(elements, r);
+	}
 	else
-		return ;//Error*/
+		exit_parser(MISCONFIG_MSG);
 	ft_matrix_free((void ***)&elements);
 }
 
@@ -168,6 +171,7 @@ void	parse_config_file(char *filename, t_root *r)
 	int		fd;
 	char	*line;
 
+	(void)r;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
@@ -177,6 +181,7 @@ void	parse_config_file(char *filename, t_root *r)
 	line = get_next_line(fd);
 	while (line)
 	{
+		printf("Linha: %s\n", line);
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
 		parse_line(line, r);
@@ -185,6 +190,4 @@ void	parse_config_file(char *filename, t_root *r)
 	}
 	free(line);
 	close(fd);
-	print_tup4(r->world->ambient.color, false);
-	printf("Ratio: %f\n", r->world->ambient.ratio);
 }

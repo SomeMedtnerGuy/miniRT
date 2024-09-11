@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:34:22 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/10 18:32:18 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:11:35 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,4 @@ t_tup4 ft_atotup(char *str, int type)
 	if (token != NULL) result.z = ft_atof(token);
 	result.w = type;
 	return result;
-}
-
-char	get_id(char *line)
-{
-	char	id;
-
-	if (line[0] == 'A' || line[0] == 'C' || line[0] == 'L')
-		id = line[0];
-	else if ((line[0] == 's' && line[1] == 'p')
-			|| (line[0] == 'p' && line[1] == 'l')
-			|| (line[0] == 'c' && line[1] == 'y'))
-		id = line[0];
-	else
-		return('\0');
-	return(id);
 }

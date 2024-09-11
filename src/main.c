@@ -13,41 +13,12 @@
 
 #include "minirt.h"
 
-void	create_scene(t_root *r, char *file)
+t_point_light	point_light(t_tup4 position, t_tup4 intensity)
 {
-	int		fd;
-	char	*line;
+	t_point_light	out;
 
-	fd = open(file, O_RDONLY);
-	if(fd < 0)
-	{
-		ft_putstr_fd("Error: couldn't open file\n", STDERR_FILENO);
-		close(fd);
-		return ;
-	}
-	if (ft_strnstr(file, ".rt", 3) != 0)
-	{
-		ft_putstr_fd("Error: wrong file format\n", STDERR_FILENO);
-		close(fd);
-		return ;
-	}
-	line = get_next_line(fd);
-	while(line)
-	{
-		parse_line(line, r);
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-}
-
-t_point_light	*point_light(t_tup4 position, t_tup4 intensity)
-{
-	t_point_light	*out;
-
-	out = (t_point_light *)ft_calloc(1, sizeof(t_point_light));
-	out->position = position;
-	out->intensity = intensity;
+	out.position = position;
+	out.intensity = intensity;
 	return (out);
 }
 
@@ -85,7 +56,7 @@ int	main(int argc, char **argv)
 	r.world = world();
 	parse_config_file(argv[1], &r);
 	free(r.world);
-	/*r.mlx = mlx_init();
+	r.mlx = mlx_init();
 	r.win = mlx_new_window(r.mlx, CANVAS_WIDTH, CANVAS_HEIGHT, WINDOW_TITLE);
 	r.canvas = (t_canvas *)ft_calloc(1, sizeof(t_canvas));
 	r.canvas->img = mlx_new_image(r.mlx, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -94,6 +65,6 @@ int	main(int argc, char **argv)
 	mlx_put_image_to_window(r.mlx, r.win, r.canvas->img, 0, 0);
 	mlx_key_hook(r.win, key_hook, &r);
 	mlx_hook(r.win, DestroyNotify, 0L, clean_exit, &r);
-	mlx_loop(r.mlx);*/
+	mlx_loop(r.mlx);
 }
 

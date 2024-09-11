@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/11 12:48:24 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:51:34 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,10 +182,18 @@ typedef struct s_root
 }	t_root;
 
 //MAIN.C
-t_point_light	*point_light(t_tup4 position, t_tup4 intensity);
+t_point_light	point_light(t_tup4 position, t_tup4 intensity);
 t_material		*material(void);
 
 //PARSER.C
+char			get_id(char *first_arg);
+t_tup4			get_color(char *colors);
+void			exit_parser(char *msg);
+void			parse_ambient(char **line, t_root *r);
+void			parse_camera(char **line, t_root *r);
+void			parse_light(char **line, t_root *r);
+void			free_split(char **split);
+void			parse_line(char *line, t_root *r);
 void			parse_config_file(char *filename, t_root *r);
 
 //CLEAN_EXIT.C
@@ -256,7 +264,8 @@ t_comps			prepare_computations(t_intersection *intersection, t_ray ray);
 void			render(t_canvas *canvas, t_camera *camera, t_world *world);
 
 //PARSER.C
-void	parse_ambiente(char **line, t_root *r);
+char	get_id(char *line);
+void	parse_ambient(char **line, t_root *r);
 void	parse_camera(char **line, t_root *r);
 void	parse_light(char **line, t_root *r);
 void	parse_line(char *line, t_root *r);
@@ -273,7 +282,7 @@ void	ft_rm_char(char *str, char c);
 bool	ft_str_isfloat(char *str);
 char	*ft_strtok(char *str, const char *delim);
 t_tup4	ft_atotup(char *str, int type);
-char	get_id(char *line);
+
 
 //validations.c
 bool	is_color(int r, int g, int b);
