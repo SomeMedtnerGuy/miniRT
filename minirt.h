@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/10 18:32:35 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:48:24 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # include "mlx_linux/mlx.h"
 # include "libft/libft.h"
 # include "libftmatrix/libftmatrix.h"
+
+# define WRONG_USAGE_MSG "Wrong usage!\n"
+# define FILE_EXT_MSG "File extension not supported!\n"
+# define FILE_ERROR_MSG "File could not be open!\n"
+# define MISCONFIG_MSG "Scene description file is misconfigured!\n"
 
 # define CANVAS_WIDTH 600
 # define CANVAS_HEIGHT 300
@@ -42,17 +47,17 @@ typedef struct s_point_light
 	t_tup4	position;
 }	t_point_light;
 
-typedef struct s_ambiente
+typedef struct s_ambient
 {
 	float	ratio;
 	t_tup4	color;
-}	t_ambiente;
+}	t_ambient;
 
 typedef struct s_light_data
 {
 	t_material		*material;
-	t_point_light	*light;
-	t_ambiente		*ambiente;
+	t_point_light	light;
+	t_ambient		ambient;
 	bool			in_shadow;
 	t_tup4			point;
 	t_tup4			eyev;
@@ -71,6 +76,10 @@ typedef struct s_ray
 
 typedef enum obj_type
 {
+	INVALID_OBJ,
+	AMBIENT,
+	CAMERA,
+	LIGHT,
 	PLANE,
 	SPHERE,
 	CYLINDER
@@ -93,8 +102,8 @@ typedef struct s_intersection
 
 typedef struct s_world
 {
-	t_point_light	*light;
-	t_ambiente		*ambiente;
+	t_point_light	light;
+	t_ambient		ambient;
 	t_list			*objects;
 	t_intersection	*xs;
 }	t_world;
@@ -176,8 +185,12 @@ typedef struct s_root
 t_point_light	*point_light(t_tup4 position, t_tup4 intensity);
 t_material		*material(void);
 
+//PARSER.C
+void			parse_config_file(char *filename, t_root *r);
+
 //CLEAN_EXIT.C
 int				clean_exit(t_root *r, int exit_code);
+void			exit_with_msg(char *msg, t_root *r, int exit_code);
 
 //COLOR.C
 unsigned char	float_to_shade(float color_strength);
@@ -205,6 +218,9 @@ void			int_add_front(t_intersection **lst, t_intersection *new);
 
 //LSTADD_XS_SORTED.C
 void			lstadd_xs_sorted(t_intersection **lst, t_intersection *new);
+
+//GET_TARGET_ROTATION.C
+t_matrix4	get_target_rotation(t_tup4 target_y_vec);
 
 //INTERSECTION.C
 t_intersection	*intersection(float value, void *object);

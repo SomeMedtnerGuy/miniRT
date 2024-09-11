@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:12:31 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/10 13:23:31 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/11 09:52:44 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_strlinvert(char *s, int len);
 //Number conversion and manipulation
+bool	ft_isstr_int(char *str);
 int		ft_atoi(const char *nptr);
 bool	ft_isstr_float(char *str);
 float	ft_atof(char *str);
@@ -103,5 +104,6 @@ int		ft_is_little_endian(void);
 char	*get_next_line(int fd);
 void	ft_matrix_free(void ***matrix);
 void	**ft_matrix_dup(void **matrix);
+int		ft_arr2dsize(void	**arr2d);
 
 #endif

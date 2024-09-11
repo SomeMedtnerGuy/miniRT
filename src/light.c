@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/10 15:33:13 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:24:00 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	direct_lighting(t_light_data *data, t_tup4 effective_color,
 	else
 	{
 		factor = pow(reflect_dot_eye, data->material->shininess);
-		data->final_specular = multiply_tup4(data->light->intensity,
+		data->final_specular = multiply_tup4(data->light.intensity,
 				data->material->specular * factor);
 	}
 }
@@ -44,8 +44,8 @@ t_tup4	lighting(t_light_data *data)
 	float	light_dot_normal;
 
 	effective_color = hadamard(data->material->color,
-			data->light->intensity);
-	data->lightv = normalize(subtract_tup4(data->light->position, data->point));
+			data->light.intensity);
+	data->lightv = normalize(subtract_tup4(data->light.position, data->point));
 	data->final_ambient = multiply_tup4(effective_color,
 			data->material->ambient);
 	light_dot_normal = dot(data->lightv, data->normalv);
@@ -67,7 +67,7 @@ bool	is_shadowed(t_world *w, t_tup4 p)
 	t_tup4			direction;
 	t_intersection	*h;
 
-	v = subtract_tup4(w->light->position, p);
+	v = subtract_tup4(w->light.position, p);
 	distance = magnitude(v);
 	direction = normalize(v);
 	h = hit(intersect_world(w, ray(p, direction)));
@@ -80,7 +80,7 @@ t_tup4	shade_hit(t_world *w, t_comps comps)
 {
 	t_light_data	ld;
 
-	ld.ambiente = w->ambiente;
+	ld.ambient = w->ambient;
 	ld.material = ((t_shape *)comps.object)->material;
 	ld.light = w->light;
 	ld.point = comps.point;

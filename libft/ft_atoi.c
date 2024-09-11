@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:21:23 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/04/10 20:55:51 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/11 09:54:54 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+bool	ft_isstr_int(char *str)
+{
+	if (!str)
+		return (false);
+	if (!(*str == '-' || *str == '+' || ft_isdigit(*str)))
+		return (false);
+	str++;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}
 
 int	ft_atoi(const char *nptr)
 {
