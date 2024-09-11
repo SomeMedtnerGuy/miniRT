@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tup4_types.c                                       :+:      :+:    :+:   */
+/*   ft_arr2dsize.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/31 11:09:24 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/11 09:13:35 by ndo-vale         ###   ########.fr       */
+/*   Created: 2024/09/11 08:37:22 by ndo-vale          #+#    #+#             */
+/*   Updated: 2024/09/11 12:47:25 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftmatrix.h"
+#include "libft.h"
 
-t_tup4	point(float x, float y, float z)
+int	ft_arr2dsize(void **arr2d)
 {
-	return (tup4(x, y, z, TPOINT));
-}
+	int	size;
 
-t_tup4	vector(float x, float y, float z)
-{
-	return (tup4(x, y, z, TVECTOR));
-}
-
-t_tup4	color(float x, float y, float z)
-{
-	return (tup4(x, y, z, TCOLOR));
-}
-
-t_tup4	invalid_tup4(void)
-{
-	return (tup4(0, 0, 0, TINVALID));
+	size = 0;
+	if (!arr2d)
+		return (0);
+	while (*arr2d)
+	{
+		size++;
+		arr2d++;
+	}
+	return (size);
 }

@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:21:18 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/09 22:06:35 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/11 09:13:21 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define TVECTOR 0.0
 # define TPOINT 1.0
 # define TCOLOR 0.0
+# define TINVALID -1.0
 
 typedef union u_tup2
 {
@@ -89,6 +90,7 @@ t_tup4		tup4(float x, float y, float z, float w);
 t_tup4		point(float x, float y, float z);
 t_tup4		vector(float x, float y, float z);
 t_tup4		color(float x, float y, float z);
+t_tup4		invalid_tup4(void);
 
 //TUPLE_OPERATIONS
 t_tup4		add_tup4(t_tup4 a, t_tup4 b);
