@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/11 14:22:30 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:56:09 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,24 +81,22 @@ void	parse_ambient(char **line, t_root *r)
 	r->world->ambient.color = color;
 }
 
-/*void	parse_camera(char **line, t_root *r)
+void	parse_camera(char **line, t_root *r)
 {
 	t_tup4	view_point;
 	t_tup4	axis;
 	int		fov;
 
-	if(line[4])
-		clean_exit(r, 1);
-	//COORDINATES VERIFICATION
+	if(ft_arr2dsize((void **)line) != 4)
+		exit_parser(MISCONFIG_MSG);
 	view_point = ft_atotup(line[1], TPOINT);
+	//COORDINATES VERIFICATION
 	axis = ft_atotup(line[2], TVECTOR);
 	if(!is_vector(axis.x, axis.y, axis.z))
-		clean_exit(r, 1);
-
+		exit_parser(MISCONFIG_MSG);
 	fov = ft_atoi(line[3]);
-	if(!(fov >= 0 && fov <= 180)) //CONVERTER PARA GRAUS
-		clean_exit(r, 1);
-
+	if(!(fov >= 0 && fov <= 180))
+		exit_parser(MISCONFIG_MSG);
 	r->camera = camera(CANVAS_WIDTH, CANVAS_HEIGHT, (fov * (M_PI / 180)));
 	r->camera->transform = view_transform(view_point, axis, vector(0, 1, 0));
 }
@@ -110,21 +108,21 @@ void	parse_light(char **line, t_root *r)
 	t_tup4	color;
 
 	if (ft_arr2dsize(line) != 4)
-		exit_with_msg(MISCONFIG_MSG, r, 1);
+		exit_parser(MISCONFIG_MSG);
 
-	point = ft_atotup(line[1]);
+	point = ft_atotup(line[1], TPOINT);
 	if(!is_coordinates(point))
-		clean_exit(r, 1);
+		exit_parser(MISCONFIG_MSG);
 
 	if(!ft_isstr_float(line[2]))
-		clean_exit(r, 1);
+		exit_parser(MISCONFIG_MSG);
 	bright = ft_atof(line[2]);
-	color = ft_atotup(line[3], 1);
+	color = ft_atotup(line[3], TCOLOR);
 	if(!is_color(color.r, color.g, color.b))
-		clean_exit(r, 1);
+		exit_parser(MISCONFIG_MSG);
 	color = multiply_tup4(color, bright);
 	r->world->light = point_light(point, color);
-}*/
+}
 
 void	free_split(char **split)
 {

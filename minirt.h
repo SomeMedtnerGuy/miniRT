@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/11 12:48:24 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:55:22 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ typedef struct s_root
 }	t_root;
 
 //MAIN.C
-t_point_light	*point_light(t_tup4 position, t_tup4 intensity);
+t_point_light	point_light(t_tup4 position, t_tup4 intensity);
 t_material		*material(void);
 
 //PARSER.C

@@ -41,13 +41,12 @@ void	create_scene(t_root *r, char *file)
 	close(fd);
 }
 
-t_point_light	*point_light(t_tup4 position, t_tup4 intensity)
+t_point_light	point_light(t_tup4 position, t_tup4 intensity)
 {
-	t_point_light	*out;
+	t_point_light	out;
 
-	out = (t_point_light *)ft_calloc(1, sizeof(t_point_light));
-	out->position = position;
-	out->intensity = intensity;
+	out.position = position;
+	out.intensity = intensity;
 	return (out);
 }
 
