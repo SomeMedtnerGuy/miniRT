@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:00:24 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/10 18:30:04 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:30:28 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,19 @@ void	parse_sphere(char **line, t_root *r)
 	t_tup4		color;
 	t_shape		*s;
 
-	if(line[4])
-		clean_exit(r, 1);
+	printf("sphere\n");
+	if (ft_arr2dsize((void **)line) != 4)
+		exit_parser(MISCONFIG_MSG);
+
 	center = ft_atotup(line[1], TPOINT);
-	/* if(!is_coordinates(center))
-		clean_exit(r, 1); */
+	//COORDINATES VERIFICATION
+
 	if(!ft_isstr_float(line[2]))
-		clean_exit(r, 1);
+		exit_parser(MISCONFIG_MSG);
 	radius = (ft_atof(line[2]) / 2);
-	color = ft_atotup(line[3], TCOLOR);
-	if(!is_color(color.x, color.y, color.z))
-		clean_exit(r, 1);
+	color = get_color(line[3]);
+	if(color.w == TINVALID)
+		exit_parser(MISCONFIG_MSG);
 	s = (t_shape *)sphere();
 	set_transform(s, multiply_matrix4(translation(center.x, center.y, center.z),
 				scaling(radius, radius, radius)));
@@ -58,15 +60,19 @@ void	parse_plane(char **line, t_root *r)
 	t_tup4		color;
 	t_shape		*p;
 
-	if(line[4])
-		clean_exit(r, 1);
+	printf("plane\n");
+	if (ft_arr2dsize((void **)line) != 4)
+		exit_parser(MISCONFIG_MSG);
+
 	point = ft_atotup(line[1], TPOINT);
-	/* if(!is_coordinates(point))
-		clean_exit(r, 1); */
-	color = ft_atotup(line[3], TCOLOR);
-	if(!is_color(color.r, color.g, color.b))
-		clean_exit(r, 1);
+	//COORDINATES VERIFICATION
+	
+	color = get_color(line[3]);
+	if(color.w == TINVALID)
+		exit_parser(MISCONFIG_MSG);
 	normal = ft_atotup(line[2], TVECTOR);
+	if(!is_vector(normal.x, normal.y, normal.z))
+		exit_parser(MISCONFIG_MSG);
 	p = (t_shape *)plane();
 	((t_plane *)p)->normal = normal;
 	set_transform(p, translation(point.x, point.y, point.z));
@@ -80,23 +86,27 @@ void	parse_cylinder(char **line, t_root *r)
 	float		val[2];
 	t_shape		*c;
 
-	if(line[5])
-		clean_exit(r, 1);
+	printf("cylinder\n");
+	if (ft_arr2dsize((void **)line) != 5)
+		exit_parser(MISCONFIG_MSG);
 	data[0] = ft_atotup(line[1], TPOINT);
-	/* if(!is_coordinates(data[0]))
-		clean_exit(r, 1); */
+	
 	data[1] = ft_atotup(line[2], TVECTOR);
 	if(!is_vector(data[1].x, data[1].y, data[1].z))
-		clean_exit(r, 1);
+		exit_parser(MISCONFIG_MSG);
+		
 	if(!ft_isstr_float(line[2]))
-		clean_exit(r, 1);
+		exit_parser(MISCONFIG_MSG);
 	val[0] = (ft_atof(line[2]) / 2);
+	
 	if(!ft_isstr_float(line[3]))
-		clean_exit(r, 1);
+		exit_parser(MISCONFIG_MSG);
 	val[1] = (ft_atof(line[3]) / 2);
-	data[2] = ft_atotup(line[4], TCOLOR);
-	if(!is_color(data[2].r, data[2].g, data[2].b))
-		clean_exit(r, 1);
+	
+	data[2] = get_color(line[4]);
+	if(data[2].w == TINVALID)
+		exit_parser(MISCONFIG_MSG);
+
 	c = (t_shape *)cylinder();
 	set_transform(c, translation(data[0].x, data[0].y, data[0].z));//MISSING ROTATION
 	set_material(c, data[2]);

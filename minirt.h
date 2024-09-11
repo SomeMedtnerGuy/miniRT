@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/11 16:12:37 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:51:34 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,14 @@ t_point_light	point_light(t_tup4 position, t_tup4 intensity);
 t_material		*material(void);
 
 //PARSER.C
+char			get_id(char *first_arg);
+t_tup4			get_color(char *colors);
+void			exit_parser(char *msg);
+void			parse_ambient(char **line, t_root *r);
+void			parse_camera(char **line, t_root *r);
+void			parse_light(char **line, t_root *r);
+void			free_split(char **split);
+void			parse_line(char *line, t_root *r);
 void			parse_config_file(char *filename, t_root *r);
 
 //CLEAN_EXIT.C
