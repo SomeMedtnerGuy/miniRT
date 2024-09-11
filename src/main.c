@@ -6,11 +6,40 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
+
 /*   Updated: 2024/09/11 14:20:29 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	create_scene(t_root *r, char *file)
+{
+	int		fd;
+	char	*line;
+
+	fd = open(file, O_RDONLY);
+	if(fd < 0)
+	{
+		ft_putstr_fd("Error: couldn't open file\n", STDERR_FILENO);
+		close(fd);
+		return ;
+	}
+	if (ft_strnstr(file, ".rt", 3) != 0)
+	{
+		ft_putstr_fd("Error: wrong file format\n", STDERR_FILENO);
+		close(fd);
+		return ;
+	}
+	line = get_next_line(fd);
+	while(line)
+	{
+		parse_line(line, r);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+}
 
 t_point_light	*point_light(t_tup4 position, t_tup4 intensity)
 {
@@ -67,3 +96,4 @@ int	main(int argc, char **argv)
 	mlx_hook(r.win, DestroyNotify, 0L, clean_exit, &r);
 	mlx_loop(r.mlx);*/
 }
+

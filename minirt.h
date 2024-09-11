@@ -255,4 +255,32 @@ t_intersection	*intersect_world(t_world *w, t_ray r);
 t_comps			prepare_computations(t_intersection *intersection, t_ray ray);
 void			render(t_canvas *canvas, t_camera *camera, t_world *world);
 
+//PARSER.C
+void	parse_ambiente(char **line, t_root *r);
+void	parse_camera(char **line, t_root *r);
+void	parse_light(char **line, t_root *r);
+void	parse_line(char *line, t_root *r);
+
+//PARSE_OBJ.C
+void	set_material(t_shape	*shape, t_tup4 color);
+void	set_transform(t_shape *shape, t_matrix4 matrix);
+void	parse_sphere(char **line, t_root *r);
+void	parse_plane(char **line, t_root *r);
+void	parse_cylinder(char **line, t_root *r);
+
+//PARSE_UTILS.C
+void	ft_rm_char(char *str, char c);
+bool	ft_str_isfloat(char *str);
+char	*ft_strtok(char *str, const char *delim);
+t_tup4	ft_atotup(char *str, int type);
+char	get_id(char *line);
+
+//validations.c
+bool	is_color(int r, int g, int b);
+bool	is_vector(float x, float y, float z);
+bool	is_light(float l);
+
+//MINIRT.C
+
+
 #endif

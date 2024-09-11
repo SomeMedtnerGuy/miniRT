@@ -6,13 +6,13 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:34:22 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/10 13:30:50 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/10 18:32:18 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/* void ft_rm_char(char *str, char c)
+void ft_rm_char(char *str, char c)
 {
 	char *prt1 = str, *prt2 = str;
 
@@ -26,7 +26,7 @@
 		prt1++;
 	}
 	*prt2 = '\0';
-} */
+}
 
 bool	ft_str_isfloat(char *str)
 {
@@ -41,6 +41,51 @@ bool	ft_str_isfloat(char *str)
 		i++;
 	}
 	return (true);
+}
+
+char *ft_strtok(char *str, const char *delim)
+{
+	static char *saved_str;
+
+	saved_str = NULL;
+	if (str != NULL)
+		saved_str = str;
+	if (saved_str == NULL)
+		return NULL;
+	while (*saved_str && strchr(delim, *saved_str))
+		saved_str++;
+	if (*saved_str == '\0')
+	{
+		saved_str = NULL;
+		return NULL;
+	}
+	char *token_start = saved_str;
+	while (*saved_str && !strchr(delim, *saved_str))
+		saved_str++;
+	if (*saved_str != '\0')
+	{
+		*saved_str = '\0';
+		saved_str++;
+	}
+	else
+		saved_str = NULL;
+	return token_start;
+}
+
+t_tup4 ft_atotup(char *str, int type)
+{
+	t_tup4 result;
+	char *token;
+
+	result = tup4(0, 0, 0, 0);
+	token = ft_strtok(str, ",");
+	if (token != NULL) result.x = ft_atof(token);
+	token = ft_strtok(NULL, ",");
+	if (token != NULL) result.y = ft_atof(token);
+	token = ft_strtok(NULL, ",");
+	if (token != NULL) result.z = ft_atof(token);
+	result.w = type;
+	return result;
 }
 
 char	get_id(char *line)
