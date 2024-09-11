@@ -6,20 +6,25 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:10:03 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/10 14:58:55 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:29:10 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "errno.h"
 
+#include <stdio.h>
 bool	ft_isstr_float(char *str)
 {
 	if (!str)
 		return (false);
-	if (*str != '+' || *str != '-' || !ft_isdigit(*str))
-		return (false);
-	str++;
+	if (!ft_isdigit(*str))
+	{
+		if (*str != '+' && *str != '-')
+			str++;
+		else
+			return (false);
+	}
 	if (!ft_isdigit(*str))
 		return (false);
 	while (*str && *str != '.')
@@ -36,6 +41,7 @@ bool	ft_isstr_float(char *str)
 	{
 		if (!ft_isdigit(*str))
 			return (false);
+		str++;
 	}
 	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:29:49 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/05 11:37:09 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/10 21:09:06 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,10 @@ int	clean_exit(t_root *r, int exit_code)
 	free(r->mlx);
 	exit(exit_code);
 	return (0);
+}
+
+void	exit_with_msg(char *msg, t_root *r, int exit_code)
+{
+	ft_putstr_fd(msg, 2);
+	clean_exit(r, exit_code);
 }
