@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+         #
+#    By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 16:28:11 by ndo-vale          #+#    #+#              #
-#    Updated: 2024/09/11 08:40:23 by ndo-vale         ###   ########.fr        #
+#    Updated: 2024/09/12 09:03:13 by joamonte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	  ft_printf.c ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
 	  ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_swap.c ft_fcmp.c \
 	  ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_matrix_free.c ft_matrix_dup.c \
-	  ft_atof.c ft_pow.c ft_arr2dsize.c
+	  ft_atof.c ft_pow.c ft_arr2dsize.c get_next_line_utils.c
 OBJS	= $(SRCS:.c=.o)
 
 .o:.c
