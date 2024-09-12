@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:00:24 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/12 10:58:15 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:31:53 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	set_material(t_shape	*shape, t_tup4 color)
 {
 	shape->material = material();
-	shape->material->color = color;
-	shape->material->diffuse = 0.9;
-	shape->material->specular = 0.3;
+	shape->material.color = color;
+	shape->material.diffuse = 0.9;
+	shape->material.specular = 0.3;
 }
 
 void	set_transform(t_shape *shape, t_matrix4 matrix)
@@ -26,17 +26,15 @@ void	set_transform(t_shape *shape, t_matrix4 matrix)
 	shape->i_transform = invert_matrix4(shape->transform);
 }
 
-void	parse_sphere(char **line, t_root *r)
+/*void	parse_sphere(char **line, t_root *r)
 {
 	t_tup4		center;
 	float		radius;
 	t_tup4		color;
 	t_shape		*s;
 
-	printf("sphere\n");
 	if (ft_arr2dsize((void **)line) != 4)
 		exit_parser(MISCONFIG_MSG);
-
 	center = ft_atotup(line[1], TPOINT);
 	//COORDINATES VERIFICATION
 	if(!ft_isstr_float(line[2]))
@@ -59,10 +57,8 @@ void	parse_plane(char **line, t_root *r)
 	t_tup4		color;
 	t_shape		*p;
 
-	printf("PLANE\n");
 	if (ft_arr2dsize((void **)line) != 4)
 		exit_parser(MISCONFIG_MSG);
-
 	point = ft_atotup(line[1], TPOINT);
 	//COORDINATES VERIFICATION
 	color = get_color(line[3]);
@@ -112,4 +108,4 @@ void	parse_cylinder(char **line, t_root *r)
 	((t_cylinder *)c)->maximum = data[0].y + val[1];
 	((t_cylinder *)c)->minimum = data[0].y - val[1];
 	ft_lstadd_back(&r->world->objects, ft_lstnew(c));
-}
+}*/

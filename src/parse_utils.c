@@ -6,71 +6,11 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:34:22 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/12 10:41:32 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:04:26 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void ft_rm_char(char *str, char c)
-{
-	char *prt1 = str, *prt2 = str;
-
-	while (*prt1 != '\0')
-	{
-		if (*prt1 != c)
-		{
-			*prt2 = *prt1;
-			prt2++;
-		}
-		prt1++;
-	}
-	*prt2 = '\0';
-}
-
-bool	ft_str_isfloat(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (i < (int)ft_strlen(str))
-	{
-		if (!(ft_isdigit(str[i]) == true || str[i] == '-' || str[i] == '+' ||
-							str[i] == '.'))
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-char *ft_strtok(char *str, const char *delim)
-{
-	static char *saved_str;
-
-	saved_str = NULL;
-	if (str != NULL)
-		saved_str = str;
-	if (saved_str == NULL)
-		return NULL;
-	while (*saved_str && strchr(delim, *saved_str))
-		saved_str++;
-	if (*saved_str == '\0')
-	{
-		saved_str = NULL;
-		return NULL;
-	}
-	char *token_start = saved_str;
-	while (*saved_str && !strchr(delim, *saved_str))
-		saved_str++;
-	if (*saved_str != '\0')
-	{
-		*saved_str = '\0';
-		saved_str++;
-	}
-	else
-		saved_str = NULL;
-	return token_start;
-}
 
 t_tup4 ft_atotup(char *str, int type)
 {
@@ -80,32 +20,59 @@ t_tup4 ft_atotup(char *str, int type)
 
 	arr2d = ft_split(str, ',');
 	if (ft_arr2dsize((void **)arr2d) != 3)
-		return (invalid_tup4());
+		return (ft_matrix_free((void ***)&arr2d), invalid_tup4());
 	i = -1;
 	while (++i < 3)
 	{
 		if (!ft_isstr_float(arr2d[i]))
-			return (invalid_tup4());
-		result.e[i] = ft_atoi(arr2d[i]);
-		if (type == TCOLOR && (result.e[i] < 0 || result.e[i] > 255))
-			return (invalid_tup4());
+			return (ft_matrix_free((void ***)&arr2d), invalid_tup4());
+		result.e[i] = ft_atof(arr2d[i]);
 	}
 	result.w = type;
+	ft_matrix_free((void ***)&arr2d);
 	return (result);
 }
 
-/*t_tup4 ft_atotup(char *str, int type)
+char	get_id(char *first_arg)
 {
-	t_tup4 result;
-	char *token;
+	if (!first_arg)
+		return (INVALID_OBJ);
+	if (ft_strncmp(first_arg, "A", 2) == 0)
+		return (AMBIENT);
+	else if (ft_strncmp(first_arg, "C", 2) == 0)
+		return (CAMERA);
+	else if (ft_strncmp(first_arg, "L", 2) == 0)
+		return (LIGHT);
+	else if (ft_strncmp(first_arg, "sp", 3) == 0)
+		return (SPHERE);
+	else if(ft_strncmp(first_arg, "pl", 3) == 0)
+		return (PLANE);
+	else if(ft_strncmp(first_arg, "cy", 3) == 0)
+		return (CYLINDER);
+	return (INVALID_OBJ);
+}
 
-	result = tup4(0, 0, 0, 0);
-	token = ft_strtok(str, ",");
-	if (token != NULL) result.x = ft_atof(token);
-	token = ft_strtok(NULL, ",");
-	if (token != NULL) result.y = ft_atof(token);
-	token = ft_strtok(NULL, ",");
-	if (token != NULL) result.z = ft_atof(token);
-	result.w = type;
-	return result;
-}*/
+t_tup4	get_color(char *colors)
+{
+	char	**color_arr;
+	t_tup4	out;
+	int		i;
+	int		shade;
+
+	color_arr = ft_split(colors, ',');
+	if (ft_arr2dsize((void **)color_arr) != 3)
+		return (ft_matrix_free((void ***)&color_arr), invalid_tup4());
+	i = -1;
+	while (++i < 3)
+	{
+		if (!ft_isstr_int(color_arr[i]))
+			return (ft_matrix_free((void ***)&color_arr), invalid_tup4());
+		shade = ft_atoi(color_arr[i]);
+		if (shade < 0 || shade > 255)
+			return (ft_matrix_free((void ***)&color_arr), invalid_tup4());
+		out.e[i] = shade_to_float((unsigned char)shade);
+	}
+	out.w = TCOLOR;
+	ft_matrix_free((void ***)&color_arr);
+	return (out);
+}

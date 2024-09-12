@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/11 19:05:12 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:31:32 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ static void	direct_lighting(t_light_data *data, t_tup4 effective_color,
 	float	reflect_dot_eye;
 
 	data->final_diffuse = multiply_tup4(effective_color,
-			data->material->diffuse * light_dot_normal);
+			data->material.diffuse * light_dot_normal);
 	reflect_dot_eye = dot(reflect(negate_tup4(data->lightv),
 				data->normalv), data->eyev);
 	if (reflect_dot_eye <= 0)
 		data->final_specular = color(0, 0, 0);
 	else
 	{
-		factor = pow(reflect_dot_eye, data->material->shininess);
+		factor = pow(reflect_dot_eye, data->material.shininess);
 		data->final_specular = multiply_tup4(data->light.intensity,
-				data->material->specular * factor);
+				data->material.specular * factor);
 	}
 }
 
@@ -43,7 +43,7 @@ t_tup4	lighting(t_light_data *data)
 	t_tup4	effective_color;
 	float	light_dot_normal;
 
-	effective_color = hadamard(data->material->color,
+	effective_color = hadamard(data->material.color,
 			data->light.intensity);
 	data->lightv = normalize(subtract_tup4(data->light.position, data->point));
 	data->final_ambient = multiply_tup4(effective_color,

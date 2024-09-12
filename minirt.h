@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/11 19:03:52 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:12:40 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_ambient
 
 typedef struct s_light_data
 {
-	t_material		*material;
+	t_material		material;
 	t_point_light	light;
 	t_ambient		ambient;
 	bool			in_shadow;
@@ -88,7 +88,7 @@ typedef enum obj_type
 typedef struct s_shape
 {
 	t_obj_type	type;
-	t_material	*material;
+	t_material	material;
 	t_matrix4	transform;
 	t_matrix4	i_transform;
 }	t_shape;
@@ -100,18 +100,12 @@ typedef struct s_intersection
 	struct s_intersection	*next;
 }	t_intersection;
 
-typedef struct s_world
-{
-	t_point_light	light;
-	t_ambient		ambient;
-	t_list			*objects;
-	t_intersection	*xs;
-}	t_world;
+
 
 typedef struct s_sphere
 {
 	t_obj_type	type;
-	t_material	*material;
+	t_material	material;
 	t_matrix4	transform;
 	t_matrix4	i_transform;
 	t_tup4		center;
@@ -121,7 +115,7 @@ typedef struct s_sphere
 typedef struct s_plane
 {
 	t_obj_type	type;
-	t_material	*material;
+	t_material	material;
 	t_matrix4	transform;
 	t_matrix4	i_transform;
 	t_tup4		normal;
@@ -130,7 +124,7 @@ typedef struct s_plane
 typedef struct s_cylinder
 {
 	t_obj_type	type;
-	t_material	*material;
+	t_material	material;
 	t_matrix4	transform;
 	t_matrix4	i_transform;
 	float		minimum;
@@ -172,33 +166,31 @@ typedef struct s_camera
 
 }	t_camera;
 
+typedef struct s_world
+{
+	t_point_light	light;
+	t_ambient		ambient;
+	t_list			*objects;
+	t_intersection	*xs;
+	t_camera	*camera;
+}	t_world;
+
 typedef struct s_root
 {
 	void		*mlx;
 	void		*win;
 	t_canvas	*canvas;
 	t_world		*world;
-	t_camera	*camera;
 }	t_root;
 
 //MAIN.C
 t_point_light	point_light(t_tup4 position, t_tup4 intensity);
-t_material		*material(void);
-
-//PARSER.C
-char			get_id(char *first_arg);
-t_tup4			get_color(char *colors);
-void			exit_parser(char *msg);
-void			parse_ambient(char **line, t_root *r);
-void			parse_camera(char **line, t_root *r);
-void			parse_light(char **line, t_root *r);
-void			free_split(char **split);
-void			parse_line(char *line, t_root *r);
-void			parse_config_file(char *filename, t_root *r);
+t_material		material(void);
 
 //CLEAN_EXIT.C
 int				clean_exit(t_root *r, int exit_code);
 void			exit_with_msg(char *msg, t_root *r, int exit_code);
+void			free_world(t_world *w);
 
 //COLOR.C
 unsigned char	float_to_shade(float color_strength);
@@ -263,7 +255,7 @@ t_intersection	*intersect_world(t_world *w, t_ray r);
 t_comps			prepare_computations(t_intersection *intersection, t_ray ray);
 void			render(t_canvas *canvas, t_camera *camera, t_world *world);
 
-//PARSER.C
+/* //PARSER.C
 char	get_id(char *line);
 void	parse_ambient(char **line, t_root *r);
 void	parse_camera(char **line, t_root *r);
@@ -287,8 +279,16 @@ t_tup4	ft_atotup(char *str, int type);
 //validations.c
 bool	is_color(int r, int g, int b);
 bool	is_vector(float x, float y, float z);
-bool	is_light(float l);
+bool	is_light(float l); */
 
+
+//PARSER
+void	parse_config_file(char *filename, t_root *r);
+
+//PARSER_UTILS
+t_tup4	ft_atotup(char *str, int type);
+char	get_id(char *first_arg);
+t_tup4	get_color(char *colors);
 //MINIRT.C
 
 
