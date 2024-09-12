@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:34:22 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/12 14:04:26 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:45:13 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,17 @@ t_tup4	get_color(char *colors)
 	out.w = TCOLOR;
 	ft_matrix_free((void ***)&color_arr);
 	return (out);
+}
+
+bool	tup_in_range(t_tup4 tup, float rmin, float rmax)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		if (tup.e[i] < rmin || tup.e[i] > rmax)
+			return (false);
+	}
+	return (true);
 }

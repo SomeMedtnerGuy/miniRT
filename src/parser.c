@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/12 14:23:01 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:09:18 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ int	parse_camera(char **line, t_root *r)
 	axis = ft_atotup(line[2], TVECTOR);
 	if (view_point.w == TINVALID || axis.w == TINVALID || !ft_isstr_int(line[3]))
 		return (1);
-	axis = normalize(axis);
 	fov = ft_atoi(line[3]);
-	if(!(fov >= 0 && fov <= 180))
+	if(!(fov >= 0 && fov <= 180) || !tup_in_range(axis, -1, 1))
 		return (1);
+	axis = normalize(axis);
 	r->world->camera = camera(CANVAS_WIDTH, CANVAS_HEIGHT, (fov * (M_PI / 180)));
 	r->world->camera->transform = view_transform(view_point, axis, vector(0, 1, 0));
 	return (0);
@@ -80,7 +80,7 @@ int	parse_light(char **line, t_root *r)
 		return (1);
 	bright = ft_atof(line[2]);
 	color = get_color(line[3]);
-	if (color.w == TINVALID)
+	if (color.w == TINVALID || !(bright >= 0 && bright <= 1))
 		return (1);
 	color = multiply_tup4(color, bright);
 	r->world->light = point_light(point, color);
@@ -102,14 +102,14 @@ int	parse_line(char *line, t_root *r)
 		id = parse_camera(elements, r);
 	else if (id == LIGHT)
 		id = parse_light(elements, r);
-	/*else if (id == SPHERE)
+	else if (id == SPHERE)
 		id = parse_sphere(elements, r);
 	else if (id == PLANE)
 		id = parse_plane(elements, r);
 	else if (id == CYLINDER)
 		id = parse_cylinder(elements, r);
 	else
-		id = 1;*/
+		id = 1;
 	ft_matrix_free((void ***)&elements);
 	return (id);
 }
