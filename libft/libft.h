@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:12:31 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/11 09:52:44 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 09:01:38 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 
 # include <stdlib.h>
 # include <limits.h>
+# include <stdio.h>
 # include <stdint.h>
 # include <unistd.h>
 # include <stdbool.h>
 # include <math.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 # define EPSILON 0.0001
 
@@ -36,6 +40,7 @@ typedef struct s_buffer
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
+
 # endif
 
 //Character check and manipulation
@@ -101,9 +106,14 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_swap(char **a, char **b);
 //Miscellaneous
 int		ft_is_little_endian(void);
-char	*get_next_line(int fd);
 void	ft_matrix_free(void ***matrix);
 void	**ft_matrix_dup(void **matrix);
 int		ft_arr2dsize(void	**arr2d);
+//Get Next Line
+char	*get_next_line(int fd);
+char	*merge_previous_and_current(char *previous, const char *current);
+char	*cpy_buffer(const char *buffer, size_t len);
+char	*find_chr(const char *buffer, int to_find);
+size_t	strlen_at(const char *str, int avoid);
 
 #endif
