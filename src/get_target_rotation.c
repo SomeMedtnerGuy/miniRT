@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 18:20:45 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/10 19:51:43 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:49:42 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_matrix4	get_target_rotation(t_tup4 target_y_vec)
 	t_matrix4	skew_sym;
 	t_matrix4	out;
 
-	rotation_axis = cross(vector(0, 1, 0), target_y_vec);
+	rotation_axis = cross(vector(0, -1, 0), target_y_vec);
 	rotation_angle = acos(ft_clamp(dot(vector(0, 1, 0), target_y_vec), -1, 1));
 	skew_sym = skew_symetric(rotation_axis);
 	out = add_matrix4(add_matrix4(identity_matrix4(),

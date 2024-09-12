@@ -54,15 +54,13 @@ int	main(int argc, char **argv)
 	r.world = world();
 	parse_config_file(argv[1], &r);
 
-	
-
 	r.mlx = mlx_init();
 	r.win = mlx_new_window(r.mlx, CANVAS_WIDTH, CANVAS_HEIGHT, WINDOW_TITLE);
 	r.canvas = (t_canvas *)ft_calloc(1, sizeof(t_canvas));
 	r.canvas->img = mlx_new_image(r.mlx, CANVAS_WIDTH, CANVAS_HEIGHT);
 	r.canvas->addr = mlx_get_data_addr(r.canvas->img, &r.canvas->bits_per_pixel,
 			&r.canvas->line_length, &r.canvas->endian);
-	//render(r.canvas, r.camera, r.world);
+	render(r.canvas, r.world->camera, r.world);
 	mlx_put_image_to_window(r.mlx, r.win, r.canvas->img, 0, 0);
 	mlx_key_hook(r.win, key_hook, &r);
 	mlx_hook(r.win, DestroyNotify, 0L, clean_exit, &r);
