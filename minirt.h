@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/12 14:12:40 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:09:52 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,11 +284,16 @@ bool	is_light(float l); */
 
 //PARSER
 void	parse_config_file(char *filename, t_root *r);
+int		parse_sphere(char **line, t_root *r);
+int	parse_plane(char **line, t_root *r);
+int	parse_cylinder(char **line, t_root *r);
+
 
 //PARSER_UTILS
 t_tup4	ft_atotup(char *str, int type);
 char	get_id(char *first_arg);
 t_tup4	get_color(char *colors);
+bool	tup_in_range(t_tup4 tup, float rmin, float rmax);
 //MINIRT.C
 
 
