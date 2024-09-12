@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/12 13:31:32 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:09:32 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,16 @@ bool	is_shadowed(t_world *w, t_tup4 p)
 	float			distance;
 	t_tup4			direction;
 	t_intersection	*h;
+	t_intersection	*xs;
 
 	v = subtract_tup4(w->light.position, p);
 	distance = magnitude(v);
 	direction = normalize(v);
-	h = hit(intersect_world(w, ray(p, direction)));
+	xs = intersect_world(w, ray(p, direction));
+	h = hit(xs);
 	if (h && h->t < distance)
-		return (true);
-	return (false);
+		return (intclear(&xs), true);
+	return (intclear(&xs), false);
 }
 
 t_tup4	shade_hit(t_world *w, t_comps comps)

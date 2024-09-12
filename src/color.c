@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:35:33 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/11 20:23:44 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:49:05 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_tup4	color_at(t_world *w, t_ray r)
 	hit_int = hit(xs);
 	if (!hit_int)
 		return (color(0, 0, 0));
-	//printf("FUCK\n");
 	comps = prepare_computations(hit_int, r);
+	intclear(&xs);
 	return (shade_hit(w, comps));
 }
 

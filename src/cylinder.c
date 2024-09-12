@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 21:48:01 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/09 21:09:05 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:19:50 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_cylinder	*cylinder(void)
 	c->material = material();
 	c->minimum = -INFINITY;
 	c->maximum = INFINITY;
-	c->closed = false;
+	c->closed = true;
 	return (c);
 }
 

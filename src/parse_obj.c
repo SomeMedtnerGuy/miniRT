@@ -6,13 +6,13 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:00:24 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/12 15:13:06 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:00:12 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	set_material(t_shape	*shape, t_tup4 color)
+void	set_material(t_shape *shape, t_tup4 color)
 {
 	shape->material = material();
 	shape->material.color = color;
@@ -67,7 +67,6 @@ int	parse_plane(char **line, t_root *r)
 	if(color.w == TINVALID || point.w == TINVALID
 		|| normal.w == TINVALID || !tup_in_range(normal, -1, 1))
 		return (1);
-	normal.z = -normal.z;
 	p = (t_shape *)plane();
 	if (!p)
 		return (1);
@@ -99,10 +98,13 @@ int	parse_cylinder(char **line, t_root *r)
 	c = (t_shape *)cylinder();
 	if (!c)
 		return (1);
+	print_tup4(data[0], false);
+	print_tup4(data[1], false);
 	set_transform(c, multiply_matrix4(translation(data[0].x, data[0].y, data[0].z),
-						get_target_rotation(normalize(data[1]))));
+						multiply_matrix4(get_target_rotation(normalize(data[1])),
+						scaling(val[0], 1, val[0]))));
 	set_material(c, data[2]);
-	((t_cylinder *)c)->maximum = data[0].y + val[1];
-	((t_cylinder *)c)->minimum = data[0].y - val[1];
+	((t_cylinder *)c)->maximum = val[1];
+	((t_cylinder *)c)->minimum = -val[1];
 	return(ft_lstadd_back(&r->world->objects, ft_lstnew(c)), 0);
 }

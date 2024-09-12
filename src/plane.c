@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:18:40 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/09 21:11:43 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:21:31 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_intersection	*plane_intersect(t_plane *plane, t_ray ray)
 	float			i_value;
 	t_intersection	*xs;
 
-	if (ray.direction.y < EPSILON)
+	if (fabsf(ray.direction.y) < EPSILON)
 		return (NULL);
 	i_value = -ray.origin.y / ray.direction.y;
 	xs = NULL;

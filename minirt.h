@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/12 15:09:52 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:08:04 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define FILE_ERROR_MSG "File could not be open!\n"
 # define MISCONFIG_MSG "Scene description file is misconfigured!\n"
 
-# define CANVAS_WIDTH 600
-# define CANVAS_HEIGHT 300
+# define CANVAS_WIDTH 1920
+# define CANVAS_HEIGHT 1080
 
 # define WINDOW_TITLE "miniRT"
 
