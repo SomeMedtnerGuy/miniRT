@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:34:22 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/11 16:11:35 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:41:32 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,28 @@ char *ft_strtok(char *str, const char *delim)
 
 t_tup4 ft_atotup(char *str, int type)
 {
+	t_tup4	result;
+	int		i;
+	char	**arr2d;
+
+	arr2d = ft_split(str, ',');
+	if (ft_arr2dsize((void **)arr2d) != 3)
+		return (invalid_tup4());
+	i = -1;
+	while (++i < 3)
+	{
+		if (!ft_isstr_float(arr2d[i]))
+			return (invalid_tup4());
+		result.e[i] = ft_atoi(arr2d[i]);
+		if (type == TCOLOR && (result.e[i] < 0 || result.e[i] > 255))
+			return (invalid_tup4());
+	}
+	result.w = type;
+	return (result);
+}
+
+/*t_tup4 ft_atotup(char *str, int type)
+{
 	t_tup4 result;
 	char *token;
 
@@ -86,4 +108,4 @@ t_tup4 ft_atotup(char *str, int type)
 	if (token != NULL) result.z = ft_atof(token);
 	result.w = type;
 	return result;
-}
+}*/

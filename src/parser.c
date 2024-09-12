@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/11 18:11:39 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/11 21:29:19 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	parse_ambient(char **line, t_root *r)
 	r->world->ambient.color = color;
 }
 
+
+
 void	parse_camera(char **line, t_root *r)
 {
 	t_tup4	view_point;
@@ -93,7 +95,7 @@ void	parse_camera(char **line, t_root *r)
 		exit_parser(MISCONFIG_MSG);
 	view_point = ft_atotup(line[1], TPOINT);
 	//COORDINATES VERIFICATION
-	axis = ft_atotup(line[2], TVECTOR);
+	axis = normalize(ft_atotup(line[2], TVECTOR));
 	if(!is_vector(axis.x, axis.y, axis.z))
 		exit_parser(MISCONFIG_MSG);
 	fov = ft_atoi(line[3]);
@@ -113,13 +115,15 @@ void	parse_light(char **line, t_root *r)
 	if (ft_arr2dsize((void **)line) != 4)
 		exit_parser(MISCONFIG_MSG);
 
+	//point = ft_atotup(line[1], TPOINT);
 	point = ft_atotup(line[1], TPOINT);
 	//COORDINATES VERIFICATION
 
 	if(!ft_isstr_float(line[2]))
 		exit_parser(MISCONFIG_MSG);
 	bright = ft_atof(line[2]);
-	color = ft_atotup(line[3], TCOLOR);
+	//color = ft_atotup(line[3], TCOLOR);
+	color = get_color(line[3]);
 	if(!is_color(color.r, color.g, color.b))
 		exit_parser(MISCONFIG_MSG);
 	color = multiply_tup4(color, bright);
@@ -157,10 +161,7 @@ void	parse_line(char *line, t_root *r)
 	else if (id == PLANE)
 		parse_plane(elements, r);
 	else if (id == CYLINDER)
-	{
-		printf("aqui\n");
 		parse_cylinder(elements, r);
-	}
 	else
 		exit_parser(MISCONFIG_MSG);
 	ft_matrix_free((void ***)&elements);
@@ -181,7 +182,7 @@ void	parse_config_file(char *filename, t_root *r)
 	line = get_next_line(fd);
 	while (line)
 	{
-		printf("Linha: %s\n", line);
+		//printf("Linha: %s\n", line);
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
 		parse_line(line, r);

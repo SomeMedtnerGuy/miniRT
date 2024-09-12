@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:10:03 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/11 13:29:10 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:53:09 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,30 @@
 bool	ft_isstr_float(char *str)
 {
 	if (!str)
-		return (false);
+		return (printf("1\n"), false);
 	if (!ft_isdigit(*str))
 	{
 		if (*str != '+' && *str != '-')
-			str++;
+			return (printf("2...\n"), false);
 		else
-			return (false);
+			str++;
 	}
 	if (!ft_isdigit(*str))
-		return (false);
+		return (printf("3\n"), false);
 	while (*str && *str != '.')
 	{
 		if (!ft_isdigit(*str))
-			return (false);
+			return (printf("4\n"), false);
 		str++;
 	}
 	if (*str)
 		str++;
 	if (!ft_isdigit(*str))
-		return (false);
+		return (printf("5\n"), false);
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
-			return (false);
+			return (printf("6\n"), false);
 		str++;
 	}
 	return (true);
