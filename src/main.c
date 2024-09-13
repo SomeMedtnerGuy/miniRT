@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-
-/*   Updated: 2024/09/11 14:20:29 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:41:34 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +39,7 @@ int	key_hook(int keycode, t_root *r)
 	return (0);
 }
 
-int	main(int argc, char **argv) 
+int	main(int argc, char **argv)
 {
 	t_root	r;
 	char	*extension;
@@ -53,7 +52,6 @@ int	main(int argc, char **argv)
 	free(extension);
 	r.world = world();
 	parse_config_file(argv[1], &r);
-
 	r.mlx = mlx_init();
 	r.win = mlx_new_window(r.mlx, CANVAS_WIDTH, CANVAS_HEIGHT, WINDOW_TITLE);
 	r.canvas = (t_canvas *)ft_calloc(1, sizeof(t_canvas));

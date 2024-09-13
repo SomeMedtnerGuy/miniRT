@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:21:44 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/10 15:08:42 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:42:10 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 t_matrix4	view_transform(t_tup4 from, t_tup4 to, t_tup4 up)
 {
-	//t_tup4		forward;
 	t_tup4		left;
 	t_tup4		true_up;
 	t_matrix4	orientation;
 
-	//forward = normalize(subtract_tup4(to, from));
 	left = cross(to, normalize(up));
 	true_up = cross(left, to);
 	orientation = matrix4(
