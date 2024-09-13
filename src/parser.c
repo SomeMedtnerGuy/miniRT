@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/12 15:09:18 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:43:06 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-//CHECK VALUES VERIFICATION
-
-void	exit_parser(char *line, int fd, char *msg)
-{
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	ft_putstr_fd(msg, 2);
-	exit(1);
-}
 
 int	parse_ambient(char **line, t_root *r)
 {
@@ -39,8 +25,8 @@ int	parse_ambient(char **line, t_root *r)
 	if (ratio < 0 || ratio > 1)
 		return (1);
 	color = get_color(line[2]);
-	if(color.w == TINVALID)
-		return(1);
+	if (color.w == TINVALID)
+		return (1);
 	r->world->ambient.ratio = ratio;
 	r->world->ambient.color = color;
 	return (0);
@@ -52,18 +38,21 @@ int	parse_camera(char **line, t_root *r)
 	t_tup4	axis;
 	int		fov;
 
-	if(ft_arr2dsize((void **)line) != 4)
+	if (ft_arr2dsize((void **)line) != 4)
 		return (1);
 	view_point = ft_atotup(line[1], TPOINT);
 	axis = ft_atotup(line[2], TVECTOR);
-	if (view_point.w == TINVALID || axis.w == TINVALID || !ft_isstr_int(line[3]))
+	if (view_point.w == TINVALID || axis.w == TINVALID
+		|| !ft_isstr_int(line[3]))
 		return (1);
 	fov = ft_atoi(line[3]);
-	if(!(fov >= 0 && fov <= 180) || !tup_in_range(axis, -1, 1))
+	if (!(fov >= 0 && fov <= 180) || !tup_in_range(axis, -1, 1))
 		return (1);
 	axis = normalize(axis);
-	r->world->camera = camera(CANVAS_WIDTH, CANVAS_HEIGHT, (fov * (M_PI / 180)));
-	r->world->camera->transform = view_transform(view_point, axis, vector(0, 1, 0));
+	r->world->camera = camera(CANVAS_WIDTH, CANVAS_HEIGHT,
+			(fov * (M_PI / 180)));
+	r->world->camera->transform = view_transform(view_point, axis,
+			vector(0, 1, 0));
 	return (0);
 }
 
@@ -94,7 +83,7 @@ int	parse_line(char *line, t_root *r)
 
 	elements = ft_split(line, ' ');
 	if (!elements)
-		return (1); //Error
+		return (1);
 	id = get_id(elements[0]);
 	if (id == AMBIENT)
 		id = parse_ambient(elements, r);

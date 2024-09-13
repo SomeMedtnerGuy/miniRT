@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:32:47 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/12 09:59:10 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:41:04 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_tup4	normal_at(t_shape *shape, t_tup4 point)
 	else if (shape->type == CYLINDER)
 		local_normal = cylinder_normal_at((t_cylinder *)shape, local_point);
 	else
-		local_normal = vector(0, 1, 0); //CHANGED FROM 0,1,0
+		local_normal = vector(0, 1, 0);
 	world_normal = matrix4_mult_tup4(transpose_matrix4(
 				shape->i_transform), local_normal);
 	world_normal.w = TVECTOR;

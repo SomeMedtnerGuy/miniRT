@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/12 20:08:04 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:49:43 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@
 # define FILE_ERROR_MSG "File could not be open!\n"
 # define MISCONFIG_MSG "Scene description file is misconfigured!\n"
 
-# define CANVAS_WIDTH 1920
-# define CANVAS_HEIGHT 1080
+# define CANVAS_WIDTH 1024
+# define CANVAS_HEIGHT 512
 
 # define WINDOW_TITLE "miniRT"
 
 typedef struct s_material
 {
 	t_tup4	color;
-//	float	ambient;
 	float	diffuse;
 	float	specular;
 	float	shininess;
@@ -99,8 +98,6 @@ typedef struct s_intersection
 	t_shape					*o;
 	struct s_intersection	*next;
 }	t_intersection;
-
-
 
 typedef struct s_sphere
 {
@@ -172,7 +169,7 @@ typedef struct s_world
 	t_ambient		ambient;
 	t_list			*objects;
 	t_intersection	*xs;
-	t_camera	*camera;
+	t_camera		*camera;
 }	t_world;
 
 typedef struct s_root
@@ -220,7 +217,7 @@ void			int_add_front(t_intersection **lst, t_intersection *new);
 void			lstadd_xs_sorted(t_intersection **lst, t_intersection *new);
 
 //GET_TARGET_ROTATION.C
-t_matrix4	get_target_rotation(t_tup4 target_y_vec);
+t_matrix4		get_target_rotation(t_tup4 target_y_vec);
 
 //INTERSECTION.C
 t_intersection	*intersection(float value, void *object);
@@ -255,46 +252,30 @@ t_intersection	*intersect_world(t_world *w, t_ray r);
 t_comps			prepare_computations(t_intersection *intersection, t_ray ray);
 void			render(t_canvas *canvas, t_camera *camera, t_world *world);
 
-/* //PARSER.C
-char	get_id(char *line);
-void	parse_ambient(char **line, t_root *r);
-void	parse_camera(char **line, t_root *r);
-void	parse_light(char **line, t_root *r);
-void	parse_line(char *line, t_root *r);
+//PARSER.C
+void			parse_config_file(char *filename, t_root *r);
+int				parse_line(char *line, t_root *r);
+int				parse_light(char **line, t_root *r);
+int				parse_camera(char **line, t_root *r);
+int				parse_ambient(char **line, t_root *r);
 
 //PARSE_OBJ.C
-void	set_material(t_shape	*shape, t_tup4 color);
-void	set_transform(t_shape *shape, t_matrix4 matrix);
-void	parse_sphere(char **line, t_root *r);
-void	parse_plane(char **line, t_root *r);
-void	parse_cylinder(char **line, t_root *r);
-
-//PARSE_UTILS.C
-void	ft_rm_char(char *str, char c);
-bool	ft_str_isfloat(char *str);
-char	*ft_strtok(char *str, const char *delim);
-t_tup4	ft_atotup(char *str, int type);
-
-
-//validations.c
-bool	is_color(int r, int g, int b);
-bool	is_vector(float x, float y, float z);
-bool	is_light(float l); */
-
-
-//PARSER
-void	parse_config_file(char *filename, t_root *r);
-int		parse_sphere(char **line, t_root *r);
-int	parse_plane(char **line, t_root *r);
-int	parse_cylinder(char **line, t_root *r);
-
+void			set_material(t_shape	*shape, t_tup4 color);
+void			set_transform(t_shape *shape, t_matrix4 matrix);
+void			parse_sphere(char **line, t_root *r);
+void			parse_plane(char **line, t_root *r);
+void			parse_cylinder(char **line, t_root *r);
 
 //PARSER_UTILS
-t_tup4	ft_atotup(char *str, int type);
-char	get_id(char *first_arg);
-t_tup4	get_color(char *colors);
-bool	tup_in_range(t_tup4 tup, float rmin, float rmax);
-//MINIRT.C
+t_tup4			ft_atotup(char *str, int type);
+char			get_id(char *first_arg);
+t_tup4			get_color(char *colors);
+bool			tup_in_range(t_tup4 tup, float rmin, float rmax);
+void			exit_parser(char *line, int fd, char *msg);
 
+//VALIDATIONS.C
+bool			is_color(int r, int g, int b);
+bool			is_vector(float x, float y, float z);
+bool			is_light(float l);
 
 #endif

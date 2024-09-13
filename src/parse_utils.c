@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:34:22 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/12 14:45:13 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:43:10 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_tup4 ft_atotup(char *str, int type)
+void	exit_parser(char *line, int fd, char *msg)
+{
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	ft_putstr_fd(msg, 2);
+	exit(1);
+}
+
+t_tup4	ft_atotup(char *str, int type)
 {
 	t_tup4	result;
 	int		i;
@@ -45,9 +57,9 @@ char	get_id(char *first_arg)
 		return (LIGHT);
 	else if (ft_strncmp(first_arg, "sp", 3) == 0)
 		return (SPHERE);
-	else if(ft_strncmp(first_arg, "pl", 3) == 0)
+	else if (ft_strncmp(first_arg, "pl", 3) == 0)
 		return (PLANE);
-	else if(ft_strncmp(first_arg, "cy", 3) == 0)
+	else if (ft_strncmp(first_arg, "cy", 3) == 0)
 		return (CYLINDER);
 	return (INVALID_OBJ);
 }

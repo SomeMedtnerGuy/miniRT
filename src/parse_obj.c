@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:00:24 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/12 20:00:12 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:40:05 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,19 @@ int	parse_sphere(char **line, t_root *r)
 	if (ft_arr2dsize((void **)line) != 4)
 		return (1);
 	center = ft_atotup(line[1], TPOINT);
-	if(!ft_isstr_float(line[2]))
+	if (!ft_isstr_float(line[2]))
 		return (1);
 	radius = (ft_atof(line[2]) / 2);
+	if (radius <= 0)
+		return (1);
 	color = get_color(line[3]);
-	if(color.w == TINVALID || center.w == TINVALID)
+	if (color.w == TINVALID || center.w == TINVALID)
 		return (1);
 	s = (t_shape *)sphere();
 	if (!s)
 		return (1);
 	set_transform(s, multiply_matrix4(translation(center.x, center.y, center.z),
-				scaling(radius, radius, radius)));
+			scaling(radius, radius, radius)));
 	set_material(s, color);
 	ft_lstadd_back(&r->world->objects, ft_lstnew(s));
 	return (0);
@@ -64,7 +66,7 @@ int	parse_plane(char **line, t_root *r)
 	point = ft_atotup(line[1], TPOINT);
 	color = get_color(line[3]);
 	normal = ft_atotup(line[2], TVECTOR);
-	if(color.w == TINVALID || point.w == TINVALID
+	if (color.w == TINVALID || point.w == TINVALID
 		|| normal.w == TINVALID || !tup_in_range(normal, -1, 1))
 		return (1);
 	p = (t_shape *)plane();
@@ -87,24 +89,23 @@ int	parse_cylinder(char **line, t_root *r)
 		return (1);
 	data[0] = ft_atotup(line[1], TPOINT);
 	data[1] = ft_atotup(line[2], TVECTOR);
-	if(!ft_isstr_float(line[3]) || !ft_isstr_float(line[4]))
+	if (!ft_isstr_float(line[3]) || !ft_isstr_float(line[4]))
 		return (1);
 	val[0] = (ft_atof(line[3]) / 2);
 	val[1] = (ft_atof(line[4]) / 2);
 	data[2] = get_color(line[5]);
 	if (data[0].w == TINVALID || data[1].w == TINVALID || data[2].w == TINVALID
-		|| !tup_in_range(data[1], -1, 1))
+		|| !tup_in_range(data[1], -1, 1) || val[0] <= 0 || val[1] <= 0)
 		return (1);
 	c = (t_shape *)cylinder();
 	if (!c)
 		return (1);
-	print_tup4(data[0], false);
-	print_tup4(data[1], false);
-	set_transform(c, multiply_matrix4(translation(data[0].x, data[0].y, data[0].z),
-						multiply_matrix4(get_target_rotation(normalize(data[1])),
-						scaling(val[0], 1, val[0]))));
+	set_transform(c, multiply_matrix4(translation(data[0].x,
+				data[0].y, data[0].z),
+			multiply_matrix4(get_target_rotation(normalize(data[1])),
+				scaling(val[0], 1, val[0]))));
 	set_material(c, data[2]);
 	((t_cylinder *)c)->maximum = val[1];
 	((t_cylinder *)c)->minimum = -val[1];
-	return(ft_lstadd_back(&r->world->objects, ft_lstnew(c)), 0);
+	return (ft_lstadd_back(&r->world->objects, ft_lstnew(c)), 0);
 }
