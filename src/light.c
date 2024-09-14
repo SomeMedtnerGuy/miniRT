@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:09:34 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/12 18:09:32 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:37:39 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_tup4	lighting(t_light_data *data)
 			data->light.intensity);
 	data->lightv = normalize(subtract_tup4(data->light.position, data->point));
 	data->final_ambient = multiply_tup4(effective_color,
-			data->ambient.ratio);
+			data->ambient.ratio); // Instead of effective color, material.color * ambient.color should be used!
 	light_dot_normal = dot(data->lightv, data->normalv);
 	if (light_dot_normal < 0 || data->in_shadow)
 	{
