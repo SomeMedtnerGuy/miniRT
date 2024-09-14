@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/13 19:49:43 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/14 09:40:58 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,9 +262,9 @@ int				parse_ambient(char **line, t_root *r);
 //PARSE_OBJ.C
 void			set_material(t_shape	*shape, t_tup4 color);
 void			set_transform(t_shape *shape, t_matrix4 matrix);
-void			parse_sphere(char **line, t_root *r);
-void			parse_plane(char **line, t_root *r);
-void			parse_cylinder(char **line, t_root *r);
+int				parse_sphere(char **line, t_root *r);
+int				parse_plane(char **line, t_root *r);
+int				parse_cylinder(char **line, t_root *r);
 
 //PARSER_UTILS
 t_tup4			ft_atotup(char *str, int type);
