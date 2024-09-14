@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:00:24 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/13 19:40:05 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/14 09:36:13 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ int	parse_cylinder(char **line, t_root *r)
 		|| !tup_in_range(data[1], -1, 1) || val[0] <= 0 || val[1] <= 0)
 		return (1);
 	c = (t_shape *)cylinder();
-	if (!c)
-		return (1);
 	set_transform(c, multiply_matrix4(translation(data[0].x,
 				data[0].y, data[0].z),
 			multiply_matrix4(get_target_rotation(normalize(data[1])),

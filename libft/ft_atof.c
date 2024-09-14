@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:10:03 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/13 19:50:53 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/14 09:38:30 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 #include "errno.h"
 
 #include <stdio.h>
+
+static bool	check_decimals(char *str)
+{
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}
 
 bool	ft_isstr_float(char *str)
 {
@@ -39,13 +50,7 @@ bool	ft_isstr_float(char *str)
 	str++;
 	if (!ft_isdigit(*str))
 		return (false);
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-			return (false);
-		str++;
-	}
-	return (true);
+	return (check_decimals(str));
 }
 
 static int	is_neg(char **str)
