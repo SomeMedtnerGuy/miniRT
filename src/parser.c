@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/16 14:26:14 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:57:59 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	parse_config_file(char *filename, t_root *r)
 	{
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
-		if (parse_line(line, r) != 0)
+		if (*line && parse_line(line, r) != 0)
 		{
 			free_world(r->world);
 			exit_parser(line, fd, MISCONFIG_MSG);

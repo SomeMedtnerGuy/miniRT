@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/16 13:34:55 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:25:02 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # ifndef CANVAS_WIDTH
 #  define CANVAS_WIDTH 600
 # endif
-# ifndef CANVA_HEIGHT 
+# ifndef CANVAS_HEIGHT 
 #  define CANVAS_HEIGHT 300
 # endif
 
@@ -281,6 +281,6 @@ void			exit_parser(char *line, int fd, char *msg);
 bool			is_color(int r, int g, int b);
 bool			is_vector(float x, float y, float z);
 bool			is_light(float l);
-int	is_duplicate(int id);
+int				is_duplicate(int id);
 
 #endif
