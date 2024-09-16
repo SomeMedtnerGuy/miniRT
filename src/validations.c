@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:14:30 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/10 14:38:18 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:24:06 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,28 @@ bool	is_light(float l)
 		return (true);
 	else
 		return (false);
+}
+
+int	is_duplicate(int id)
+{
+	static bool	flag_ambiente;
+	static bool	flag_light;
+
+	flag_ambiente = false;
+	flag_light = false;
+	if ((flag_ambiente && id == AMBIENT)
+		|| (flag_light && id == LIGHT))
+		return(1);
+	else if (id == AMBIENT)
+	{
+		ambiente_flag = true;
+		return(id);
+	}
+	else if (id == LIGHT)
+	{
+		ligh_flag = true;
+		return(id);
+	}
+	else
+		return (id);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/14 09:41:01 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:24:55 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	parse_line(char *line, t_root *r)
 	if (!elements)
 		return (1);
 	id = get_id(elements[0]);
+	id = is_duplicate(id);
 	if (id == AMBIENT)
 		id = parse_ambient(elements, r);
 	else if (id == CAMERA)
