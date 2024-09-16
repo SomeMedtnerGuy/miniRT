@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/14 09:41:01 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:24:11 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	parse_config_file(char *filename, t_root *r)
 	int		fd;
 	char	*line;
 
-	(void)r;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
@@ -129,5 +128,10 @@ void	parse_config_file(char *filename, t_root *r)
 		line = get_next_line(fd);
 	}
 	free(line);
+	if (!r->world->camera)
+	{
+		free_world(r->world);
+		exit_parser(line, fd, MISCONFIG_MSG);
+	}
 	close(fd);
 }
