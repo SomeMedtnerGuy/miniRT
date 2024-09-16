@@ -1,0 +1,5 @@
+Change final ambient to include ambient color
+Check if there are no more than one C, A and L
+Window resizing
+Create test scenes
+Norminette
