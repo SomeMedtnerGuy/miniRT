@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/16 11:24:11 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:26:14 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	parse_camera(char **line, t_root *r)
 	t_tup4	view_point;
 	t_tup4	axis;
 	int		fov;
+	t_tup4	upv;
 
 	if (ft_arr2dsize((void **)line) != 4)
 		return (1);
@@ -51,8 +52,12 @@ int	parse_camera(char **line, t_root *r)
 	axis = normalize(axis);
 	r->world->camera = camera(CANVAS_WIDTH, CANVAS_HEIGHT,
 			(fov * (M_PI / 180)));
+	upv = vector(0, 1, 0);
+	if (tup4cmp(axis, vector(0, 1, 0))
+		|| tup4cmp(axis, vector(0, -1, 0)))
+		upv = vector(0, 0, 1);
 	r->world->camera->transform = view_transform(view_point, axis,
-			vector(0, 1, 0));
+			upv);
 	return (0);
 }
 
