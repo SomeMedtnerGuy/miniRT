@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/16 15:25:02 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:24:21 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,24 @@
 #  define CANVAS_HEIGHT 300
 # endif
 
+# define K_
+
 # define WINDOW_TITLE "miniRT"
+
+typedef enum e_transf_type
+{
+	NO_TRANSFORM_TYPE,
+	ROTATEX,
+	ROTATEY,
+	ROTATEZ,
+	SCALEX,
+	SCALEY,
+	SCALEZ,
+	TRANSLATEX,
+	TRANSLATEY,
+	TRANSLATEZ,
+	TRANSF_TYPE_AM
+}	t_transf_type;
 
 typedef struct s_material
 {
@@ -83,6 +100,7 @@ typedef enum obj_type
 	AMBIENT,
 	CAMERA,
 	LIGHT,
+	SHAPE,
 	PLANE,
 	SPHERE,
 	CYLINDER
@@ -178,10 +196,13 @@ typedef struct s_world
 
 typedef struct s_root
 {
-	void		*mlx;
-	void		*win;
-	t_canvas	*canvas;
-	t_world		*world;
+	void			*mlx;
+	void			*win;
+	t_canvas		*canvas;
+	t_world			*world;
+	t_transf_type	transf_type;
+	t_list			*current_shape;
+	int				current_object;
 }	t_root;
 
 //MAIN.C
@@ -254,7 +275,7 @@ t_ray			ray_for_pixel(t_camera *camera, float px, float py);
 t_world			*world(void);
 t_intersection	*intersect_world(t_world *w, t_ray r);
 t_comps			prepare_computations(t_intersection *intersection, t_ray ray);
-void			render(t_canvas *canvas, t_camera *camera, t_world *world);
+void			render(t_root *r);
 
 //PARSER.C
 void			parse_config_file(char *filename, t_root *r);
