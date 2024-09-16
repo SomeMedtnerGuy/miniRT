@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/16 11:17:12 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:34:55 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@
 # define MISCONFIG_MSG "Scene description file is misconfigured!\n"
 
 # ifndef CANVAS_WIDTH
-#  define CANVAS_WIDTH 200
+#  define CANVAS_WIDTH 600
 # endif
 # ifndef CANVA_HEIGHT 
-#  define CANVAS_HEIGHT 100
+#  define CANVAS_HEIGHT 300
 # endif
 
 # define WINDOW_TITLE "miniRT"
