@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 11:35:31 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:20:41 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,9 @@ void			render(t_root *r);
 //PARSER.C
 void			parse_config_file(char *filename, t_root *r);
 int				parse_line(char *line, t_root *r);
+char			*line_loop(char *line, int fd, t_root *r);
+
+//PARSE_COMPS.C
 int				parse_light(char **line, t_root *r);
 int				parse_camera(char **line, t_root *r);
 int				parse_ambient(char **line, t_root *r);
@@ -304,5 +307,11 @@ bool			is_color(int r, int g, int b);
 bool			is_vector(float x, float y, float z);
 bool			is_light(float l);
 int				is_duplicate(int id);
+
+//IRL_TRANSFORMATIONS.C
+void			apply_transformation(t_root *r, int change_dir);
+t_matrix4		include_new_transformation(t_matrix4 tr_obj,
+					t_matrix4 tr_new, t_transf_type t_type);
+t_matrix4		define_transf_matrix(int transf_type, int change_dir);
 
 #endif
