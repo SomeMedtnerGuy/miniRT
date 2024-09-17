@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 16:44:27 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:06:56 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,43 +133,26 @@ int	key_hook(int keycode, t_root *r)
 		clean_exit(r, 0);
 	else if (keycode == XK_c)
 		select_object(CAMERA, r);
-		//r->current_object = CAMERA;
 	else if (keycode == XK_l)
 		select_object(LIGHT, r);
-		//r->current_object = LIGHT;
 	else if (keycode == XK_s)
-	{
 		select_object(SHAPE, r);
-		/*r->current_object = SHAPE;
-		if (r->current_shape)
-			r->current_shape = r->current_shape->next;
-		else
-			r->current_shape = r->world->objects;*/
-	}
 	else if (keycode == XK_Left)
 	{
 		if (r->transf_type <= 0)
 			r->transf_type = 10;
 		r->transf_type = (r->transf_type - 1);
-		printf("Current transform type: %i\n", r->transf_type);
+		print_transform(r);
 	}
 	else if (keycode == XK_Right)
 	{
 		r->transf_type = (r->transf_type + 1) % TRANSF_TYPE_AM;
-		ft_printf("Current transform type: %i\n", r->transf_type);
+		print_transform(r);
 	}
 	else if (keycode == XK_Up)
-	{
-		r->allowed_transf = false;
 		apply_transformation(r, 1);
-		r->allowed_transf = true;
-	}
 	else if (keycode == XK_Down)
-	{
-		r->allowed_transf = false;
 		apply_transformation(r, -1);
-		r->allowed_transf = true;
-	}
 	return (0);
 }
 

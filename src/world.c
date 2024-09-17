@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 17:00:29 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:07:13 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_world	*world(void)
 	w = (t_world *)ft_calloc(1, sizeof(t_world));
 	if (!w)
 		return (NULL);
-	w->ambient.color = color(0,0,0);
+	w->ambient.color = color(0, 0, 0);
 	w->ambient.ratio = 0;
 	w->camera = NULL;
 	return (w);
