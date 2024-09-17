@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 15:49:34 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:07:13 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,23 @@ static void	put_pixel(t_canvas *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void	frame_window(t_canvas *canvas)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < CANVAS_HEIGHT)
+	{
+		j = -1;
+		while (++j < CANVAS_WIDTH)
+		{
+			if (i < 3 || i > CANVAS_HEIGHT - 3 || j < 3 || j > CANVAS_WIDTH - 3)
+				put_pixel(canvas, j, i, tuple_to_color(color(1, 1, 1)));
+		}
+	}
+}
+
 void	render(t_root *r)
 {
 	int		y;
@@ -90,5 +107,7 @@ void	render(t_root *r)
 			put_pixel(r->canvas, x, y, tuple_to_color(color));
 		}
 	}
+	if (r->current_object == CAMERA)
+		frame_window(r->canvas);
 	mlx_put_image_to_window(r->mlx, r->win, r->canvas->img, 0, 0);
 }

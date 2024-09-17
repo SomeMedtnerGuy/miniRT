@@ -1,2 +1,3 @@
-Create test scenes
+Print user-friendly current transform type
+Perhaps 
 Norminette
