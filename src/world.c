@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/16 11:21:07 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:02:02 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	put_pixel(t_canvas *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	render(t_canvas *canvas, t_camera *camera, t_world *world)
+void	render(t_root *r)
 {
 	int		y;
 	int		x;
@@ -80,14 +80,16 @@ void	render(t_canvas *canvas, t_camera *camera, t_world *world)
 	t_tup4	color;
 
 	y = -1;
-	while (++y < camera->vsize)
+	//print_matrix4(((t_shape *)r->world->objects->next->content)->transform, false);
+	while (++y < r->world->camera->vsize)
 	{
 		x = -1;
-		while (++x < camera->hsize)
+		while (++x < r->world->camera->hsize)
 		{
-			ray = ray_for_pixel(camera, x, y);
-			color = color_at(world, ray);
-			put_pixel(canvas, x, y, tuple_to_color(color));
+			ray = ray_for_pixel(r->world->camera, x, y);
+			color = color_at(r->world, ray);
+			put_pixel(r->canvas, x, y, tuple_to_color(color));
 		}
 	}
+	mlx_put_image_to_window(r->mlx, r->win, r->canvas->img, 0, 0);
 }

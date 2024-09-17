@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:00:24 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/14 09:36:13 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:04:47 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ int	parse_plane(char **line, t_root *r)
 	if (!p)
 		return (1);
 	set_transform(p, multiply_matrix4(translation(point.x, point.y, point.z),
-			get_target_rotation(normal)));
+			get_target_rotation(normalize(normal))));
 	set_material(p, color);
 	ft_lstadd_back(&r->world->objects, ft_lstnew(p));
+	print_matrix4(p->transform, false);
 	return (0);
 }
 
