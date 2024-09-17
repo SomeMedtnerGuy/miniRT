@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 16:01:04 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:37:22 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,6 @@ t_material	material(void)
 	return (out);
 }
 
-void	set_curr_obj(int keycode, t_root *r)
-{
-	if (keycode == XK_c)
-		r->current_object = CAMERA;
-	else if (keycode == XK_l)
-		r->current_object = LIGHT;
-	else if (keycode == XK_s)
-	{
-		r->current_object = SHAPE;
-		if (r->current_shape)
-			r->current_shape = r->current_shape->next;
-		else
-			r->current_shape = r->world->objects;
-	}
-}
-
 int	key_hook(int keycode, t_root *r)
 {
 	if (keycode == XK_Escape)
@@ -59,12 +43,12 @@ int	key_hook(int keycode, t_root *r)
 		if (r->transf_type <= 0)
 			r->transf_type = 10;
 		r->transf_type = (r->transf_type - 1);
-		printf("Current transform type: %i\n", r->transf_type);
+		print_transform(r);
 	}
 	else if (keycode == XK_Right)
 	{
 		r->transf_type = (r->transf_type + 1) % TRANSF_TYPE_AM;
-		ft_printf("Current transform type: %i\n", r->transf_type);
+		print_transform(r);
 	}
 	else if (keycode == XK_Up)
 		apply_transformation(r, 1);

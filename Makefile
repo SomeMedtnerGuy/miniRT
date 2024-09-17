@@ -6,7 +6,7 @@
 #    By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 14:30:34 by ndo-vale          #+#    #+#              #
-#    Updated: 2024/09/17 15:59:01 by joamonte         ###   ########.fr        #
+#    Updated: 2024/09/17 16:33:28 by joamonte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS		= $(addprefix $(SRC_DIR), main.c clean_exit.c color.c plane.c \
 					lst_utils.c ray.c sphere.c intersection.c light.c world.c \
 					cylinder.c cylinder_caps.c lstadd_xs_sorted.c camera.c \
 					get_target_rotation.c parser.c parse_obj.c parse_utils.c validations.c \
-					irl_transform.c)
+					irl_transform.c parse_comps.c)
 
 OBJS		= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 

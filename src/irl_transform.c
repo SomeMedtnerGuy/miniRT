@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:52:18 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/17 15:52:51 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:37:33 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,37 @@ void	apply_transformation(t_root *r, int change_dir)
 	}
 	printf("%p\n", r->current_shape);
 	render(r);
+}
+
+void	set_curr_obj(int keycode, t_root *r)
+{
+	if (keycode == XK_c)
+		r->current_object = CAMERA;
+	else if (keycode == XK_l)
+		r->current_object = LIGHT;
+	else if (keycode == XK_s)
+	{
+		r->current_object = SHAPE;
+		if (r->current_shape)
+			r->current_shape = r->current_shape->next;
+		else
+			r->current_shape = r->world->objects;
+	}
+}
+
+void	print_transform(t_root *r)
+{
+	char	*t[10];
+	t[0] = "No transformation"; 
+	t[1] = "Rotate X"; 
+	t[2] = "ROTATE Y";
+	t[3] = "ROTATE Z"; 
+	t[4] = "SCALE X"; 
+	t[5] = "SCALE Y"; 
+	t[6] = "SCALE Z"; 
+	t[7] = "TRANSLATE X"; 
+	t[8] = "TRANSLATE Y"; 
+	t[9] = "TRANSLATE Z"; 
+
+	ft_printf("Current transformation: %s\n", t[r->transf_type]);
 }

@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 16:20:41 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:37:59 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,5 +313,7 @@ void			apply_transformation(t_root *r, int change_dir);
 t_matrix4		include_new_transformation(t_matrix4 tr_obj,
 					t_matrix4 tr_new, t_transf_type t_type);
 t_matrix4		define_transf_matrix(int transf_type, int change_dir);
+void	set_curr_obj(int keycode, t_root *r);
+void	print_transform(t_root *r);
 
 #endif
