@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:21:44 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/13 19:42:10 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:05:25 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,21 @@ t_ray	ray_for_pixel(t_camera *camera, float px, float py)
 				camera->transform), point(0, 0, 0));
 	direction = normalize(subtract_tup4(pixel, origin));
 	return (ray(origin, direction));
+}
+
+void	frame_window(t_canvas *canvas)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < CANVAS_HEIGHT)
+	{
+		j = -1;
+		while (++j < CANVAS_WIDTH)
+		{
+			if (i < 3 || i > CANVAS_HEIGHT - 3 || j < 3 || j > CANVAS_WIDTH - 3)
+				put_pixel(canvas, j, i, tuple_to_color(color(1, 1, 1)));
+		}
+	}
 }

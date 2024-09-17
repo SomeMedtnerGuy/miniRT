@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 16:37:59 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:08:32 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,6 @@ typedef struct s_root
 	t_transf_type	transf_type;
 	t_list			*current_shape;
 	int				current_object;
-	bool			allowed_transf;
 }	t_root;
 
 //MAIN.C
@@ -271,12 +270,14 @@ void			intersect_caps(t_cylinder *cyl, t_ray ray, t_intersection **xs);
 t_matrix4		view_transform(t_tup4 from, t_tup4 to, t_tup4 up);
 t_camera		*camera(float hsize, float vsize, float field_of_view);
 t_ray			ray_for_pixel(t_camera *camera, float px, float py);
+void			frame_window(t_canvas *canvas);
 
 //WORLD.C
 t_world			*world(void);
 t_intersection	*intersect_world(t_world *w, t_ray r);
 t_comps			prepare_computations(t_intersection *intersection, t_ray ray);
 void			render(t_root *r);
+void			put_pixel(t_canvas *img, int x, int y, int color);
 
 //PARSER.C
 void			parse_config_file(char *filename, t_root *r);
@@ -313,7 +314,7 @@ void			apply_transformation(t_root *r, int change_dir);
 t_matrix4		include_new_transformation(t_matrix4 tr_obj,
 					t_matrix4 tr_new, t_transf_type t_type);
 t_matrix4		define_transf_matrix(int transf_type, int change_dir);
-void	set_curr_obj(int keycode, t_root *r);
-void	print_transform(t_root *r);
+void			set_curr_obj(int keycode, t_root *r);
+void			print_transform(t_root *r);
 
 #endif
