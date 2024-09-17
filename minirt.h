@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/16 18:24:21 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:35:31 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ typedef struct s_root
 	t_transf_type	transf_type;
 	t_list			*current_shape;
 	int				current_object;
+	bool			allowed_transf;
 }	t_root;
 
 //MAIN.C

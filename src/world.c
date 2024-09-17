@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/16 18:26:06 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:02:02 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	render(t_root *r)
 	t_tup4	color;
 
 	y = -1;
-	print_matrix4(((t_shape *)r->world->objects->content)->transform, false);
+	//print_matrix4(((t_shape *)r->world->objects->next->content)->transform, false);
 	while (++y < r->world->camera->vsize)
 	{
 		x = -1;
