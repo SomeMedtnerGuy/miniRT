@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 00:07:10 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 13:36:51 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:44:27 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,21 +98,53 @@ void	apply_transformation(t_root *r, int change_dir)
 	render(r);
 }
 
-int	key_hook(int keycode, t_root *r)
+void	select_object(t_obj_type type, t_root *r)
 {
-	if (keycode == 65307)
-		clean_exit(r, 0);
-	else if (keycode == XK_c)
-		r->current_object = CAMERA;
-	else if (keycode == XK_l)
-		r->current_object = LIGHT;
-	else if (keycode == XK_s)
+	if (r->current_object == LIGHT)
+		r->world->light.intensity = multiply_tup4(r->world->light.intensity, 1.0/2.0);
+	else if (r->current_object == SHAPE && r->current_shape)
 	{
-		r->current_object = SHAPE;
+		((t_shape *)r->current_shape->content)->material.diffuse *= 1.0/2.0;
+		printf("%f\n", ((t_shape *)r->current_shape->content)->material.diffuse);
+	}
+	r->current_object = type;
+	if (type == LIGHT)
+		r->world->light.intensity = multiply_tup4(r->world->light.intensity, 2.0);
+	else if (type == SHAPE)
+	{
 		if (r->current_shape)
 			r->current_shape = r->current_shape->next;
 		else
 			r->current_shape = r->world->objects;
+		if (r->current_shape)
+		{
+			((t_shape *)r->current_shape->content)->material.diffuse *= 2;
+			printf("%f\n", ((t_shape *)r->current_shape->content)->material.diffuse);
+		}
+	}
+	render(r);
+}
+
+int	key_hook(int keycode, t_root *r)
+{
+	if (!r->allowed_transf)
+		return (0);
+	if (keycode == 65307)
+		clean_exit(r, 0);
+	else if (keycode == XK_c)
+		select_object(CAMERA, r);
+		//r->current_object = CAMERA;
+	else if (keycode == XK_l)
+		select_object(LIGHT, r);
+		//r->current_object = LIGHT;
+	else if (keycode == XK_s)
+	{
+		select_object(SHAPE, r);
+		/*r->current_object = SHAPE;
+		if (r->current_shape)
+			r->current_shape = r->current_shape->next;
+		else
+			r->current_shape = r->world->objects;*/
 	}
 	else if (keycode == XK_Left)
 	{
@@ -128,11 +160,15 @@ int	key_hook(int keycode, t_root *r)
 	}
 	else if (keycode == XK_Up)
 	{
+		r->allowed_transf = false;
 		apply_transformation(r, 1);
+		r->allowed_transf = true;
 	}
 	else if (keycode == XK_Down)
 	{
+		r->allowed_transf = false;
 		apply_transformation(r, -1);
+		r->allowed_transf = true;
 	}
 	return (0);
 }
@@ -150,6 +186,7 @@ int	main(int argc, char **argv)
 	free(extension);
 	r.world = world();
 	r.transf_type = ROTATEX;
+	r.current_object = INVALID_OBJ;
 	r.current_shape = NULL;
 	r.allowed_transf = true;
 	parse_config_file(argv[1], &r);
