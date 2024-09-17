@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:22:13 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/17 16:19:54 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:39:19 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	parse_config_file(char *filename, t_root *r)
 	if (fd < 0)
 	{
 		ft_putstr_fd(FILE_ERROR_MSG, 2);
+		free_world(r->world);
 		exit(1);
 	}
 	line = get_next_line(fd);
