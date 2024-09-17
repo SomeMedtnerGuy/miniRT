@@ -6,7 +6,7 @@
 /*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:52:18 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/17 16:37:33 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:40:09 by joamonte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,16 @@ void	set_curr_obj(int keycode, t_root *r)
 void	print_transform(t_root *r)
 {
 	char	*t[10];
-	t[0] = "No transformation"; 
-	t[1] = "Rotate X"; 
-	t[2] = "ROTATE Y";
-	t[3] = "ROTATE Z"; 
-	t[4] = "SCALE X"; 
-	t[5] = "SCALE Y"; 
-	t[6] = "SCALE Z"; 
-	t[7] = "TRANSLATE X"; 
-	t[8] = "TRANSLATE Y"; 
-	t[9] = "TRANSLATE Z"; 
 
+	t[0] = "No transformation";
+	t[1] = "Rotate X";
+	t[2] = "ROTATE Y";
+	t[3] = "ROTATE Z";
+	t[4] = "SCALE X";
+	t[5] = "SCALE Y";
+	t[6] = "SCALE Z";
+	t[7] = "TRANSLATE X";
+	t[8] = "TRANSLATE Y";
+	t[9] = "TRANSLATE Z";
 	ft_printf("Current transformation: %s\n", t[r->transf_type]);
 }
