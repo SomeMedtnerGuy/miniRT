@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:31:27 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 17:07:13 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:08:15 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,13 @@ t_comps	prepare_computations(t_intersection *intersection, t_ray ray)
 	return (comps);
 }
 
-static void	put_pixel(t_canvas *img, int x, int y, int color)
+void	put_pixel(t_canvas *img, int x, int y, int color)
 {
 	char	*dst;
 
 	dst = img->addr + (y * img->line_length
 			+ x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
-}
-
-void	frame_window(t_canvas *canvas)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i < CANVAS_HEIGHT)
-	{
-		j = -1;
-		while (++j < CANVAS_WIDTH)
-		{
-			if (i < 3 || i > CANVAS_HEIGHT - 3 || j < 3 || j > CANVAS_WIDTH - 3)
-				put_pixel(canvas, j, i, tuple_to_color(color(1, 1, 1)));
-		}
-	}
 }
 
 void	render(t_root *r)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   irl_transform.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:52:18 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/17 16:40:09 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:19:05 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	apply_transformation(t_root *r, int change_dir)
 				transf_matrix, r->transf_type);
 		shape->i_transform = invert_matrix4(shape->transform);
 	}
-	printf("%p\n", r->current_shape);
 	render(r);
 }
 
