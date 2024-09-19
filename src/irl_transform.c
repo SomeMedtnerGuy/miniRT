@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:52:18 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/17 17:19:05 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/19 07:55:55 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,12 @@ void	apply_transformation(t_root *r, int change_dir)
 		return ;
 	transf_matrix = define_transf_matrix(r->transf_type, change_dir);
 	if (r->current_object == CAMERA)
+	{
 		r->world->camera->transform = multiply_matrix4(transf_matrix,
 				r->world->camera->transform);
+		r->world->camera->i_transform = invert_matrix4(
+				r->world->camera->transform);
+	}
 	else if (r->current_object == LIGHT)
 		r->world->light.position = matrix4_mult_tup4(transf_matrix,
 				r->world->light.position);

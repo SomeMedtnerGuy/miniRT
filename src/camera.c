@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:21:44 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 19:05:25 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/19 07:54:18 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,9 @@ t_ray	ray_for_pixel(t_camera *camera, float px, float py)
 	offset.y = (py + 0.5) * camera->pixel_size;
 	worldc.x = camera->half_width - offset.x;
 	worldc.y = camera->half_height - offset.y;
-	pixel = matrix4_mult_tup4(invert_matrix4(camera->transform),
+	pixel = matrix4_mult_tup4(camera->i_transform,
 			point(worldc.x, worldc.y, -1));
-	origin = matrix4_mult_tup4(invert_matrix4(
-				camera->transform), point(0, 0, 0));
+	origin = matrix4_mult_tup4(camera->i_transform, point(0, 0, 0));
 	direction = normalize(subtract_tup4(pixel, origin));
 	return (ray(origin, direction));
 }

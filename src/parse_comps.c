@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_comps.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joamonte <joamonte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:18:14 by joamonte          #+#    #+#             */
-/*   Updated: 2024/09/17 16:19:40 by joamonte         ###   ########.fr       */
+/*   Updated: 2024/09/19 08:09:53 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ int	parse_ambient(char **line, t_root *r)
 	r->world->ambient.ratio = ratio;
 	r->world->ambient.color = color;
 	return (0);
+}
+
+static void	update_camera_transform(t_camera *c, t_matrix4 m)
+{
+	c->transform = m;
+	c->i_transform = invert_matrix4(m);
 }
 
 int	parse_camera(char **line, t_root *r)
@@ -56,8 +62,8 @@ int	parse_camera(char **line, t_root *r)
 	if (tup4cmp(axis, vector(0, 1, 0))
 		|| tup4cmp(axis, vector(0, -1, 0)))
 		upv = vector(0, 0, 1);
-	r->world->camera->transform = view_transform(view_point, axis,
-			upv);
+	update_camera_transform(r->world->camera, 
+			view_transform(view_point, axis, upv));
 	return (0);
 }
 

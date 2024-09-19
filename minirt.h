@@ -6,7 +6,7 @@
 /*   By: ndo-vale <ndo-vale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:35:42 by ndo-vale          #+#    #+#             */
-/*   Updated: 2024/09/17 19:08:32 by ndo-vale         ###   ########.fr       */
+/*   Updated: 2024/09/19 07:49:18 by ndo-vale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ typedef struct s_camera
 	float		half_height;
 	float		pixel_size;
 	t_matrix4	transform;
+	t_matrix4	i_transform;
 
 }	t_camera;
 
